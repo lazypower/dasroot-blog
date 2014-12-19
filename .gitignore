@@ -1,0 +1,5 @@
+output/
+venv/
+*.pyc
+*.pid
+*.swp
