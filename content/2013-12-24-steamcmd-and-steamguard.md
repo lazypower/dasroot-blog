@@ -2,12 +2,13 @@ Title: SteamCMD and SteamGuard
 Date: 2013-12-24 03:12
 Tags: gaming, steam
 Slug: steamcmd-and-steamguard
----
+Category: Devops
+
 SteamGuard is a multifactor authentication mechanism for Steam. If Steam does not have a record of the pc you are attempting to sign in with, it will halt the request and leave it in a "pending" state requiring you to enter a passcode they email to you.
 
 This is awesome!
 
-Now, enter SteamCMD who's sole purpose in life is to handle the "steam side" of server configuration. This is really a cool concept. 
+Now, enter SteamCMD who's sole purpose in life is to handle the "steam side" of server configuration. This is really a cool concept.
 
 Let's take a look at using SteamCMD to provision the StarBound server
 

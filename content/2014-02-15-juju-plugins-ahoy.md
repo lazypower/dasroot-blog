@@ -2,12 +2,13 @@ Title: Juju Plugins AHOY!
 Date: 2014-02-15 17:02
 Tags: juju, juju-plugins
 Slug: juju-plugins-ahoy
----
+Category: Devops
+
 Recently [Marco Ceppi](http://marcoceppi.com) has started an initiative to aggregate all the relevant juju plugins on GitHub. This is an excellent reason why the Juju community is a stellar example of distributed collaboration. Historically Juju plugins were distributed via Gists, Pastebins, Email, and other non aggregated means. They were a "hobby" of sorts - scratching itches and monkey patching extra features into Juju that didn't make it into core or may not make sense living there.
 
 ### What is a Juju Plugin?
 
-> Plugins are simply scripts that are prefixed with juju- which can be found within your system's $PATH. Whenever you type juju $cmd, and $cmd is not an internal command found in juju help commands, Juju attempts to execute juju-$cmd within the context of your system's $PATH which is how the plugin system in Juju works. 
+> Plugins are simply scripts that are prefixed with juju- which can be found within your system's $PATH. Whenever you type juju $cmd, and $cmd is not an internal command found in juju help commands, Juju attempts to execute juju-$cmd within the context of your system's $PATH which is how the plugin system in Juju works.
 
 ### Where Do I find these awesome plugins?
 
@@ -19,7 +20,7 @@ git checkout $your-juju-plugins-fork
 
 git checkout -b your-plugins-name
 
-git commit 
+git commit
 
 git push
 ```

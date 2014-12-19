@@ -2,10 +2,11 @@ Title: Cooking the Errbit charm with Chef
 Date: 2013-12-14 23:12
 Tags: juju, errbit, rails, app-deployment, juju-strano
 Slug: cooking-the-errbit-charm-with-chef
----
+Category: Devops
+
 My good friend [Marco Ceppi](http://marcoceppi.com) sent me a link to a github repository for Juju Chef Helpers : [https://github.com/Altoros/juju-charm-chef](https://github.com/Altoros/juju-charm-chef)
 
-I have to admit, I'm really happy this was here. I was brain bending around how I was going to try to integrate chef as my provisioner of choice. At first glance its a pure abstraction of the chef provisioner in charm hook format. Each aspect of the charm correlates to a chef cookbook and associated recipes. 
+I have to admit, I'm really happy this was here. I was brain bending around how I was going to try to integrate chef as my provisioner of choice. At first glance its a pure abstraction of the chef provisioner in charm hook format. Each aspect of the charm correlates to a chef cookbook and associated recipes.
 
 
 ![](/content/images/2013/Dec/interesting_call_tracking.jpeg)
@@ -183,7 +184,7 @@ end
 
 
 ```
-config-changed starts out populating a majority of the templates we need in order to run in our juju environment. Sets up the database connection template, the nginx config, unicorn config, all the stuff we normally leave to capistrano 
+config-changed starts out populating a majority of the templates we need in order to run in our juju environment. Sets up the database connection template, the nginx config, unicorn config, all the stuff we normally leave to capistrano
 
 ```
 
@@ -200,10 +201,10 @@ end
 ```
 This is where I had difficulty. I didn't know how to complete the deployment in chef. So I cheated and built a shell script to handle calling all the rake tasks we want to be executed as wrap up of the deployment.
 
-*NOTE* : I also ran into an odd issue - when running bundle install from the execute resource within chef, it always ran in the $CHARM_DIR re-packing the chef-solo Gemfile.lock in deployment mode. This warrants further investigation 
+*NOTE* : I also ran into an odd issue - when running bundle install from the execute resource within chef, it always ran in the $CHARM_DIR re-packing the chef-solo Gemfile.lock in deployment mode. This warrants further investigation
 
 
-Ok cool, we're setup with errbit. Chef has taken care of most of the heavy lifting. 
+Ok cool, we're setup with errbit. Chef has taken care of most of the heavy lifting.
 
 If you want to see the templates, you can view them from the [github repository](https://github.com/chuckbutler/errbit-charm-chef)
 
@@ -212,14 +213,14 @@ If you want to see the templates, you can view them from the [github repository]
 
 Relationship hooks are processed anytime a relationship joins, parts, or changes configuration. This is where you can make real magic happen. For example the wordpress charm speaks from the Wordpress unit to the connecting MySQL database unit to provision a user, generate a password, and hand that data back across the wire to populate wordpresses configuration files.
 
-In order to fully consume this, you have to know which hooks are called during the `juju add-relation` phase, and the `juju remove-relation` phase. 
+In order to fully consume this, you have to know which hooks are called during the `juju add-relation` phase, and the `juju remove-relation` phase.
 
 ### juju add-relation
 
 
 #### mongodb-relation-joined
 
-as the MongoDB unit and the Errbit unit have a relationship added, we need to dump the MongoDB Database in /mnt to take advantage of cloud storage. 
+as the MongoDB unit and the Errbit unit have a relationship added, we need to dump the MongoDB Database in /mnt to take advantage of cloud storage.
 
 ```
 #cleanup any stale dumps residing in ephemeral storage
@@ -259,7 +260,7 @@ require 'securerandom'
 mongodb = {
 	host: relation_get['hostname'],
 	port: relation_get['port'],
-	database: 'errbit' 
+	database: 'errbit'
 	}
 
 # This failout condition will do nothing
@@ -268,7 +269,7 @@ mongodb = {
 if [:host, :port].any? { |attr| mongodb[attr].nil? || mongodb[attr].empty? }
   juju-log("Waiting for all attributes to be set")
 else
- 
+
   template "/home/errbit/errbit/config/mongoid.yml" do
     variables({
       mongo_uri: "mongodb://#{mongodb[:host]}:#{mongodb[:port]}/#{mongodb[:database]}",
@@ -295,7 +296,7 @@ else
   package "mongodb-10gen" do
     action :purge
   end
- 
+
   execute "touch $CHARM_DIR/.mongodb" do
     action :nothing
   end
@@ -304,13 +305,13 @@ end
 
 
 ```
-Great, with this portion completed, we now have our charm deploying the application, and migrating data from the local database if any was accrued, and pushed that to the remote MongoDB provider. 
+Great, with this portion completed, we now have our charm deploying the application, and migrating data from the local database if any was accrued, and pushed that to the remote MongoDB provider.
 
 
 <!--
 
 #### Links about Backup/Restore on MongoDB
 
-- [Slide Share from 10gen](http://www.slideshare.net/mongodb/mongo-boston2012backuprestore) 
+- [Slide Share from 10gen](http://www.slideshare.net/mongodb/mongo-boston2012backuprestore)
 
 -->

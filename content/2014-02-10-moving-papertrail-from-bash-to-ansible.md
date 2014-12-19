@@ -2,7 +2,8 @@ Title: Moving Papertrail from Bash to Ansible
 Date: 2014-02-10 20:02
 Tags: charming
 Slug: moving-papertrail-from-bash-to-ansible
----
+Category: Devops
+
 When I initially wrote the PaperTrail(tm) Charm, I thought to myself "Lets get moving as quickly as possible for a MVP, and iterate after its done so I've got a basic blueprint on how it should function." As my first charm, it was extremely simple, fun to write, and functioned well enough that I used it in my own production environment.
 
 There are some long standing issues I had with how I put it together. Mostly it's pretty hacky in the conditionals, and as I started to extend the functionality it looked pretty gross.

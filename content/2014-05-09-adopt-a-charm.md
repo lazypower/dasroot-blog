@@ -2,11 +2,12 @@ Title: Adopt a Charm
 Date: 2014-05-09 17:05
 Tags: charm-maintainership, ubuntu
 Slug: adopt-a-charm
----
+Category: Devops
+
 As a Juju Charmer, I really care about the Juju Ecosystem. I want all of our building blocks, or amino acids in your deployment DNA to be solid pieces for everyone to use, benefitting from the shared knowledge of the global community.  This post is an abstract about community building, and how my experience went looking to contribute to the juju ecosystem as a whole.
 
 
-You've been poking around in the juju ecosystem for a while. You've found your pain points or 'papercuts' as we call them. You've opened bugs and received minimal feedback on them because the author has moved on. What do you do? 
+You've been poking around in the juju ecosystem for a while. You've found your pain points or 'papercuts' as we call them. You've opened bugs and received minimal feedback on them because the author has moved on. What do you do?
 
 ## Adopt a charm!
 
@@ -20,7 +21,7 @@ Well, I've encountered something similar. a community template had a typo in the
 
 #### I want to contribute - it's my turn to drive.
 
-The first step is to e-mail the [juju list](https://lists.ubuntu.com/mailman/listinfo/juju), to ensure someone else hasn't stepped into the position without announcement, or give the maintainer a chance to toss their hat back into the ring. That and it's just good manners. 
+The first step is to e-mail the [juju list](https://lists.ubuntu.com/mailman/listinfo/juju), to ensure someone else hasn't stepped into the position without announcement, or give the maintainer a chance to toss their hat back into the ring. That and it's just good manners.
 
 ![](/content/images/2014/May/email_the_juju_list.png)
 
@@ -36,5 +37,4 @@ My first task is to poke around in the [rails-charm bug tracker](https://bugs.la
 
 As you can see, the simple presence of [bug maintenance](https://wiki.ubuntu.com/Bugs/Bug%20triage) will go a long way towards helping a projects apperance. But this is only a cosmetic fix a this point.
 
-This is step 1, and I will continue to document and publish about my experience. 
-
+This is step 1, and I will continue to document and publish about my experience.

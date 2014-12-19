@@ -2,12 +2,13 @@ Title: Juju DNS As A Service
 Date: 2014-06-07 03:06
 Tags: untagged
 Slug: dns-as-a-service-lessons-learned
----
+Category: Devops
+
 I had the opportunity to plan and hack on a charm over the last few weeks that provided DNS as a service to supporting charms. (which subsequently has come between myself and the revamping of the [RAILS charm](/adopt-a-charm/)) This was a great opportunity to flex and test some of the boundaries within the Juju ecosystem to provide a solution out of the box.
 
 #### Planning
 
-This is the first charm I've followed a traditional planning phase of aggregating requirements and putting together a spec document. Which I found extremely helpful when it came time to implement the functionality of the charm. Normally I would spin up a fresh charm template, enter debug-hooks and just hack away at getting some MVP together to express what I feel it should provide. What I've found by doing a planning session first is I'm not a domain expert of any sense when it comes to DNS. I have a very vanilla experience with them by using the most common DNS entries: **A, CNAME, TXT**. 
+This is the first charm I've followed a traditional planning phase of aggregating requirements and putting together a spec document. Which I found extremely helpful when it came time to implement the functionality of the charm. Normally I would spin up a fresh charm template, enter debug-hooks and just hack away at getting some MVP together to express what I feel it should provide. What I've found by doing a planning session first is I'm not a domain expert of any sense when it comes to DNS. I have a very vanilla experience with them by using the most common DNS entries: **A, CNAME, TXT**.
 
 ##### Gathering Reviewers (stakeholders)
 
@@ -38,7 +39,7 @@ This simple suite of user stories is very telling in the following regards:
 ##### Established Goals
 
 - Simplicity is key. Distill away common blockers such as API Keys, API Routines, and manual intervention
-- Make it extensible so it works on N providers, not just 1 or 2. 
+- Make it extensible so it works on N providers, not just 1 or 2.
 - Make contributing additional providers simple through documentation, and a clearly defined method to achieving the goal - relation based DNS
 - Have the services define their DNS, and the provider be the gateway. I don't know how end users will be consuming the service, so give them the ability to define this subset of records.
 - Make it programmatic, or automatic depending on the relationship.

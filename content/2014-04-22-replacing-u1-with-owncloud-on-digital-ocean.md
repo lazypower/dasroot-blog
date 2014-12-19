@@ -2,7 +2,8 @@ Title: Replacing U1 with OwnCloud on Digital Ocean
 Date: 2014-04-22 19:04
 Tags: juju, owncloud, digitalocean, ubuntu, planet
 Slug: replacing-u1-with-owncloud-on-digital-ocean
----
+Category: Community
+
 Juju is an enterprise grade system orchestration tool. But, that doesn't mean its only place is in some big fortune 500 company. Juju helps me in my day to day orchestration of the webapps that power my home, and pet projects. I've come to rely on using Juju to orchestrate all of my deployments whether personal or commercial.
 
 So, with that being said - when Canonical announced they would be closing down the Ubuntu 1 file store, I started looking for a replacement. This was a perfect opportunity for OwnCloud to step in and take up some of that slack. Their official announcement was right on the heels of the closing post of U1, and this was enough to grab my attention.
@@ -26,7 +27,7 @@ Next you'll need to fetch a plugin.
 [Hazmat's Digital Ocean provider plugin](https://github.com/kapilt/juju-digitalocean)  from PyPi :
 
 	pip install -U juju-docean
-    
+
 With the Digital Ocean plugin installed, we'll need to add DO to our environments.yaml
 
     digitalocean:
@@ -38,7 +39,7 @@ We'll also need to add our API credentials as an environment variable. According
 
     export DO_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     export DO_CLIENT_ID=xxxxxxxxxxxxxxxxxxxxx
-    
+
 You can find these on your Digital Ocean Account page:
 
 ![](/content/images/2014/Apr/DO_API.png)
@@ -48,15 +49,15 @@ You can find these on your Digital Ocean Account page:
 
 	juju switch digitalocean
     juju docean bootstrap --constraints="mem=1G region=nyc2"
-    
-This will communicate with the DO API and provision a droplet for you with 1G of memory. The bare minimum to warehouse both the bootstrap node, AND our fileserver. 
+
+This will communicate with the DO API and provision a droplet for you with 1G of memory. The bare minimum to warehouse both the bootstrap node, AND our fileserver.
 
 ## Deploying OwnCloud
 
-Now that we've gotten all the hard stuff out of the way. We're ready to deploy and configure OwnCloud. 
+Now that we've gotten all the hard stuff out of the way. We're ready to deploy and configure OwnCloud.
 
 	juju deploy owncloud --to 0
-    
+
 This deploys owncloud to our bootstrap node. This is not the *ideal* solution, but I wanted to consume 1 node, and didn't really care about scale-out for OwnCloud. My particular setup will be one user, many devices. And 30GB of storage is plenty to replace my free 5GB provided by U1.
 
 #### Caveats to deploying on your bootstrap node
@@ -96,7 +97,7 @@ OwnCloud provides a client app available from the Ubuntu Software Center
 Easily installed via apt
 
 	sudo apt-get install owncloud-client
-    
+
 ![](/content/images/2014/Apr/do_client_screen-1.png)
 
 The configuration here is very straight forward, and can mimic the U1 behavior if you opt out of picking a "parent" sync directory to sync all your files. You'll need to start with that configuration, but remove it and pick individual directories to sync, with a corresponding directory on the owncloud server. See the example above.

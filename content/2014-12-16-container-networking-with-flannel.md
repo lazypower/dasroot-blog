@@ -2,7 +2,8 @@ Title: Container Networking with Flannel
 Date: 2014-12-16 19:12
 Tags: juju, networking, planet, flannel, lxc
 Slug: container-networking-with-flannel
----
+Category: Devops
+
 <iframe width="560" height="315" src="//www.youtube.com/embed/bCvl-TsxVXA" frameborder="0" allowfullscreen></iframe>
 
 When leveraging juju with LXC in cloud environments - networking has been a constant thorn in my side as I attempt to scale out farms of services in their full container glory. Thanks to the work by [Hazmat](http://blog.kapilt.com/) (who brought us the Digital Ocean Provider) - there is a new development in this sphere ready for testing over this holiday season.
@@ -23,6 +24,7 @@ I'm going to assume you've done a few things.
 - Have at least 3 machines available to you
 
 Start off by deploying Etcd and Flannel
+
 
     juju deploy cs:~hazmat/trusty/etcd
     juju deploy cs:~hazmat/trusty/flannel

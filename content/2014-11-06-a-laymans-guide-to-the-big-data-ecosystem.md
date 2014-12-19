@@ -2,8 +2,10 @@ Title: A Laymans Guide to the "Big Data" Ecosystem
 Date: 2014-11-06 12:11
 Tags: juju, planet, hadoop, big-data-2
 Slug: a-laymans-guide-to-the-big-data-ecosystem
----
+Category: BigData
+
 ![Big Data Wordcloud](images/2014/Nov/BigData_2267x1146_white.png)
+
 "Big Data" is now synonymous with marketing, and buzzword bingo. As a layman getting started in the ecosystem I found it truly difficult to really grasp what it was, and where I should be looking to get started. This will be the first post in a multi-post series breaking down the big-data stack, leveraging examples with Juju.
 
 ## Disambiguation of the term 'Hadoop'
@@ -15,7 +17,7 @@ I dont know about you but when I think "Big Data" - I think of one thing. The 80
 Source: [Wikipedia](http://en.wikipedia.org/wiki/Apache_Hadoop)
 
 
-So, in summation - Hadoop is really an ecosystem of applications and utilities (despite the core map-reduce engine being titled 'hadoop'). To further confuse and complicate things there are several vendors creating Hadoop application stacks. 
+So, in summation - Hadoop is really an ecosystem of applications and utilities (despite the core map-reduce engine being titled 'hadoop'). To further confuse and complicate things there are several vendors creating Hadoop application stacks.
 
 
 - **Apache** - [Open Source Vanilla Hadoop](http://hadoop.apache.org/)
@@ -29,7 +31,7 @@ How do you know which one to pick? "Which one makes **my** job easier?" you migh
 
 ## Map Reduce Engines
 
-### Hadoop 
+### Hadoop
 #### The core component(s)
 
 ![Dancing hadoop elephants](/content/images/2014/Nov/Hadoop_elephants.jpg)
@@ -47,7 +49,7 @@ The base Apache Hadoop framework (as of v2) is composed of the following modules
 #### How to deploy Hadoop Core quickly with juju as a reference architecture
 
     juju quickstart bundle:hdp-core-batch-processing
-    
+
 
 ![Hadoop Core Bundle Depiction from Juju](/content/images/2014/Nov/Selection_171-1.png)
 
@@ -71,7 +73,7 @@ The base Apache Hadoop framework (as of v2) is composed of the following modules
 
 ![](/content/images/2014/Nov/storm_logo1.png)
 
-Storm is a distributed computation framework written predominantly in the Clojure programming language. It uses custom created "spouts" and "bolts" to define information sources and manipulations to allow batch, distributed processing of streaming data. 
+Storm is a distributed computation framework written predominantly in the Clojure programming language. It uses custom created "spouts" and "bolts" to define information sources and manipulations to allow batch, distributed processing of streaming data.
 
 A Storm application is designed as a topology in the shape of a [directed acyclic graph (DAG)](http://en.wikipedia.org/wiki/Directed_acyclic_graph) with spouts and bolts acting as the graph vertices. Edges on the graph are named streams, and direct data from one node to another. Together, the topology acts as a data transformation pipeline. At a superficial level the general topology structure is similar to a MapReduce job, with the main difference being that data is processed in real-time as opposed to in individual batches. Additionally, Storm topologies run indefinitely until killed, while a MapReduce job DAG must eventually end.
 
@@ -96,11 +98,11 @@ Apache Hive is a data warehouse infrastructure built on top of Hadoop for provid
 #### How to deploy Hive quickly with juju as a reference architecture
 
     juju quickstart bundle:data-analytics-with-sql-like
-    
+
 
 ![Hive Bundle Depiction from Juju](/content/images/2014/Nov/Selection_169-1.png)
 
-### Pig 
+### Pig
 #### The Rapid Latin Language of Big Data
 
 ![Pig the rapid map reduce writer](/content/images/2014/Nov/pig-on-elephant.png)
@@ -123,8 +125,7 @@ Pig is a high-level platform for creating MapReduce programs used with Hadoop. T
 
 While they are not stand-alone entities in the hadoop bundle, they do provide a lower barrier to entry for end-users looking to get into the ecosystem without learning all the intricacies of learning Map/Reduce programming with just the core Hadoop stack.
 
-Both of these applications communicate with the yarn-master to load a JIT compiled map/reduce application. `Hive` and `Pig` both have their own syntax, and translate the queries to a respective Map/Reduce jar that is then distributed to do the queries. 
+Both of these applications communicate with the yarn-master to load a JIT compiled map/reduce application. `Hive` and `Pig` both have their own syntax, and translate the queries to a respective Map/Reduce jar that is then distributed to do the queries.
 
 
-With the core components broken down - we're ready to take a look at the new kid on the block in the next post in the series:  **Spark for the layman**. 
-
+With the core components broken down - we're ready to take a look at the new kid on the block in the next post in the series:  **Spark for the layman**.

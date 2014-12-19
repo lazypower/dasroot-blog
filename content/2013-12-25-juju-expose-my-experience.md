@@ -2,13 +2,14 @@ Title: Juju expose my-experience
 Date: 2013-12-25 22:12
 Tags: juju, experience
 Slug: juju-expose-my-experience
----
+Category: Devops
+
 I'm right around the one month mark with my juju lab and I feel like I've progressed a long way in poking around in the space. I went from having watched and briefly interfaced with Juju to deploying clusters of apps to learn how they interface with one another.
 
-Along the path I've been maintaining a self dialogue that I haven't been able to finish until now. My initial step into the Juju waters was configuration of the PaaS logging service Papertrail. This subordinate charm was more my depth charge to test the waters of the charm submission process. It was simple enough to fleshed out in a few hours having only written one very basic charm before, and came with a pre-existing charm request. 
+Along the path I've been maintaining a self dialogue that I haven't been able to finish until now. My initial step into the Juju waters was configuration of the PaaS logging service Papertrail. This subordinate charm was more my depth charge to test the waters of the charm submission process. It was simple enough to fleshed out in a few hours having only written one very basic charm before, and came with a pre-existing charm request.
 
 After I reached the first submission of the Papertrail charm, I immediately set out to work on the Errbit charm using Marco Ceppi's bash driven Discourse charm as a guide. What I yielded was [a functioning](https://github.com/chuckbutler/errbit-charm/commit/c11c50785c4042933a39857f830100310340fd15) installation routine that utilized Marco's code as a base. It was fun, and survived a hdd swap, but I wanted to flex an area of my brain that I knew more intricately than Bash.
- 
+
 
 ### Breaking the OPC habit
 
@@ -22,10 +23,10 @@ With that in mind, I digress back to the theory on using chef, cookbooks, and ju
 
 #### Orchestration is higher level than configuration management
 
-Using chef in juju at first is a bit of a mindwarp. Typical chef server provisioning involves a manifest, and handles deployment of the entire server stack vs a responsive hook system. This may be an indicator that chef has larger object oriented capacity than I was using previously. 
+Using chef in juju at first is a bit of a mindwarp. Typical chef server provisioning involves a manifest, and handles deployment of the entire server stack vs a responsive hook system. This may be an indicator that chef has larger object oriented capacity than I was using previously.
 
-One of the many tradeoffs I took with this approach is mixing and matching the hooks in bash and chef wrappers to prevent diving into the chef-solo agent when all I wanted to do was restart a service. I did however initially provision the start/stop hooks from within chef, and enjoyed watching my logs fill up with false positives from the NGINX upstart provider. Moving the logic into pure bash has removed this hurdle, but sacrifices a bit of the code maintainability. 
- 
+One of the many tradeoffs I took with this approach is mixing and matching the hooks in bash and chef wrappers to prevent diving into the chef-solo agent when all I wanted to do was restart a service. I did however initially provision the start/stop hooks from within chef, and enjoyed watching my logs fill up with false positives from the NGINX upstart provider. Moving the logic into pure bash has removed this hurdle, but sacrifices a bit of the code maintainability.
+
 
 
 ### Prototyping with Python is fun and fast
@@ -39,13 +40,6 @@ My lessons with Juju drove me to look at python. Its powering most of the core j
 
 
 
-### Documentation 
+### Documentation
 
 The juju documentation covered about 95% of my questions. Barring peer relation information not being where I expected to find it; everything else was covered with example cases and API docs.
-
-
-
-
-
-
-

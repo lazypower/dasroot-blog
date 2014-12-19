@@ -2,7 +2,8 @@ Title: Making Juju visible on your LAN
 Date: 2013-12-22 09:12
 Tags: juju, networking
 Slug: making-juju-visible-on-your-lan
----
+Category: Devops
+
 > ## Note: This article has been updated and verified to work on 14.04 on 11/02/2014
 
 As I continue exploring the depths of Juju and what it offers I've outgrown using lynx to test my setups. Now that I'm running a Juju lab locally I figured its time to break the chains of the sandbox and make the services I'm deploying on my network visible to the machines on my LAN.
@@ -25,15 +26,15 @@ iface br0 inet dhcp
 
 ```
 
-**Note :** You may need to change eth0 to your primary network adapter. 
+**Note :** You may need to change eth0 to your primary network adapter.
 
 After making the edit you will need to restart the networking services
 
-``` 
+```
 $ sudo /etc/init.d/networking restart
 ```
 
-Edit /etc/lxc/lxc.conf and set lxc.network.link=br0 
+Edit /etc/lxc/lxc.conf and set lxc.network.link=br0
 
 ```
 lxc.network.type=veth
@@ -42,12 +43,12 @@ lxc.network.flags=up
 ```
 Edit /etc/default/lxc-net and set:
 
-- LXC_BRIDGE, 
-- LXC_ADDR, 
-- LXC_NETMASK, 
-- LXC_NETWORK, 
-- LXC_DHCP_RANGE & 
-- LXC_DHCP_MAX appropriately 
+- LXC_BRIDGE,
+- LXC_ADDR,
+- LXC_NETMASK,
+- LXC_NETWORK,
+- LXC_DHCP_RANGE &
+- LXC_DHCP_MAX appropriately
 
 for my LAN (10.0.2.0/24 type settings) now juju status shows 10.0.2.0/24 addresses for my units and I can access them over the LAN from another machine
 

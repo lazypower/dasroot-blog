@@ -2,7 +2,8 @@ Title: Writing the papertrail charm
 Date: 2013-12-02 02:12
 Tags: juju, charming
 Slug: writing-the-papertrail-charm
----
+Category: Devops
+
 This is a continuation of [My Weekend with Juju](/my-weekend-with-juju).
 
 
@@ -10,7 +11,7 @@ This is a continuation of [My Weekend with Juju](/my-weekend-with-juju).
 To get started, we need to invoke a helper provided by *charm-tools* to build our charm skeleton.
 
 	juju charm create papertrail
-    
+
 This will create the following directory structure:
 
 - charms
@@ -29,13 +30,13 @@ This will create the following directory structure:
          - start
          - stop
          - upgrade-charm
-         
-I find the most useful practice is to dive right into the README and place some sane defaults for charm creation. It provides a focus during development, this style is called "[Readme Driven Development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html)" 
+
+I find the most useful practice is to dive right into the README and place some sane defaults for charm creation. It provides a focus during development, this style is called "[Readme Driven Development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html)"
 
 Rename README.ex to something a little more fitting of our writing style:
-	
+
     mv README.ex README.markdown
-    
+
 Open it up in your favorite editor and lets set the context for our charm:
 
 	#Papertrail Charm
@@ -44,14 +45,14 @@ Open it up in your favorite editor and lets set the context for our charm:
 
     Overview
     --------
-    
-    This charm provides Papertrailapp logging from [Papertrail](http://www.papertrailapp.com). Papertrail provides instant log visibility. Use Papertrail's time-saving log tools, flexible system groups, team-wide access, long-term archives, charts and analytics exports, monitoring webhooks, and 45-second setup to ship your rsyslog logs, application output, and much more to Papertrail's logging service.
-    
-    
-    
-Excellent, the overview is the first thing presented to a potential user in the store. We've covered the base of explaning what papertrail is, and where I can view more information about the service. 
 
-Think about the principals of juju and identify your configuration properties. 
+    This charm provides Papertrailapp logging from [Papertrail](http://www.papertrailapp.com). Papertrail provides instant log visibility. Use Papertrail's time-saving log tools, flexible system groups, team-wide access, long-term archives, charts and analytics exports, monitoring webhooks, and 45-second setup to ship your rsyslog logs, application output, and much more to Papertrail's logging service.
+
+
+
+Excellent, the overview is the first thing presented to a potential user in the store. We've covered the base of explaning what papertrail is, and where I can view more information about the service.
+
+Think about the principals of juju and identify your configuration properties.
 
 	Configuration
 	---------------------
@@ -68,13 +69,13 @@ Think about the principals of juju and identify your configuration properties.
       type: string
       default: ""
       description: Space separated list of paths to application logs (eg: /opt/app.log /var/log/mylog.log  )
-    
 
-Great, we have our first 2 feature sets, and a configuration constraint. 
 
- - Constraint 
- 	- Papertrail's port is unique to each account, sometimes each application in the instance of hosted applications like Heroku. Therefore we cannot operate reliably directly after running <br> `$ juju depoy papertrail ` 
- - Feature 
+Great, we have our first 2 feature sets, and a configuration constraint.
+
+ - Constraint
+ 	- Papertrail's port is unique to each account, sometimes each application in the instance of hosted applications like Heroku. Therefore we cannot operate reliably directly after running <br> `$ juju depoy papertrail `
+ - Feature
 	- if we want 100% coverage on all logs in /var/log there is a predicate feature to enable tailing everything in /var/log
  - Feature
   - for those apps that dont output logs to /var/log, provide the user a means to ship those logs as well.
@@ -112,7 +113,7 @@ In your shell, go ahead and deploy the charm from the local repository
 
 ` $ juju deploy --repository=charms local:papertrail `
 
-This will push the charm from my local charms repository to the Juju controller unit, and deploy the papertrail subordinate service to your application canvas. 
+This will push the charm from my local charms repository to the Juju controller unit, and deploy the papertrail subordinate service to your application canvas.
 
 
 
@@ -120,7 +121,7 @@ This will push the charm from my local charms repository to the Juju controller 
 
 ![](/content/images/2013/Dec/Screenshot_from_2013_12_02_01_49_51_5.png)
 
-Expand the charm inspector on the Papertrail charm, and lets set up the port. 
+Expand the charm inspector on the Papertrail charm, and lets set up the port.
 
 
 ## Charm Relations
@@ -149,7 +150,7 @@ First and foremost, read the submission guidelines: [Charm Store Guidelines](htt
 
 Juju charms live in launchpad. For those that are unfamiliar, Launchpad is Canonical's public tool for software development projects. It provides repository support, bug tracking, and even a build system for personal package repositories.
 
-With that being said, you should be familiar with Bazaar and the launchpad navigation. 
+With that being said, you should be familiar with Bazaar and the launchpad navigation.
 
 
 ### Proof the charm
@@ -163,9 +164,9 @@ Looks like we need to tidy up and remove the boilerplate icon.
 
 `$ rm icon.svg `
 
-    bushido precise/papertrail ‹master*› » charm proof                                                                                 
+    bushido precise/papertrail ‹master*› » charm proof
     W: No icon.svg file.
-    
+
 Warnings are better than errors right? Now lets push this up to our launchpad bzr branch
 
 	bzr init
@@ -173,7 +174,7 @@ Warnings are better than errors right? Now lets push this up to our launchpad bz
     bzr add .
     bzr commit
     bzr push lp:~lazypower/charms/precise/papertrail/trunk
-    
+
 
 ### Start the review process
 

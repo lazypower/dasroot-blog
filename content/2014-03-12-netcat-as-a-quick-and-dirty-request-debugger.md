@@ -2,17 +2,18 @@ Title: Netcat as a quick and dirty request debugger
 Date: 2014-03-12 18:03
 Tags: cli, netcat, debugging
 Slug: netcat-as-a-quick-and-dirty-request-debugger
----
+Category: Devops
+
 Today I discovered a really neat use case for netcat. Which in itself is an extremely powerful TCP utility. I was somewhat ashamed I had not seen/heard of it before now.
 
-**The Situation** - I'm posting data chunks as a file is modified on disk. There is a use case where all this data must be urlencoded, ready for transit over an SSL pipe, and appended to the proper output identifier on the server. 
+**The Situation** - I'm posting data chunks as a file is modified on disk. There is a use case where all this data must be urlencoded, ready for transit over an SSL pipe, and appended to the proper output identifier on the server.
 
 While developing this python daemon I realized:
-> "I'm going to need a daemon setup on the server to receive this information..." 
+> "I'm going to need a daemon setup on the server to receive this information..."
 
 I was nowhere near ready to code this component of the application.
 
-### Enter Netcat! 
+### Enter Netcat!
 
 ```
 netcat -vv -l 8000

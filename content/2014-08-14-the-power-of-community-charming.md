@@ -2,7 +2,8 @@ Title: The power of community charming
 Date: 2014-08-14 12:08
 Tags: juju, charming, charm-maintainership, charms, charm-store, planet
 Slug: the-power-of-community-charming
----
+Category: Community
+
 The Juju Charm Store has been in a bit of a spotlight lately, as it's both a wonderful tool and a source of some frustration for new charmers getting involved in the Juju ecosystem. We wanted to take this opportunity to cover some of the finer aspects of the Juju Charm Store for new users and explain the difference between what a **recommended** charm is vs a charm that lives in a **personal namespace**.
 
 
@@ -35,7 +36,7 @@ To have your charm listed as a charmer team recommended charm, you have to under
 
 This involves pushing to a launchpad branch, and opening a bug ticket assigned to ~charmers, and following the cycle - which at present can take a week or longer to complete from first contact, depending on Charmer resources, time, etc.
 
-### I don't want to wait 
+### I don't want to wait
 #### my service is awesome and does what I want it to do. Why am I waiting?
 
 You dont have to! The pattern for pushing a charm into your personal namespace requires zero review, and is ready for you to complete today. The longest you will wait is ~ 30 minutes for the Charm Store to ingest the metadata about your charm.
@@ -69,7 +70,7 @@ As illustrated, no review process was done to submit this bundle, it has 0 deplo
 
 ![](/content/images/2014/Aug/namespace_charm.png)
 
-Looking at a charm, we have the same basic level of information, and we see that the  charm itself is in my personal namespace.  trusty|lazypower - designates the series/namespace of the charm listing. 
+Looking at a charm, we have the same basic level of information, and we see that the  charm itself is in my personal namespace.  trusty|lazypower - designates the series/namespace of the charm listing.
 
 
 ### Charm Store: Recommended Charms
@@ -84,7 +85,7 @@ Notice the orange earmark in the upper right corner. This denotes the charm is a
 
 ### Which is right for me?
 
-When deciding how to get started working with Juju and what level you should start at for your charm - I can't stress enough. **Get started with your personal namespace**. When you feel your charm is ready (and this can take a while during R&D) Then submit your charm for official ~charmer review. 
+When deciding how to get started working with Juju and what level you should start at for your charm - I can't stress enough. **Get started with your personal namespace**. When you feel your charm is ready (and this can take a while during R&D) Then submit your charm for official ~charmer review.
 
 The process of getting started with personal namespaces is cheap, easy, and **open to everyone**. It's still very much the wild west. Your charm will be in the hands of users 10x faster using personal namespaces, you still have the opportunity to have it reviewed by submitting a bug to the [Review Queue](http://manage.jujucharms.com/tools/review-queue), and you become the orchestrating master of your charmed service.
 
@@ -97,10 +98,9 @@ The Juju Ecosystem team has spent many hours discussing the current state of cha
 
 `juju publish` is a command that will get you started right away by creating your personal namespace, and pushing your charm (and/or revisions) to your branch with the appropriate bugs/MP's assigned.
 
-A new Review Queue is being implemented by [Marco Ceppi](http://marcoceppi.com) that will aid us in first contact, getting 'hot' review items out the door quickly, and triaging long running reviews appropriately. 
+A new Review Queue is being implemented by [Marco Ceppi](http://marcoceppi.com) that will aid us in first contact, getting 'hot' review items out the door quickly, and triaging long running reviews appropriately.
 
 
 ### Where do I go for help?
 
 Should you have any problems getting moving with publishing your charm, you can always contact the [mailing list](mailto:juju@lists.ubuntu.com), join us in #juju on irc.freenode.net, or open a question on [Ask Ubuntu](http://askubuntu.com) tagged #juju
-

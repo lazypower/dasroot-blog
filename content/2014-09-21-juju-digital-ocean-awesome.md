@@ -2,7 +2,8 @@ Title: Juju + Digital Ocean = Awesome!
 Date: 2014-09-21 23:09
 Tags: juju, digitalocean, planet
 Slug: juju-digital-ocean-awesome
----
+Category: Devops
+
 <iframe width="640" height="360" src="//www.youtube.com/embed/1igZWnCi8Ac" frameborder="0" allowfullscreen></iframe>
 
 > Syndicators, there is a video above that may not have made it into syndication. Visit the source link to view the video.
@@ -18,7 +19,7 @@ Speaking of scratching itches, if you haven't checked out Juju yet, now you have
 
 
 
-In about 11 minutes, we will go from zero to deployed infrastructure for a scale-out blog (much like the one you're reading right now). 
+In about 11 minutes, we will go from zero to deployed infrastructure for a scale-out blog (much like the one you're reading right now).
 
 
 #### Links in Video:
@@ -46,11 +47,11 @@ Pre-Requisits:
     sudo apt-get install python-pip
     sudo pip install juju-docean
     juju generate-config
- 
-##### Generate an SSH Key 
-     ssh-keygen   
+
+##### Generate an SSH Key
+     ssh-keygen
      cat ~/.ssh/id_rsa.pub
- 
+
 ##### Setup DO API Credentials in Environment
     vim ~/.bashrc
 
@@ -62,18 +63,18 @@ You'll want the following exports in $HOME/.bashrc
 Then source the file so its in our current, active session.
 
     source ~/.bashrc
- 
+
 ##### Setup Environment and Bootstrap
-  vim ~/.juju/environments.yaml 
-  
-Place the following lines in the environments.yaml, under the `environments:` key (indented 4 spaces) - ENSURE you use 4 spaces per indentation block, NOT a TAB key. 
- 
+  vim ~/.juju/environments.yaml
+
+Place the following lines in the environments.yaml, under the `environments:` key (indented 4 spaces) - ENSURE you use 4 spaces per indentation block, NOT a TAB key.
+
      digitalocean:
           type: manual
           bootstrap-host: null
           bootstrap-user: root
- 
- 
+
+
 ##### Switch to the DigitalOcean environment, and bootstrap
 
      juju switch digitalocean
@@ -94,7 +95,7 @@ And deploy our infrastructure:
     juju add-relation ghost haproxy
 
     juju expose haproxy
-    
+
 From here, pull the status off the HAProxy node, copy/paste the public-address into your browser and revel in your brand new Ghost blog deployed on Digital Ocean's blazing fast SSD servers.
 
 

@@ -2,13 +2,14 @@ Title: Juju Powered Radio! A protoduction experiment.
 Date: 2014-09-26 19:09
 Tags: juju, planet, radio, music, automation, experiment
 Slug: juju-powered-radio
----
+Category: Devops
+
 September 26'th I undertook a rather daunting task of trialing something I strongly believe in that really took me out of my comfort zone and put me front and center of an audience's attention, for not only my talents, but also the technical implementation of their experience.
 
 
 ### The back story
 
-I've been amateur [DJ](http://mixcloud.com/rahlgenesis/)'ing on Secondlife for about the last 7 months, and recently left the metaverse to pursue a podcast format of my show(s).  What I found was I really missed the live interaction with people during the recording of the set. It was great to get feedback, audience participation, and I could really gauge the flow of energy that I'm broadcasting. To some this may sound strange, but when your primary interaction is over text, and you see a feed erupt with actions as you put on more high energy music, it just 'clicks' and makes sense. 
+I've been amateur [DJ](http://mixcloud.com/rahlgenesis/)'ing on Secondlife for about the last 7 months, and recently left the metaverse to pursue a podcast format of my show(s).  What I found was I really missed the live interaction with people during the recording of the set. It was great to get feedback, audience participation, and I could really gauge the flow of energy that I'm broadcasting. To some this may sound strange, but when your primary interaction is over text, and you see a feed erupt with actions as you put on more high energy music, it just 'clicks' and makes sense.
 
 ![](/content/images/2014/Sep/secondlife_dj.png)
 
@@ -24,10 +25,10 @@ I spent a sleepless night hacking away at a [charm](https://code.launchpad.net/~
 ### Observations & Lessons
 
 #### Testing what you expect, never yields the unexpected
-Some definate changes to just the `shoutcast charm` itself are in order. 
+Some definate changes to just the `shoutcast charm` itself are in order.
 
 - Change the default stream MIME from AAC to MP3 so its cross compat on *every* os without installing quicktime.
-- Test EVERY os before you jam out to production - which may seem like a rookie mistake. I tested on Mac OSX and Ubuntu Linux (default configuration for 14.04) and everything was in order. Windows users however, that are not savvy with tech that stems from back in the 90's were left out in the cold and prompted to install Quicktime when they connected.  This is *not* ideal. 
+- Test EVERY os before you jam out to production - which may seem like a rookie mistake. I tested on Mac OSX and Ubuntu Linux (default configuration for 14.04) and everything was in order. Windows users however, that are not savvy with tech that stems from back in the 90's were left out in the cold and prompted to install Quicktime when they connected.  This is *not* ideal.
 - the 'automatic' failover that I touted in the readme is dependent on the client consuming the playlist. If the client doesn't support multiple streams in the playlist, its not really automatic forwarding load balancing, but polling failure cases with resources.
 
 
@@ -68,7 +69,7 @@ I'm also well on my way to having revision 1 of this bundle completed, since I s
 
 ![](/content/images/2014/Sep/Workspace-1_126.png)
 
-I'll be talking more about this after it's officially unveiled in Brussels. 
+I'll be talking more about this after it's officially unveiled in Brussels.
 
 
 ## Where to find the 'goods'
@@ -77,4 +78,4 @@ The Shoutcast Juju Charm can be found on Launchpad: [lp:~lazypower/charms/trusty
 
 The up-coming Airtime Radio Automation Charm can be found [on github](https://github.com/chuckbutler/airtime-charm)
 
-> Actual metrics and charts to be uploaded at a later date, once I've sussed out how I want to parse these and present them. 
+> Actual metrics and charts to be uploaded at a later date, once I've sussed out how I want to parse these and present them.

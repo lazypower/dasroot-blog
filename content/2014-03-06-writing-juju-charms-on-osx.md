@@ -2,12 +2,13 @@ Title: Writing Juju Charms on OSX
 Date: 2014-03-06 11:03
 Tags: juju, osx, vagrant, ubuntu
 Slug: writing-juju-charms-on-osx
----
+Category: Devops
+
 Developing charms on Ubuntu is an extremely straight forward process thanks to the addition of the local provider. LXC containers spin up quickly, integrate directly into your desktop OS, and leave you with very little configuration needed out of the box to get started.
 
 What about users on OSX? What's their developer story like? The technical limitation is that OS X does not support operating system-level virtualization, like containers in Linux. The next best thing is to use a virtualization wrapper solution like [Vagrant](http://vagrantup.com)!
 
-For those of you that dislike reading, here's a video that presents the TL;DR 
+For those of you that dislike reading, here's a video that presents the TL;DR
 
 <iframe width="420" height="315" src="//www.youtube.com/embed/TSLJ22ntPQA" frameborder="0" allowfullscreen></iframe>
 
@@ -22,10 +23,10 @@ To start you will want to ensure you've got the following tools installed on you
 - [Vagrant](http://vagrantup.com)
 - [VirtualBox](https://www.virtualbox.org/)
 - [Juju](http://juju.ubuntu.com)
- 
+
 
 #### Fetching the box
-Head over to the [Juju Vagrant](https://juju.ubuntu.com/docs/config-vagrant.html) provider documentation. We'll need to fetch the latest basebox for Vagrant. I recommend using the precise basebox, or whatever the current LTS release vagrant image is. 
+Head over to the [Juju Vagrant](https://juju.ubuntu.com/docs/config-vagrant.html) provider documentation. We'll need to fetch the latest basebox for Vagrant. I recommend using the precise basebox, or whatever the current LTS release vagrant image is.
 
 ```
 vagrant box add JujuBox http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-juju-vagrant-disk1.box
@@ -74,7 +75,7 @@ cd charms/precise
 charm create genghis
 ```
 
-This will create a skeleton structure of a charm ready for you to edit and populate with your services deployment and orchestration logic. 
+This will create a skeleton structure of a charm ready for you to edit and populate with your services deployment and orchestration logic.
 
 ```
 ├── config.yaml
@@ -163,7 +164,7 @@ Now we are free to connect to genghis. Open up the Genghis running unit list and
 
 
 ![](/content/images/2014/Mar/Genghis___Google_Chrome_032.png)
-#### Celebrate! 
+#### Celebrate!
 
 You've officially become a juju jedi padewon working with vagrant on OSX. Feel free to modify your charm code, and update. No more SCP'ing files to your linux server, or paying expensive cloud bills for development. With the live directory mapping provided by this vagrant setup, any edits you make to your files on the HOST operating system, are reflected in the guest.
 
