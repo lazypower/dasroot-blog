@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="juju, charming, charm-maintainership, charms, charm-store, planet">
+
+  <title>
+    Chuck@Home
+&ndash; The power of community charming  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/the-power-of-community-charming.html">The power of community charming</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>The Juju Charm Store has been in a bit of a spotlight lately, as it's both a wonderful tool and a source of some frustration for new charmers getting involved in the Juju ecosystem. We wanted to take this opportunity to cover some of the finer aspects of the Juju Charm Store for new users and explain the difference between what a <strong>recommended</strong> charm is vs a charm that lives in a <strong>personal namespace</strong>.</p>
+<h3>Why is there a distinction?</h3>
+<p>Quality.  We want all the charms in the Charm Store to be of the highest quality so that users can depend on the charms deploying properly and do what they say they are going to do.</p>
+<p>When the Charm Store first came into existance, it was the wild west. Everyone wanted their charm in the Charm Store and things were being promoted very rapidly into the store. There were minimal requirements, and everything was <strong>new</strong> and <strong>exciting</strong>. Now that Juju has grown into its toddler phase and is starting to walk around on it's own - we've evolved more regulations on charms. We have defined what makes a high-quality charm, and what expectations a user should have from a high quality charm. You can read more about this at the <a href="https://juju.ubuntu.com/docs/authors-charm-policy.html">Charm Store Policy doc</a> and the <a href="https://juju.ubuntu.com/docs/authors-charm-quality.html">Feature Rating doc</a></p>
+<p>The bar for some of the features, and quality descriptors may seem like extremly high hurdles for your service to meet to become a ~charmer recommended service. This is why Personal Namespaces exist - as the charmer team continues to add and expand the Charm Store with charms that meet and/or exceed these quality guidelines - we <strong>encourage everyone</strong> to submit their Juju charm for world wide consumption. You may disagree with FOSS licensing, or perhaps data-handling just isn't something you're willing to do with the service that you orchestrate. These are OK! We still want your service to be orchestrate-able with Juju. Just push your charm into a Personal Namespace, and you don't even have to undergo a charm review from the Charmers team unless <em>you really want</em> someone proofing your code, and service behavior.</p>
+<h3>What differences will this have?</h3>
+<h4>Deployment</h4>
+<p>We've all seen the typical CLI commands for deploying charmer recommended charms.</p>
+<p><code>juju deploy cs:trusty/mysql</code></p>
+<p>There will be a descriptor changed for your personal namespace</p>
+<p><code>juju deploy cs:~lazypower/trusty/logstash</code></p>
+<h4>Charm Store Display</h4>
+<p>Personal namespace charms will display the charm category icon instead of a provided service icon. This is a leftover decision in the Charm Store that is subject to change, but at present writing - is the current status of visual representation.</p>
+<h4>Submission Process</h4>
+<p>To have your charm listed as a charmer team recommended charm, you have to under-go a rigorous review process where we evaluate the charm, evaluate tests for your charm, and deploy &amp; run tests against the provided service with different configuration patterns, and even introduce some chaos monkey breakage to see how well the charm stands on its own 2 feet during less than ideal conditions.</p>
+<p>This involves pushing to a launchpad branch, and opening a bug ticket assigned to ~charmers, and following the cycle - which at present can take a week or longer to complete from first contact, depending on Charmer resources, time, etc.</p>
+<h3>I don't want to wait</h3>
+<h4>my service is awesome and does what I want it to do. Why am I waiting?</h4>
+<p>You dont have to! The pattern for pushing a charm into your personal namespace requires zero review, and is ready for you to complete today. The longest you will wait is ~ 30 minutes for the Charm Store to ingest the metadata about your charm.</p>
+<p><code>bzr push lp:~lazypower/charms/trusty/awesome-o/trunk</code></p>
+<p>Thats all that's required for you to publish a charm under your namespace for the Charm Store. To further break that down:</p>
+<p><strong>lp:~lazypower</strong> : This is your launchpad username</p>
+<p><strong>/charms/</strong> : in this case, charms is the project descriptor</p>
+<p><strong>/trusty/</strong> : We target all charms against a series</p>
+<p><strong>/awesome-o/</strong> : This is the name of your service</p>
+<p><strong>/trunk/</strong> : Only the /trunk branch will be ingested. So if you want to do development work in /fixing_lp1234  - you can certainly do that. When work is completed, simply merge back into /trunk! It will be available immediately in your charm listed in the Juju Charm Store.</p>
+<h3>Charm Store: Personal Namespace (other)</h3>
+<p>In the Juju Charm Store as it exists today, there is a dividing bar below the recommended charms for 'other' - and this warehouses bundles, personal charms, and is a place holder for future data types as they emerge.</p>
+<p><img alt="" src="/content/images/2014/Aug/Selection_069.png" /></p>
+<p>As you can see by the image above, there is quite a bit of information packed into the accordion. Let's take a look at the bundle description first:</p>
+<p><img alt="" src="/content/images/2014/Aug/bundle-diagram.png" /></p>
+<p>As illustrated, no review process was done to submit this bundle, it has 0 deployments in the wild of 5 services/units.</p>
+<p><img alt="" src="/content/images/2014/Aug/namespace_charm.png" /></p>
+<p>Looking at a charm, we have the same basic level of information, and we see that the  charm itself is in my personal namespace.  trusty|lazypower - designates the series/namespace of the charm listing. </p>
+<h3>Charm Store: Recommended Charms</h3>
+<p>Recommended charms have undergone a rigerous testing phase by the Juju Charmer team, include tested hooks, and tested deployment strategies using the <a href="https://juju.ubuntu.com/docs/tools-amulet.html">Amulet testing framework</a>. You can read more about this at the <a href="https://juju.ubuntu.com/docs/authors-charm-policy.html">Charm Store Policy doc</a> and the <a href="https://juju.ubuntu.com/docs/authors-charm-quality.html">Feature Rating doc</a></p>
+<p>They have full service descriptor icons provided by the charm itself, and are deployable via juju deploy cs:series/service</p>
+<p><img alt="" src="/content/images/2014/Aug/Selection_070.png" /></p>
+<p>Notice the orange earmark in the upper right corner. This denotes the charm is a ~charmer recommended service, as it has undergone the review process and accepted into the charmer's namespace of the Juju Charm Store.</p>
+<h3>Which is right for me?</h3>
+<p>When deciding how to get started working with Juju and what level you should start at for your charm - I can't stress enough. <strong>Get started with your personal namespace</strong>. When you feel your charm is ready (and this can take a while during R&amp;D) Then submit your charm for official ~charmer review. </p>
+<p>The process of getting started with personal namespaces is cheap, easy, and <strong>open to everyone</strong>. It's still very much the wild west. Your charm will be in the hands of users 10x faster using personal namespaces, you still have the opportunity to have it reviewed by submitting a bug to the <a href="http://manage.jujucharms.com/tools/review-queue">Review Queue</a>, and you become the orchestrating master of your charmed service.</p>
+<p>If you're an Independent Software Vendor and would like to start with your charm In the ~charmers recommended list, feel free to submit a review proposal, however - you are now agreeing to be subject to the Charm Store review policy, your charm must meet all the criteria of a good charm, and the review process can take some length of time depending on the complexity of your service.</p>
+<h3>What is the future of charm publishing?</h3>
+<p>The Juju Ecosystem team has spent many hours discussing the current state of charm publishing and how to make this easier for our users. On the horizon (but with no foreseeable dates to be published) there are some new tools emerging to assist in this process.</p>
+<p><code>juju publish</code> is a command that will get you started right away by creating your personal namespace, and pushing your charm (and/or revisions) to your branch with the appropriate bugs/MP's assigned.</p>
+<p>A new Review Queue is being implemented by <a href="http://marcoceppi.com">Marco Ceppi</a> that will aid us in first contact, getting 'hot' review items out the door quickly, and triaging long running reviews appropriately. </p>
+<h3>Where do I go for help?</h3>
+<p>Should you have any problems getting moving with publishing your charm, you can always contact the <a href="mailto:juju@lists.ubuntu.com">mailing list</a>, join us in #juju on irc.freenode.net, or open a question on <a href="http://askubuntu.com">Ask Ubuntu</a> tagged #juju</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Thu 14 August 2014</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/juju.html">juju</a>,      <a href="http://blog.dasroot.net/tag/charming.html">charming</a>,      <a href="http://blog.dasroot.net/tag/charm-maintainership.html">charm-maintainership</a>,      <a href="http://blog.dasroot.net/tag/charms.html">charms</a>,      <a href="http://blog.dasroot.net/tag/charm-store.html">charm-store</a>,      <a href="http://blog.dasroot.net/tag/planet.html">planet</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

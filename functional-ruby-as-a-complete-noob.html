@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="ruby, pdf, markdown">
+
+  <title>
+    Chuck@Home
+&ndash; Functional Ruby as a complete noob  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/functional-ruby-as-a-complete-noob.html">Functional Ruby as a complete noob</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>Just for fun, I wanted the ability to hack up a quick document in markdown, which seems to be my new flavor of choice for writing practically anything from notes to full blown documentation sets. Problem being, not everybody or everything can read markdown. </p>
+<h3>Scenario:</h3>
+<p>I'm writing a tech spec for a service at work. Its really easy to whip up a document complete with code samples in markdown. </p>
+<h3>Problem:</h3>
+<p>It doesn't look professional AT ALL to distribute a markdown file as documentation. That and most of the business guys in windows land haven't even HEARD of markdown. </p>
+<h3>Solution:</h3>
+<p>Use ruby to convert the markdown to pretty HTML, then pipe that HTML into a PDF creation library to spit out a PDF of the documentation. </p>
+<p>I've only been dabbling in ruby for a few days. I took some TDD lessons using RSpec from my good friend <a href="http://www.jessedearing.com">Jesse</a> so this small script seemed like a great starting point to apply what I have learned. </p>
+<p>{% gist 2347985 %}</p>
+<p>Using the gemset RedCarpet (thanks GitHub!) and PDFKit, this was 13 lines of ruby goodness. </p>
+<p><em>Example Usage</em></p>
+<div class="highlight"><pre><span class="n">ruby</span> <span class="n">generator</span><span class="p">.</span><span class="n">rb</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">file</span><span class="p">.</span><span class="n">markdown</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">optional</span><span class="o">/</span><span class="n">css_for_pretty_html</span><span class="p">.</span><span class="n">css</span>
+</pre></div>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Tue 26 November 2013</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/ruby.html">ruby</a>,      <a href="http://blog.dasroot.net/tag/pdf.html">pdf</a>,      <a href="http://blog.dasroot.net/tag/markdown.html">markdown</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

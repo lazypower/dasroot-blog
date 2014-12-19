@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="juju, osx, vagrant, ubuntu">
+
+  <title>
+    Chuck@Home
+&ndash; Writing Juju Charms on OSX  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/writing-juju-charms-on-osx.html">Writing Juju Charms on OSX</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>Developing charms on Ubuntu is an extremely straight forward process thanks to the addition of the local provider. LXC containers spin up quickly, integrate directly into your desktop OS, and leave you with very little configuration needed out of the box to get started.</p>
+<p>What about users on OSX? What's their developer story like? The technical limitation is that OS X does not support operating system-level virtualization, like containers in Linux. The next best thing is to use a virtualization wrapper solution like <a href="http://vagrantup.com">Vagrant</a>!</p>
+<p>For those of you that dislike reading, here's a video that presents the TL;DR </p>
+<iframe width="420" height="315" src="//www.youtube.com/embed/TSLJ22ntPQA" frameborder="0" allowfullscreen></iframe>
+
+<h3>Getting Started</h3>
+<p>To start you will want to ensure you've got the following tools installed on your development machine:</p>
+<ul>
+<li><a href="http://brew.sh">Homebrew</a></li>
+<li><a href="http://vagrantup.com">Vagrant</a></li>
+<li><a href="https://www.virtualbox.org/">VirtualBox</a></li>
+<li><a href="http://juju.ubuntu.com">Juju</a></li>
+</ul>
+<h4>Fetching the box</h4>
+<p>Head over to the <a href="https://juju.ubuntu.com/docs/config-vagrant.html">Juju Vagrant</a> provider documentation. We'll need to fetch the latest basebox for Vagrant. I recommend using the precise basebox, or whatever the current LTS release vagrant image is. </p>
+<div class="highlight"><pre><span class="n">vagrant</span> <span class="n">box</span> <span class="n">add</span> <span class="n">JujuBox</span> <span class="n">http</span><span class="o">:</span><span class="c1">//cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-juju-vagrant-disk1.box</span>
+</pre></div>
+
+
+<p>This process takes a short while to complete, as its downloading a 200mb virtual machine image. Once its complete you can verify everything completed correctly by listing out the boxes that vagrant is tracking.</p>
+<div class="highlight"><pre><span class="n">vagrant</span> <span class="n">box</span> <span class="n">list</span>
+</pre></div>
+
+
+<p>If you see <strong>JujuBox</strong> listed, we're ready to proceed to the next step.</p>
+<h4>Preparing our local charm repository</h4>
+<p>We will need to create a directory structure that reflects the current standard for juju charm repositories. I recommend putting this in $HOME</p>
+<div class="highlight"><pre><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="n">charms</span><span class="o">/</span><span class="n">precise</span>
+</pre></div>
+
+
+<p>Feel free to add any other LTS based target directory, for example if you were to target Trusty Tahr as a release for your charm, the command would be</p>
+<div class="highlight"><pre><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="n">charms</span><span class="o">/</span><span class="n">trusty</span>
+</pre></div>
+
+
+<p>For the remainder of this tutorial, I will assume we are targeting Precise, as its the current LTS target of choice.</p>
+<h4>Installing Charm-Tools</h4>
+<p>Now is a good time to fetch Charm Tools. But what are charm tools you ask?</p>
+<blockquote>
+<p>Charm Tools offer a means for users and charm authors to create, search, fetch, update, and manage charms.</p>
+</blockquote>
+<p>These can be installed via homebrew.</p>
+<div class="highlight"><pre><span class="n">brew</span> <span class="n">install</span> <span class="n">charm</span><span class="o">-</span><span class="n">tools</span>
+</pre></div>
+
+
+<h4>Creating our first charm</h4>
+<p>Lets charm up GenghisApp - a single page MongoDB adminsitration app.</p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="n">charms</span><span class="o">/</span><span class="n">precise</span>
+<span class="n">charm</span> <span class="n">create</span> <span class="n">genghis</span>
+</pre></div>
+
+
+<p>This will create a skeleton structure of a charm ready for you to edit and populate with your services deployment and orchestration logic. </p>
+<div class="highlight"><pre><span class="err">├──</span> <span class="n">config</span><span class="p">.</span><span class="n">yaml</span>
+<span class="err">├──</span> <span class="n">copyright</span>
+<span class="err">├──</span> <span class="n">hooks</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">config</span><span class="o">-</span><span class="n">changed</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">install</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">restart</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">start</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">stop</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">upgrade</span><span class="o">-</span><span class="n">charm</span>
+<span class="err">│  </span> <span class="err">└──</span> <span class="n">website</span><span class="o">-</span><span class="n">relation</span><span class="o">-</span><span class="n">joined</span>
+<span class="err">├──</span> <span class="n">icon</span><span class="p">.</span><span class="n">svg</span>
+<span class="err">├──</span> <span class="n">metadata</span><span class="p">.</span><span class="n">yaml</span>
+<span class="err">├──</span> <span class="n">README</span>
+<span class="err">└──</span> <span class="n">revision</span>
+</pre></div>
+
+
+<h5>Writing the Charm</h5>
+<p>We'll start by editing the metadata.yaml to populate the information about our charm.</p>
+<blockquote>
+<p><strong>No Code displayed? refresh, there seems to be a bug with Gists in my theme</strong></p>
+</blockquote>
+<script src="https://gist.github.com/chuckbutler/9393419.js"></script>
+
+<p>Now that juju knows something about our service we're ready to start writing the hooks.</p>
+<p>I'll include a few brief gists of the hooks for brevity</p>
+<script src="https://gist.github.com/chuckbutler/9393551.js"></script>
+
+<h4>Preparing Vagrant</h4>
+<p>Since vagrant is going to be our work horse, we'll want to make sure its aware of all our charms, not just the current charm we are working on. With that in mind, we need to switch feet and prepare the environment since we are ready to test our Genghis service.</p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="err">$</span><span class="n">home</span><span class="o">/</span><span class="n">charms</span>
+<span class="n">vagrant</span> <span class="n">init</span> <span class="n">JujuBox</span>
+<span class="n">vagrant</span> <span class="n">up</span>
+</pre></div>
+
+
+<p><img alt="Vagrant Bootstrap" src="/content/images/2014/Mar/charles_Bushido__10_0_5_136____byobu_028.png" /></p>
+<p>You now have a Juju installation ready to be used for testing your charm on OSX, and a slick Juju-Gui to interface with your services. Validate that the GUI is accessible from http://localhost:6080</p>
+<p>The password is output in your console feedback from the juju bootstrap.</p>
+<h5>Some important things to note about our vagrant environment</h5>
+<ul>
+<li>Live charm repository directory mapping (all your charms in $HOME/charms are available in the /vagrant directory of our JujuBox</li>
+<li>We are running juju 1.16.6 at the time of this writing</li>
+<li>To interface with charms in our vagrant environment, we will need to <code>vpn</code> all our traffic into this virtual machine (more on that later)</li>
+</ul>
+<h3>Deploying our charm in vagrant</h3>
+<p>You'll need to enter the juju environment we just bootstrapped in $HOME/charms</p>
+<div class="highlight"><pre><span class="n">vagrant</span> <span class="n">ssh</span>
+<span class="n">juju</span> <span class="n">deploy</span> <span class="o">--</span><span class="n">repository</span><span class="o">=/</span><span class="n">vagrant</span> <span class="n">local</span><span class="o">:</span><span class="n">genghis</span>
+</pre></div>
+
+
+<p>We are now free to watch progress through the GUI</p>
+<p><img alt="juju-gui" src="/content/images/2014/Mar/Juju_Admin___Google_Chrome_029.png" /></p>
+<p>When the Genghis badge turns green, we are ready to vpn our traffic through the vagrant image and interface with the Genghis server</p>
+<h3>Routing traffic with sshuttle</h3>
+<p>Ensure that you have sshuttle installed, once installed you can skip the <code>brew install</code> line</p>
+<div class="highlight"><pre><span class="n">brew</span> <span class="n">install</span> <span class="n">sshuttle</span>
+<span class="n">sshuttle</span> <span class="o">-</span><span class="n">r</span> <span class="n">vagrant</span><span class="err">@</span><span class="n">localhost</span><span class="o">:</span><span class="mi">2222</span> <span class="mf">10.0.3.0</span><span class="o">/</span><span class="mi">24</span>
+</pre></div>
+
+
+<p>When prompted for the password enter <code>vagrant</code> and you should see output similar to the following:</p>
+<p><img alt="" src="/content/images/2014/Mar/charles_Bushido__10_0_5_136____byobu_030.png" /></p>
+<p>Now we are free to connect to genghis. Open up the Genghis running unit list and click on the Genghis host, then click on the port 80 link in the service detail.</p>
+<p><img alt="" src="/content/images/2014/Mar/Juju_Admin___Google_Chrome_031.png" /></p>
+<p><img alt="" src="/content/images/2014/Mar/Genghis___Google_Chrome_032.png" /></p>
+<h4>Celebrate!</h4>
+<p>You've officially become a juju jedi padewon working with vagrant on OSX. Feel free to modify your charm code, and update. No more SCP'ing files to your linux server, or paying expensive cloud bills for development. With the live directory mapping provided by this vagrant setup, any edits you make to your files on the HOST operating system, are reflected in the guest.</p>
+<p>Happy Hacking!</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Thu 06 March 2014</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/juju.html">juju</a>,      <a href="http://blog.dasroot.net/tag/osx.html">osx</a>,      <a href="http://blog.dasroot.net/tag/vagrant.html">vagrant</a>,      <a href="http://blog.dasroot.net/tag/ubuntu.html">ubuntu</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="juju">
+
+  <title>
+    Chuck@Home
+&ndash; Helpful Juju Workflow One-Liners  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/helpful-juju-charming-one-liners.html">Helpful Juju Workflow One-Liners</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>While performing the great charm audit of 2014, I've encountered quite a few helpful charm commands that I didn't know existed. This won't be a comprehensive and exhaustive list of commands, but an aggregation of those I find the most helpful (consult the manpage/<a href="https://juju.ubuntu.com/docs/">docs</a> if you require a full list).</p>
+<h3>charm proof</h3>
+<p>When initially looking at a charm, this runs a lint test against the charm. It will expose any issues from a syntax and presence standpoint against the following:</p>
+<ul>
+<li>README</li>
+<li>metadata.yaml</li>
+<li>configuration.yaml</li>
+</ul>
+<h5>Example Output:</h5>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">charm</span> <span class="n">proof</span>
+<span class="nl">W:</span> <span class="n">Metadata</span> <span class="n">is</span> <span class="n">missing</span> <span class="n">categories</span><span class="p">.</span>
+<span class="nl">W:</span> <span class="n">No</span> <span class="n">icon</span><span class="p">.</span><span class="n">svg</span> <span class="n">file</span><span class="p">.</span>
+<span class="nl">W:</span> <span class="n">config</span><span class="p">.</span><span class="n">yaml</span><span class="o">:</span> <span class="n">option</span> <span class="n">access</span><span class="o">-</span><span class="n">key</span> <span class="n">does</span> <span class="n">not</span> <span class="n">have</span> <span class="n">the</span> <span class="n">keys</span><span class="o">:</span> <span class="k">default</span>
+<span class="nl">W:</span> <span class="n">config</span><span class="p">.</span><span class="n">yaml</span><span class="o">:</span> <span class="n">option</span> <span class="n">bucket</span><span class="o">-</span><span class="n">name</span> <span class="n">does</span> <span class="n">not</span> <span class="n">have</span> <span class="n">the</span> <span class="n">keys</span><span class="o">:</span> <span class="k">default</span>
+<span class="nl">W:</span> <span class="n">config</span><span class="p">.</span><span class="n">yaml</span><span class="o">:</span> <span class="n">option</span> <span class="n">secret</span><span class="o">-</span><span class="n">key</span> <span class="n">does</span> <span class="n">not</span> <span class="n">have</span> <span class="n">the</span> <span class="n">keys</span><span class="o">:</span> <span class="k">default</span>
+</pre></div>
+
+
+<h3>charm add readme</h3>
+<p>Generates the boilerplate README.ex - I use this for comparison against the existing README. (hat tip <a href="http://jorgecastro.org">@jorgecastro</a>). This is extremely helpful as I often forget what's in the template, in terms of structure and examples. A side effect of this workflow is you are always checking against the latest README boilerplate updates. </p>
+<h3>juju test -e $environment</h3>
+<p>Executes all found integration tests within <code>$CHARM_DIR/tests</code> in the given environment.</p>
+<h3>lbox propose -cr -for lp:charms/$charm-name</h3>
+<p>Canonical uses the Rietveld tool during code reviews. This was an entirely new process change for me, as I'm used to <a href="http://gitlab.org">Gitlab</a> or <a href="http://github.com">GitHub</a> diff view for inline code reviews. The lbox utility is a go app, written to simplify the code review process, and provide developers a quicker access point to launchpad <code>Merge Proposals</code>. </p>
+<p>Lbox is intelligent in design, the above command will do the following:</p>
+<ul>
+<li>Create a code branch under your user account: lp:~lazypower/charms/precise/mediawiki/tests  </li>
+<li>Create a <code>Merge Proposal</code> against lp:charms/mediawiki</li>
+<li>Push the diff to Rietveld tool </li>
+</ul>
+<p>(Source: http://voices.canonical.com/tag/patch/) </p>
+<p>Installing the lbox tool was fairly straight forward thanks in part to the nature of installing Go applications. </p>
+<div class="highlight"><pre><span class="n">go</span> <span class="n">get</span> <span class="n">launchpad</span><span class="p">.</span><span class="n">net</span><span class="o">/</span><span class="n">lbox</span>
+<span class="n">go</span> <span class="n">install</span> <span class="n">launchpad</span><span class="p">.</span><span class="n">net</span><span class="o">/</span><span class="n">lbox</span>
+</pre></div>
+
+
+<p>You need to have the <code>go-golang</code> package installed, and have your <code>$GOROOT</code> and <code>$GOPATH</code> variables set accordingly. The installation procedure I encountered was in the <code>charm-tools</code> package in the <code>HACKING.txt</code> file.</p>
+<h5>Excerpt - HACKING.txt</h5>
+<div class="highlight"><pre><span class="n">In</span> <span class="n">order</span> <span class="n">to</span> <span class="n">submit</span> <span class="n">code</span> <span class="k">for</span> <span class="n">review</span> <span class="n">we</span> <span class="n">use</span> <span class="n">a</span> <span class="n">tool</span> <span class="n">called</span> <span class="n">lbox</span><span class="p">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">are</span> <span class="n">using</span>
+<span class="n">Ubuntu</span> <span class="o">&lt;</span> <span class="mf">13.04</span> <span class="n">you</span> <span class="n">can</span> <span class="n">install</span> <span class="n">lbox</span> <span class="n">by</span><span class="o">::</span>
+
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">lbox</span>
+
+<span class="n">If</span> <span class="n">you</span> <span class="n">are</span> <span class="n">using</span> <span class="n">a</span> <span class="n">newer</span> <span class="n">version</span> <span class="n">you</span> <span class="n">will</span> <span class="n">have</span> <span class="n">to</span> <span class="n">build</span> <span class="n">it</span> <span class="n">from</span> <span class="n">source</span><span class="p">.</span> <span class="n">First</span>
+<span class="n">step</span> <span class="n">is</span> <span class="n">to</span> <span class="n">install</span> <span class="n">Go</span> <span class="n">lang</span><span class="p">,</span> <span class="n">you</span> <span class="n">can</span> <span class="n">find</span> <span class="n">the</span> <span class="n">instructions</span> <span class="n">on</span> <span class="n">installing</span> <span class="n">it</span>
+<span class="n">here</span> <span class="n">http</span><span class="o">:</span><span class="c1">//golang.org/doc/install#bsd_linux , making sure to set your GOROOT</span>
+<span class="n">environment</span> <span class="n">variable</span> <span class="n">appropriately</span><span class="p">.</span> <span class="n">After</span> <span class="n">that</span><span class="p">,</span> <span class="n">you</span> <span class="n">should</span> <span class="n">set</span> <span class="n">up</span> <span class="n">an</span> <span class="n">install</span>
+<span class="n">directory</span> <span class="n">that</span> <span class="n">you</span> <span class="n">can</span> <span class="n">access</span><span class="p">,</span> <span class="n">such</span> <span class="n">as</span> <span class="err">$</span><span class="n">HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">go</span> <span class="n">which</span> <span class="n">you</span> <span class="n">can</span> <span class="n">set</span> <span class="n">as</span> <span class="n">your</span>
+<span class="n">GOPATH</span> <span class="n">directory</span> <span class="p">(</span><span class="n">see</span> <span class="err">`</span><span class="n">go</span> <span class="n">help</span> <span class="n">gopath</span><span class="err">`</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="p">).</span> <span class="n">For</span> <span class="n">ease</span> <span class="n">of</span>
+<span class="n">use</span><span class="p">,</span> <span class="n">you</span> <span class="n">can</span> <span class="n">append</span> <span class="err">$</span><span class="n">GOROOT</span><span class="o">/</span><span class="n">bin</span> <span class="n">and</span> <span class="err">$</span><span class="n">GOPATH</span><span class="o">/</span><span class="n">bin</span> <span class="n">to</span> <span class="n">your</span> <span class="n">PATH</span> <span class="n">environment</span>
+<span class="n">variable</span><span class="p">.</span> <span class="n">Then</span> <span class="n">follow</span> <span class="n">the</span> <span class="n">instructions</span><span class="o">::</span>
+
+<span class="n">sudo</span> <span class="n">go</span> <span class="n">get</span> <span class="n">launchpad</span><span class="p">.</span><span class="n">net</span><span class="o">/</span><span class="n">lbox</span>
+<span class="n">sudo</span> <span class="n">go</span> <span class="n">install</span> <span class="n">launchpad</span><span class="p">.</span><span class="n">net</span><span class="o">/</span><span class="n">lbox</span>
+
+<span class="n">To</span> <span class="n">submit</span> <span class="k">for</span> <span class="n">review</span><span class="o">::</span>
+
+<span class="n">lbox</span> <span class="n">propose</span>
+
+<span class="n">After</span> <span class="n">review</span><span class="p">,</span> <span class="n">to</span> <span class="n">merge</span> <span class="n">into</span> <span class="n">trunk</span><span class="o">::</span>
+
+<span class="n">lbox</span> <span class="n">submit</span>
+</pre></div>
+
+
+<h2>Code Snippets</h2>
+<div class="highlight"><pre><span class="n">print</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dump</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">schema</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+
+<p>sometimes its handy to have the service schema printed out to the console during test execution for debugging purposes. This one liner prints the JSON schema of the deployment out during test execution.</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Tue 21 January 2014</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/juju.html">juju</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

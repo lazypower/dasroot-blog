@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="cli, netcat, debugging">
+
+  <title>
+    Chuck@Home
+&ndash; Netcat as a quick and dirty request debugger  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/netcat-as-a-quick-and-dirty-request-debugger.html">Netcat as a quick and dirty request debugger</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>Today I discovered a really neat use case for netcat. Which in itself is an extremely powerful TCP utility. I was somewhat ashamed I had not seen/heard of it before now.</p>
+<p><strong>The Situation</strong> - I'm posting data chunks as a file is modified on disk. There is a use case where all this data must be urlencoded, ready for transit over an SSL pipe, and appended to the proper output identifier on the server. </p>
+<p>While developing this python daemon I realized:</p>
+<blockquote>
+<p>"I'm going to need a daemon setup on the server to receive this information..." </p>
+</blockquote>
+<p>I was nowhere near ready to code this component of the application.</p>
+<h3>Enter Netcat!</h3>
+<div class="highlight"><pre><span class="n">netcat</span> <span class="o">-</span><span class="n">vv</span> <span class="o">-</span><span class="n">l</span> <span class="mi">8000</span>
+</pre></div>
+
+
+<p>This spins up a TCP listener on port 8000, and prints all incoming traffic to STDOUT.</p>
+<div class="highlight"><pre><span class="n">Listening</span> <span class="n">on</span> <span class="p">[</span><span class="mf">0.0.0.0</span><span class="p">]</span> <span class="p">(</span><span class="n">family</span> <span class="mi">0</span><span class="p">,</span> <span class="n">port</span> <span class="mi">8000</span><span class="p">)</span>
+<span class="n">Connection</span> <span class="n">from</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">]</span> <span class="n">port</span> <span class="mi">8000</span> <span class="p">[</span><span class="n">tcp</span><span class="cm">/*] accepted (family 2, sport 50572)</span>
+<span class="cm">POST / HTTP/1.1</span>
+<span class="cm">Host: localhost:8000</span>
+<span class="cm">Content-Length: 26</span>
+<span class="cm">Content-Type: application/x-www-form-urlencoded</span>
+<span class="cm">Accept-Encoding: gzip, deflate, compress</span>
+<span class="cm">Accept: */</span><span class="o">*</span>
+<span class="n">User</span><span class="o">-</span><span class="n">Agent</span><span class="o">:</span> <span class="n">python</span><span class="o">-</span><span class="n">requests</span><span class="o">/</span><span class="mf">2.2.1</span> <span class="n">CPython</span><span class="o">/</span><span class="mf">2.7.5</span><span class="o">+</span> <span class="n">Linux</span><span class="o">/</span><span class="mf">3.11.0</span><span class="o">-</span><span class="mi">18</span><span class="o">-</span><span class="n">generic</span>
+
+<span class="n">api_key</span><span class="o">=</span><span class="mi">1234</span><span class="o">&amp;</span><span class="n">data</span><span class="o">=</span><span class="n">RAAAA</span><span class="o">%</span><span class="mi">0</span><span class="n">A</span>
+</pre></div>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Wed 12 March 2014</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/cli.html">cli</a>,      <a href="http://blog.dasroot.net/tag/netcat.html">netcat</a>,      <a href="http://blog.dasroot.net/tag/debugging.html">debugging</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

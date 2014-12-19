@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="juju, digitalocean, planet">
+
+  <title>
+    Chuck@Home
+&ndash; Juju + Digital Ocean = Awesome!  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/juju-digital-ocean-awesome.html">Juju + Digital Ocean = Awesome!</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p><iframe width="640" height="360" src="//www.youtube.com/embed/1igZWnCi8Ac" frameborder="0" allowfullscreen></iframe></p>
+<blockquote>
+<p>Syndicators, there is a video above that may not have made it into syndication. Visit the source link to view the video.</p>
+<p>Additional note - this is now part of the <a href="https://juju.ubuntu.com/docs/config-digitalocean.html">official juju documentation</a></p>
+</blockquote>
+<p>Juju on Digital Ocean, WOW! That's all I have to say. Digital Ocean is one of the fastest cloud hosts around with their SSD backed virtual machines. To top it off their billing is a no-nonsense straight forward model. $5/mo for their lowest end server, with 1TB of included traffic. That's enough to scratch just about any itch you might have with the cloud.</p>
+<p>Speaking of scratching itches, if you haven't checked out Juju yet, now you have a <strong>prime, low cost cloud provider</strong> to toe the waters. Spinning up droplets with Juju is very straight forward, and offers you a hands on approach to service orchestration thats affordable enough for a weekend hacker to whet their appetite. Not to mention, Juju is currently the #1 project on their API Integration listing!</p>
+<p><img alt="Juju #1 in API Integration for Digital Ocean!" src="/content/images/2014/Sep/Selection_103.png" /></p>
+<p>In about 11 minutes, we will go from zero to deployed infrastructure for a scale-out blog (much like the one you're reading right now). </p>
+<h4>Links in Video:</h4>
+<p>Juju Docean Github - http://github.com/kapilt/juju-digital...
+Juju Documentation -http://juju.ubuntu.com/docs
+Juju CharmStore - http://jujucharms.com
+Kapil Thangavelu - http://blog.kapilt.com/
+The Juju Community Members on DO - http://goo.gl/m6u781</p>
+<h3>Text Instructions Below:</h3>
+<p>Pre-Requisits:</p>
+<ul>
+<li>A Recent Ubuntu Installation (12.04 +)</li>
+<li>A CreditCard (for DO)</li>
+</ul>
+<h5>Install Juju</h5>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">juju</span><span class="o">/</span><span class="n">stable</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">juju</span>
+</pre></div>
+
+
+<h5>Install Juju-Docean Plugin</h5>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span>
+<span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">juju</span><span class="o">-</span><span class="n">docean</span>
+<span class="n">juju</span> <span class="n">generate</span><span class="o">-</span><span class="n">config</span>
+</pre></div>
+
+
+<h5>Generate an SSH Key</h5>
+<div class="highlight"><pre> <span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span>   
+ <span class="n">cat</span> <span class="o">~/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="p">.</span><span class="n">pub</span>
+</pre></div>
+
+
+<h5>Setup DO API Credentials in Environment</h5>
+<div class="highlight"><pre><span class="n">vim</span> <span class="o">~/</span><span class="p">.</span><span class="n">bashrc</span>
+</pre></div>
+
+
+<p>You'll want the following exports in $HOME/.bashrc</p>
+<div class="highlight"><pre><span class="n">export</span> <span class="n">DO_CLIENT_ID</span><span class="o">=</span><span class="s">&quot;XXXXXX&quot;</span>
+<span class="n">export</span> <span class="n">DO_API_KEY</span><span class="o">=</span><span class="s">&quot;XXXXXX&quot;</span>
+</pre></div>
+
+
+<p>Then source the file so its in our current, active session.</p>
+<div class="highlight"><pre><span class="n">source</span> <span class="o">~/</span><span class="p">.</span><span class="n">bashrc</span>
+</pre></div>
+
+
+<h5>Setup Environment and Bootstrap</h5>
+<p>vim ~/.juju/environments.yaml </p>
+<p>Place the following lines in the environments.yaml, under the <code>environments:</code> key (indented 4 spaces) - ENSURE you use 4 spaces per indentation block, NOT a TAB key. </p>
+<div class="highlight"><pre> <span class="nl">digitalocean:</span>
+      <span class="nl">type:</span> <span class="n">manual</span>
+      <span class="n">bootstrap</span><span class="o">-</span><span class="n">host</span><span class="o">:</span> <span class="n">null</span>
+      <span class="n">bootstrap</span><span class="o">-</span><span class="n">user</span><span class="o">:</span> <span class="n">root</span>
+</pre></div>
+
+
+<h5>Switch to the DigitalOcean environment, and bootstrap</h5>
+<div class="highlight"><pre> <span class="n">juju</span> <span class="k">switch</span> <span class="n">digitalocean</span>
+ <span class="n">juju</span> <span class="n">docean</span> <span class="n">bootstrap</span>
+</pre></div>
+
+
+<p>Now you're free to add machines with constraints.</p>
+<div class="highlight"><pre> <span class="n">juju</span> <span class="n">docean</span> <span class="n">add</span><span class="o">-</span><span class="n">machine</span> <span class="o">-</span><span class="n">n</span> <span class="mi">3</span> <span class="o">--</span><span class="n">constraints</span><span class="o">=</span><span class="s">&quot;mem=2g region=nyc3&quot;</span> <span class="o">--</span><span class="n">series</span><span class="o">=</span><span class="n">precise</span>
+</pre></div>
+
+
+<p>And deploy our infrastructure:</p>
+<div class="highlight"><pre><span class="n">juju</span> <span class="n">deploy</span> <span class="n">ghost</span>
+<span class="n">juju</span> <span class="n">deploy</span> <span class="n">mysql</span>
+<span class="n">juju</span> <span class="n">deploy</span> <span class="n">haproxy</span>
+
+<span class="n">juju</span> <span class="n">add</span><span class="o">-</span><span class="n">relation</span> <span class="n">ghost</span> <span class="n">mysql</span>
+<span class="n">juju</span> <span class="n">add</span><span class="o">-</span><span class="n">relation</span> <span class="n">ghost</span> <span class="n">haproxy</span>
+
+<span class="n">juju</span> <span class="n">expose</span> <span class="n">haproxy</span>
+</pre></div>
+
+
+<p>From here, pull the status off the HAProxy node, copy/paste the public-address into your browser and revel in your brand new Ghost blog deployed on Digital Ocean's blazing fast SSD servers.</p>
+<h3>Caveats to Juju DigitalOcean as of Sept. 2014:</h3>
+<blockquote>
+<p>These are important things to keep in mind as you move forward. This is a beta project. Evaluate the following passages for quick fixes to known issues, and warnings.</p>
+</blockquote>
+<p>Not all charms have been tested on DO, and you may find missing libraries. Most notably python-yaml on charms that require it. Most "install failed" charms is due to missing python-yaml.</p>
+<p>A quick hotseat fix is:</p>
+<div class="highlight"><pre><span class="n">juju</span> <span class="n">ssh</span> <span class="n">service</span><span class="o">/</span><span class="err">#</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">yaml</span>
+<span class="n">exit</span>
+<span class="n">juju</span> <span class="n">resolved</span> <span class="o">-</span><span class="n">r</span> <span class="n">service</span><span class="o">/</span><span class="err">#</span>
+</pre></div>
+
+
+<p>And then file a bug against the culprit charm that it's missing a dependency for Digital Ocean.</p>
+<p>While this setup is amazingly cheap, and works really well, the Docean plugin provider should be considered beta software, as <a href="http://blog.kapilt.com">Hazmat</a> is still actively working on it.</p>
+<p>All in all, this is a great place to get started if you're willing to invest a bit of time working with a manual environment. Juju's capable orchestration will certainly make most if not all of your deployments painless, and bring you to scaling nirvana.</p>
+<p>Happy Orchestrating!</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Sun 21 September 2014</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/juju.html">juju</a>,      <a href="http://blog.dasroot.net/tag/digitalocean.html">digitalocean</a>,      <a href="http://blog.dasroot.net/tag/planet.html">planet</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

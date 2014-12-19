@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="juju, planet, hadoop, big-data-2">
+
+  <title>
+    Chuck@Home
+&ndash; A Laymans Guide to the "Big Data" Ecosystem  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/a-laymans-guide-to-the-big-data-ecosystem.html">A Laymans Guide to the "Big Data" Ecosystem</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p><img alt="Big Data Wordcloud" src="images/2014/Nov/BigData_2267x1146_white.png" />
+"Big Data" is now synonymous with marketing, and buzzword bingo. As a layman getting started in the ecosystem I found it truly difficult to really grasp what it was, and where I should be looking to get started. This will be the first post in a multi-post series breaking down the big-data stack, leveraging examples with Juju.</p>
+<h2>Disambiguation of the term 'Hadoop'</h2>
+<p>I dont know about you but when I think "Big Data" - I think of one thing. The 800lb Gorilla in the room and that's <strong>Hadoop</strong>. It's become synonymous with crunching petabytes of data in the name of everything from medical research, market analysis, to crunching website results powering your favorite search engine and computing trends over long periods of time. But that's kind of a misnomer, as there is an entire ecosystem around this software; and I think Wikipedia has defined this better than I ever could:</p>
+<blockquote>
+<p><code>Apache Hadoop</code> is an open-source software framework for distributed storage and distributed processing of Big Data on clusters of commodity hardware. Its Hadoop Distributed File System (HDFS) splits files into large blocks (default 64MB or 128MB) and distributes the blocks amongst the nodes in the cluster. For processing the data, the Hadoop Map/Reduce ships code (specifically Jar files) to the nodes that have the required data, and the nodes then process the data in parallel. This approach leverages data locality, in contrast to conventional HPC architecture which usually relies on a parallel file system (compute and data separated, but connected with high-speed networking).</p>
+</blockquote>
+<p>Source: <a href="http://en.wikipedia.org/wiki/Apache_Hadoop">Wikipedia</a></p>
+<p>So, in summation - Hadoop is really an ecosystem of applications and utilities (despite the core map-reduce engine being titled 'hadoop'). To further confuse and complicate things there are several vendors creating Hadoop application stacks. </p>
+<ul>
+<li><strong>Apache</strong> - <a href="http://hadoop.apache.org/">Open Source Vanilla Hadoop</a></li>
+<li><strong>Cloudera</strong> - <a href="http://www.cloudera.com/content/cloudera/en/home.html">Cloudera Hadoop</a></li>
+<li><strong>Hortonworks</strong> - <a href="http://hortonworks.com">Hortonworks Hadoop</a></li>
+<li><strong>MapR</strong> - <a href="https://www.mapr.com/">MapR Hadoop</a></li>
+<li><strong>Pivotal</strong> - <a href="http://www.pivotal.io/big-data/pivotal-hd">Pivotal HD</a></li>
+</ul>
+<p>How do you know which one to pick? "Which one makes <strong>my</strong> job easier?" you might ask. At the end of the day each vendor mixes in their own patches and special flavor of management on top of the Vanilla Apache Hadoop. Some give the patches back, some keep them proprietary to their distribution. It's all about preference, which approach appeals to you, and how much time you want to spend getting started. For the sake of brevity, and attention - I'll pick a middle of the road candidate and take a look at just the major applications in the stack and give illustrations using the Hortonworks flavor.</p>
+<h2>Map Reduce Engines</h2>
+<h3>Hadoop</h3>
+<h4>The core component(s)</h4>
+<p><img alt="Dancing hadoop elephants" src="/content/images/2014/Nov/Hadoop_elephants.jpg" /></p>
+<p>The base Apache Hadoop framework (as of v2) is composed of the following modules:</p>
+<p><code>Hadoop Common</code> – contains libraries and utilities needed by other Hadoop modules.</p>
+<p><code>Hadoop Distributed File System (HDFS)</code> – a distributed file-system that stores data on commodity machines, providing very high aggregate bandwidth across the cluster.</p>
+<p><code>Hadoop YARN</code> – a resource-management platform responsible for managing compute resources in clusters and using them for scheduling of users' applications.</p>
+<p><code>Hadoop MapReduce</code> – a programming model for large scale data processing.</p>
+<h4>How to deploy Hadoop Core quickly with juju as a reference architecture</h4>
+<div class="highlight"><pre><span class="n">juju</span> <span class="n">quickstart</span> <span class="n">bundle</span><span class="o">:</span><span class="n">hdp</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">batch</span><span class="o">-</span><span class="n">processing</span>
+</pre></div>
+
+
+<p><img alt="Hadoop Core Bundle Depiction from Juju" src="/content/images/2014/Nov/Selection_171-1.png" /></p>
+<h3>Tez</h3>
+<h4>High Preformance Bach Processing Engine</h4>
+<p><img alt="" src="/content/images/2014/Nov/ApacheTezLogo_lowres.png" /></p>
+<p><code>Tez</code> generalizes the MapReduce paradigm to a more powerful framework based on expressing computations as a dataflow graph. Tez is not meant directly for end-users – in fact it enables developers to build end-user applications with much better performance and flexibility. Hadoop has traditionally been a batch-processing platform for large amounts of data. However, there are a lot of use cases for near-real-time performance of query processing. There are also several workloads, such as Machine Learning, which do not fit will into the MapReduce paradigm. Tez helps Hadoop address these use cases.</p>
+<h4>How to deploy Tez quickly with juju as a reference architecture</h4>
+<div class="highlight"><pre><span class="n">juju</span> <span class="n">quickstart</span> <span class="n">bundle</span><span class="o">:</span><span class="n">high</span><span class="o">-</span><span class="n">performance</span><span class="o">-</span><span class="n">batch</span><span class="o">-</span><span class="n">processing</span>
+</pre></div>
+
+
+<p><img alt="Tez Bundle Depiction from Juju" src="/content/images/2014/Nov/Selection_172.png" /></p>
+<h2>Distributed Stream Processing</h2>
+<h3>Storm</h3>
+<h4>Real Time Processing of Data Streams</h4>
+<p><img alt="" src="/content/images/2014/Nov/storm_logo1.png" /></p>
+<p>Storm is a distributed computation framework written predominantly in the Clojure programming language. It uses custom created "spouts" and "bolts" to define information sources and manipulations to allow batch, distributed processing of streaming data. </p>
+<p>A Storm application is designed as a topology in the shape of a <a href="http://en.wikipedia.org/wiki/Directed_acyclic_graph">directed acyclic graph (DAG)</a> with spouts and bolts acting as the graph vertices. Edges on the graph are named streams, and direct data from one node to another. Together, the topology acts as a data transformation pipeline. At a superficial level the general topology structure is similar to a MapReduce job, with the main difference being that data is processed in real-time as opposed to in individual batches. Additionally, Storm topologies run indefinitely until killed, while a MapReduce job DAG must eventually end.</p>
+<h4>How to deploy Storm quickly with juju as a reference architecture</h4>
+<div class="highlight"><pre><span class="n">juju</span> <span class="n">quickstart</span> <span class="n">bundle</span><span class="o">:</span><span class="n">realtime</span><span class="o">-</span><span class="n">analytics</span><span class="o">-</span><span class="n">with</span><span class="o">-</span><span class="n">storm</span>
+</pre></div>
+
+
+<p><img alt="Storm Bundle Depiction from Juju" src="/content/images/2014/Nov/Selection_170-1.png" /></p>
+<h2>Client Libraries and Supporting Applications for writing Map/Reduce</h2>
+<h3>Hive</h3>
+<h4>Write Map/Reduce applications with a variant of SQL</h4>
+<p><img alt="Hadoop Hive Logo" src="/content/images/2014/Nov/hive_logo.png" /></p>
+<p>Apache Hive is a data warehouse infrastructure built on top of Hadoop for providing data summarization, query, and analysis. Hive supports analysis of large datasets stored in Hadoop's HDFS and compatible file systems such as Amazon S3 filesystem. It provides an SQL-like language called HiveQL with schema on read and transparently converts queries to map/reduce, Apache Tez and in the future Spark jobs. All three execution engines can run in Hadoop YARN. To accelerate queries, it provides indexes, including bitmap indexes.</p>
+<h4>How to deploy Hive quickly with juju as a reference architecture</h4>
+<div class="highlight"><pre><span class="n">juju</span> <span class="n">quickstart</span> <span class="n">bundle</span><span class="o">:</span><span class="n">data</span><span class="o">-</span><span class="n">analytics</span><span class="o">-</span><span class="n">with</span><span class="o">-</span><span class="n">sql</span><span class="o">-</span><span class="n">like</span>
+</pre></div>
+
+
+<p><img alt="Hive Bundle Depiction from Juju" src="/content/images/2014/Nov/Selection_169-1.png" /></p>
+<h3>Pig</h3>
+<h4>The Rapid Latin Language of Big Data</h4>
+<p><img alt="Pig the rapid map reduce writer" src="/content/images/2014/Nov/pig-on-elephant.png" /></p>
+<p>Pig is a high-level platform for creating MapReduce programs used with Hadoop. The language for this platform is called Pig Latin.Pig Latin abstracts the programming from the Java MapReduce idiom into a notation which makes MapReduce programming high level, similar to that of SQL for RDBMS systems. Pig Latin can be extended using User Defined Functions which the user can write in Java, Python, JavaScript, Ruby or Groovy and then call directly from the language.</p>
+<h4>How to deploy Pig quickly with juju as a reference architecture</h4>
+<div class="highlight"><pre><span class="n">juju</span> <span class="n">quickstart</span> <span class="n">bundle</span><span class="o">:</span><span class="n">data</span><span class="o">-</span><span class="n">analytics</span><span class="o">-</span><span class="n">with</span><span class="o">-</span><span class="n">pig</span><span class="o">-</span><span class="n">latin</span>
+</pre></div>
+
+
+<p><img alt="Pig Bundle Depiction from Juju" src="/content/images/2014/Nov/Selection_168-2.png" /></p>
+<h3>Breaking down comprehension on Pig and Hive - and how they work in the ecosystem</h3>
+<p><img alt="Diagram of Pig vs Hive - credit: http://www.bigdatatrendz.com/2013/10/introduction-to-apache-hive-and-pig.html" src="/content/images/2014/Nov/PigVsHive.png" /></p>
+<p><code>Pig</code> and <code>Hive</code> both bundle client side application libraries, and deployed daemon components that bolt on additional functionality for the data scientist working with the data in HDFS or SQL tables. This allows a powerful combination for end-users to write map/reduce applications rapidly.</p>
+<p>While they are not stand-alone entities in the hadoop bundle, they do provide a lower barrier to entry for end-users looking to get into the ecosystem without learning all the intricacies of learning Map/Reduce programming with just the core Hadoop stack.</p>
+<p>Both of these applications communicate with the yarn-master to load a JIT compiled map/reduce application. <code>Hive</code> and <code>Pig</code> both have their own syntax, and translate the queries to a respective Map/Reduce jar that is then distributed to do the queries. </p>
+<p>With the core components broken down - we're ready to take a look at the new kid on the block in the next post in the series:  <strong>Spark for the layman</strong>. </p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Thu 06 November 2014</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/juju.html">juju</a>,      <a href="http://blog.dasroot.net/tag/planet.html">planet</a>,      <a href="http://blog.dasroot.net/tag/hadoop.html">hadoop</a>,      <a href="http://blog.dasroot.net/tag/big-data-2.html">big-data-2</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

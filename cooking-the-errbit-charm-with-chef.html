@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="juju, errbit, rails, app-deployment, juju-strano">
+
+  <title>
+    Chuck@Home
+&ndash; Cooking the Errbit charm with Chef  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/cooking-the-errbit-charm-with-chef.html">Cooking the Errbit charm with Chef</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>My good friend <a href="http://marcoceppi.com">Marco Ceppi</a> sent me a link to a github repository for Juju Chef Helpers : <a href="https://github.com/Altoros/juju-charm-chef">https://github.com/Altoros/juju-charm-chef</a></p>
+<p>I have to admit, I'm really happy this was here. I was brain bending around how I was going to try to integrate chef as my provisioner of choice. At first glance its a pure abstraction of the chef provisioner in charm hook format. Each aspect of the charm correlates to a chef cookbook and associated recipes. </p>
+<p><img alt="" src="/content/images/2013/Dec/interesting_call_tracking.jpeg" /></p>
+<h2>Translating the hooks</h2>
+<p>Changing installation from a Bash script to the current incantation in chef was a learning curve. I tried to keep myself away from consuming too many cookbooks since I wanted to display a reliance on being clever and understanding the application I was packaging and not demonstrating pure use of chef. This may change in the near future.</p>
+<h3>Install</h3>
+<div class="highlight"><pre><span class="cp">#include the apt cookbook for the LWRPS</span>
+<span class="n">include_recipe</span> <span class="s">&quot;apt&quot;</span>
+
+<span class="cp"># Add the 10gen repository for MongoDB</span>
+<span class="n">apt_repository</span> <span class="s">&quot;mongodb-10gen&quot;</span> <span class="k">do</span>
+  <span class="n">uri</span> <span class="s">&quot;http://downloads-distro.mongodb.org/repo/ubuntu-upstart&quot;</span>
+  <span class="n">distribution</span> <span class="s">&quot;dist&quot;</span>
+  <span class="n">components</span> <span class="p">[</span><span class="s">&quot;10gen&quot;</span><span class="p">]</span>
+  <span class="n">keyserver</span> <span class="s">&quot;keyserver.ubuntu.com&quot;</span>
+  <span class="n">key</span> <span class="s">&quot;7F0CEB10&quot;</span>
+<span class="n">end</span>
+</pre></div>
+
+
+<p>So far so good in straightforwardness. This is the prep work for the installation of MongoDB</p>
+<div class="highlight"><pre><span class="n">package</span> <span class="s">&quot;mongodb-10gen&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">install</span>
+  <span class="n">not_if</span> <span class="p">{</span> <span class="n">File</span><span class="p">.</span><span class="n">exist</span><span class="o">?</span><span class="p">(</span><span class="s">&quot;$CHARM_DIR/.mongodb&quot;</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">end</span>
+
+<span class="cp">#install dependencies</span>
+<span class="n">package</span> <span class="s">&quot;libxslt-dev&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">install</span>
+<span class="n">end</span>
+
+<span class="n">package</span> <span class="s">&quot;libxml2-dev&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">install</span>
+<span class="n">end</span>
+
+<span class="n">package</span> <span class="s">&quot;nginx&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">install</span>
+<span class="n">end</span>
+</pre></div>
+
+
+<p>Package installation  - notice the <code>not_if File.exist</code> statement above. We are checking for a sentinel that tells us if the mongodb relationship is present.</p>
+<div class="highlight"><pre><span class="n">user</span> <span class="s">&quot;errbit&quot;</span> <span class="k">do</span>
+  <span class="n">shell</span> <span class="s">&quot;/bin/bash&quot;</span>
+  <span class="n">home</span> <span class="s">&quot;/home/errbit&quot;</span>
+  <span class="n">system</span> <span class="nb">true</span>
+  <span class="n">supports</span> <span class="o">:</span><span class="n">manage_home</span> <span class="o">=&gt;</span> <span class="nb">true</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">create</span>
+  <span class="n">uid</span> <span class="mi">3000</span>
+<span class="n">end</span>
+
+<span class="n">git</span> <span class="s">&quot;/home/errbit/errbit&quot;</span> <span class="k">do</span>
+  <span class="n">repository</span> <span class="n">config_get</span><span class="p">[</span><span class="err">&#39;</span><span class="n">repository</span><span class="err">&#39;</span><span class="p">]</span>
+  <span class="n">reference</span> <span class="n">config_get</span><span class="p">[</span><span class="err">&#39;</span><span class="n">release</span><span class="err">&#39;</span><span class="p">]</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">sync</span>
+<span class="n">end</span>
+
+<span class="n">juju_port</span> <span class="mi">80</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">open</span>
+<span class="n">end</span>
+
+<span class="n">execute</span> <span class="s">&quot;chown -R errbit:errbit /home/errbit/errbit&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">run</span>
+<span class="n">end</span>
+</pre></div>
+
+
+<p>and finally setup the application user, clone the source code, and open port 80</p>
+<h3>Config-Changed</h3>
+<div class="highlight"><pre><span class="cp">#drop the templates</span>
+<span class="n">template</span> <span class="s">&quot;/home/errbit/errbit/config/config.yml&quot;</span> <span class="k">do</span>
+  <span class="n">owner</span> <span class="s">&quot;errbit&quot;</span>
+  <span class="n">group</span> <span class="s">&quot;errbit&quot;</span>
+  <span class="n">mode</span> <span class="s">&quot;0660&quot;</span>
+  <span class="n">source</span> <span class="s">&quot;config.yml.erb&quot;</span>
+  <span class="n">variables</span><span class="p">({</span>
+   <span class="nl">confirm_resolve:</span> <span class="n">config_get</span><span class="p">[</span><span class="err">&#39;</span><span class="n">confirm_resolve</span><span class="err">&#39;</span><span class="p">],</span>
+   <span class="nl">gravatar:</span> <span class="n">config_get</span><span class="p">[</span><span class="err">&#39;</span><span class="n">gravatar</span><span class="err">&#39;</span><span class="p">],</span>
+   <span class="nl">smtp_host:</span> <span class="n">config_get</span><span class="p">[</span><span class="err">&#39;</span><span class="n">smtp_host</span><span class="err">&#39;</span><span class="p">],</span>
+   <span class="nl">smtp_domain:</span> <span class="n">config_get</span><span class="p">[</span><span class="err">&#39;</span><span class="n">smtp_domain</span><span class="err">&#39;</span><span class="p">],</span>
+   <span class="nl">smtp_port:</span> <span class="n">config_get</span><span class="p">[</span><span class="err">&#39;</span><span class="n">smtp_port</span><span class="err">&#39;</span><span class="p">],</span>
+   <span class="nl">smtp_starttls_auto:</span> <span class="n">config_get</span><span class="p">[</span><span class="err">&#39;</span><span class="n">smtp_starttls_auto</span><span class="err">&#39;</span><span class="p">],</span>
+   <span class="nl">smtp_user:</span> <span class="n">config_get</span><span class="p">[</span><span class="err">&#39;</span><span class="n">smtp_user</span><span class="err">&#39;</span><span class="p">],</span>
+   <span class="nl">smtp_pass:</span> <span class="n">config_get</span><span class="p">[</span><span class="err">&#39;</span><span class="n">smtp_pass</span><span class="err">&#39;</span><span class="p">]</span>
+   <span class="p">})</span>
+<span class="n">end</span>
+
+  <span class="n">template</span> <span class="s">&quot;/home/errbit/errbit/config/mongoid.yml&quot;</span> <span class="k">do</span>
+    <span class="n">owner</span> <span class="s">&quot;errbit&quot;</span>
+    <span class="n">group</span> <span class="s">&quot;errbit&quot;</span>
+    <span class="n">mode</span> <span class="s">&quot;0660&quot;</span>
+    <span class="n">source</span> <span class="s">&quot;mongoid.yml.erb&quot;</span>
+    <span class="n">variables</span><span class="p">({</span> <span class="n">mongo_uri</span><span class="o">:</span> <span class="s">&quot;mongodb://localhost:27017/errbit&quot;</span> <span class="p">})</span>
+    <span class="n">not_if</span> <span class="p">{</span> <span class="n">File</span><span class="p">.</span><span class="n">exists</span><span class="o">?</span><span class="p">(</span><span class="s">&quot;$CHARM_DIR/.mongodb&quot;</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">end</span>
+
+<span class="cp">#delete existing upstart templates if they exist</span>
+<span class="n">template</span> <span class="s">&quot;/etc/init/errbit.conf&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">delete</span>
+<span class="n">end</span>
+
+<span class="n">template</span> <span class="s">&quot;/etc/init/errbit-web.conf&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">delete</span>
+<span class="n">end</span>
+
+<span class="cp">#setup upstart templates</span>
+<span class="n">template</span> <span class="s">&quot;/etc/init/errbit.conf&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">create</span>
+  <span class="n">owner</span> <span class="err">&#39;</span><span class="n">root</span><span class="err">&#39;</span>
+  <span class="n">group</span> <span class="err">&#39;</span><span class="n">root</span><span class="err">&#39;</span>
+  <span class="n">mode</span> <span class="err">&#39;</span><span class="mo">0644</span><span class="err">&#39;</span>
+  <span class="n">source</span> <span class="err">&#39;</span><span class="n">errbit</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">erb</span><span class="err">&#39;</span>
+<span class="n">end</span>
+
+<span class="n">template</span> <span class="s">&quot;/etc/init/errbit-web.conf&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">create</span>
+  <span class="n">owner</span> <span class="err">&#39;</span><span class="n">root</span><span class="err">&#39;</span>
+  <span class="n">group</span> <span class="err">&#39;</span><span class="n">root</span><span class="err">&#39;</span>
+  <span class="n">mode</span> <span class="err">&#39;</span><span class="mo">0644</span><span class="err">&#39;</span>
+  <span class="n">source</span> <span class="err">&#39;</span><span class="n">errbit</span><span class="o">-</span><span class="n">web</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">erb</span><span class="err">&#39;</span>
+<span class="n">end</span>
+
+
+<span class="n">template</span> <span class="s">&quot;/home/errbit/errbit/config/unicorn.rb&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">create</span>
+  <span class="n">owner</span> <span class="err">&#39;</span><span class="n">errbit</span><span class="err">&#39;</span>
+  <span class="n">group</span> <span class="err">&#39;</span><span class="n">errbit</span><span class="err">&#39;</span>
+  <span class="n">mode</span> <span class="mo">0644</span>
+  <span class="n">source</span> <span class="err">&#39;</span><span class="n">unicorn</span><span class="p">.</span><span class="n">rb</span><span class="p">.</span><span class="n">erb</span><span class="err">&#39;</span>
+  <span class="n">variables</span><span class="p">({</span>
+    <span class="nl">unicorn_workers:</span> <span class="n">config_get</span><span class="p">[</span><span class="err">&#39;</span><span class="n">unicorn_workers</span><span class="err">&#39;</span><span class="p">]</span>
+  <span class="p">})</span>
+<span class="n">end</span>
+
+
+<span class="cp">#setup the NGINX configuration</span>
+<span class="n">template</span> <span class="s">&quot;/etc/nginx/sites-available/errbit&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">create</span>
+  <span class="n">owner</span> <span class="err">&#39;</span><span class="n">root</span><span class="err">&#39;</span>
+  <span class="n">group</span> <span class="err">&#39;</span><span class="n">root</span><span class="err">&#39;</span>
+  <span class="n">mode</span> <span class="mo">0644</span>
+  <span class="n">source</span> <span class="err">&#39;</span><span class="n">errbit</span><span class="o">-</span><span class="n">nginx</span><span class="p">.</span><span class="n">erb</span><span class="err">&#39;</span>
+  <span class="n">variables</span><span class="p">({</span>
+    <span class="nl">hostname:</span> <span class="n">config_get</span><span class="p">[</span><span class="err">&#39;</span><span class="n">hostname</span><span class="err">&#39;</span><span class="p">]</span>
+  <span class="p">})</span>
+<span class="n">end</span>
+
+<span class="n">link</span> <span class="s">&quot;/etc/nginx/sites-enabled/errbit&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">create</span>
+  <span class="n">to</span> <span class="s">&quot;/etc/nginx/sites-available/errbit&quot;</span>
+<span class="n">end</span>
+
+<span class="cp">#TODO: document that we remove the default nginx vhost</span>
+<span class="n">link</span> <span class="s">&quot;/etc/nginx/sites-enabled/default&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">delete</span>
+<span class="n">end</span>
+</pre></div>
+
+
+<p>config-changed starts out populating a majority of the templates we need in order to run in our juju environment. Sets up the database connection template, the nginx config, unicorn config, all the stuff we normally leave to capistrano </p>
+<div class="highlight"><pre><span class="cp">#Prep the post-deployment script to circumvent chef&#39;s personality conflicts</span>
+<span class="n">template</span> <span class="s">&quot;/tmp/bundler.sh&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">create</span>
+  <span class="n">owner</span> <span class="err">&#39;</span><span class="n">errbit</span><span class="err">&#39;</span>
+  <span class="n">group</span> <span class="err">&#39;</span><span class="n">errbit</span><span class="err">&#39;</span>
+  <span class="n">mode</span> <span class="mo">0777</span>
+  <span class="n">source</span> <span class="err">&#39;</span><span class="n">bundler</span><span class="p">.</span><span class="n">sh</span><span class="p">.</span><span class="n">erb</span><span class="err">&#39;</span>
+<span class="n">end</span>
+</pre></div>
+
+
+<p>This is where I had difficulty. I didn't know how to complete the deployment in chef. So I cheated and built a shell script to handle calling all the rake tasks we want to be executed as wrap up of the deployment.</p>
+<p><em>NOTE</em> : I also ran into an odd issue - when running bundle install from the execute resource within chef, it always ran in the $CHARM_DIR re-packing the chef-solo Gemfile.lock in deployment mode. This warrants further investigation </p>
+<p>Ok cool, we're setup with errbit. Chef has taken care of most of the heavy lifting. </p>
+<p>If you want to see the templates, you can view them from the <a href="https://github.com/chuckbutler/errbit-charm-chef">github repository</a></p>
+<h3>Relationship Hook Sequence</h3>
+<p>Relationship hooks are processed anytime a relationship joins, parts, or changes configuration. This is where you can make real magic happen. For example the wordpress charm speaks from the Wordpress unit to the connecting MySQL database unit to provision a user, generate a password, and hand that data back across the wire to populate wordpresses configuration files.</p>
+<p>In order to fully consume this, you have to know which hooks are called during the <code>juju add-relation</code> phase, and the <code>juju remove-relation</code> phase. </p>
+<h3>juju add-relation</h3>
+<h4>mongodb-relation-joined</h4>
+<p>as the MongoDB unit and the Errbit unit have a relationship added, we need to dump the MongoDB Database in /mnt to take advantage of cloud storage. </p>
+<div class="highlight"><pre><span class="cp">#cleanup any stale dumps residing in ephemeral storage</span>
+<span class="n">directory</span> <span class="s">&quot;mnt/mongo-data&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">delete</span>
+<span class="n">end</span>
+
+<span class="n">directory</span> <span class="s">&quot;/mnt/mongo-data&quot;</span> <span class="k">do</span>
+  <span class="n">action</span> <span class="o">:</span><span class="n">create</span>
+<span class="n">end</span>
+
+<span class="n">execute</span> <span class="s">&quot;mongodump&quot;</span> <span class="k">do</span>
+  <span class="n">command</span> <span class="s">&quot;mongodump -h localhost -d errbit -o /mnt/mongo-data&quot;</span>
+<span class="n">end</span>
+</pre></div>
+
+
+<h4>mongodb-relation-changed</h4>
+<p>The relation-changed hook will be run everytime the remote system receives a configuration change, and is also the last hook executed during the <code>juju relation-add</code> phase of hook execution.</p>
+<p>My first challenge was figuring out how I was going to fetch the relationship information from MongoDB. Since Mongodb by default doesn't require db user accounts, its a safe assumption to just use the host credentials in the MongoDB URI</p>
+<p>All of the information required to build the relationship is defined by the interface of the connecting MongoDB unit. This information is provided to us by the Juju Helpers cookbook through <code>relation_get</code></p>
+<div class="highlight"><pre><span class="o">=&gt;</span> <span class="p">{</span><span class="s2">&quot;hostname&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;10.0.3.233&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;port&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;27017&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;private-address&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;10.0.3.233&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;replset&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;myset&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;type&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;database&quot;</span><span class="p">}</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="n">require</span> <span class="err">&#39;</span><span class="n">securerandom</span><span class="err">&#39;</span>
+
+<span class="n">mongodb</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nl">host:</span> <span class="n">relation_get</span><span class="p">[</span><span class="err">&#39;</span><span class="n">hostname</span><span class="err">&#39;</span><span class="p">],</span>
+    <span class="nl">port:</span> <span class="n">relation_get</span><span class="p">[</span><span class="err">&#39;</span><span class="n">port</span><span class="err">&#39;</span><span class="p">],</span>
+    <span class="nl">database:</span> <span class="err">&#39;</span><span class="n">errbit</span><span class="err">&#39;</span> 
+    <span class="p">}</span>
+
+<span class="cp"># This failout condition will do nothing</span>
+<span class="cp"># if we cannot find the relationship details.</span>
+
+<span class="k">if</span> <span class="p">[</span><span class="o">:</span><span class="n">host</span><span class="p">,</span> <span class="o">:</span><span class="n">port</span><span class="p">].</span><span class="n">any</span><span class="o">?</span> <span class="p">{</span> <span class="o">|</span><span class="n">attr</span><span class="o">|</span> <span class="n">mongodb</span><span class="p">[</span><span class="n">attr</span><span class="p">].</span><span class="n">nil</span><span class="o">?</span> <span class="o">||</span> <span class="n">mongodb</span><span class="p">[</span><span class="n">attr</span><span class="p">].</span><span class="n">empty</span><span class="o">?</span> <span class="p">}</span>
+  <span class="n">juju</span><span class="o">-</span><span class="n">log</span><span class="p">(</span><span class="s">&quot;Waiting for all attributes to be set&quot;</span><span class="p">)</span>
+<span class="k">else</span>
+
+  <span class="n">template</span> <span class="s">&quot;/home/errbit/errbit/config/mongoid.yml&quot;</span> <span class="k">do</span>
+    <span class="n">variables</span><span class="p">({</span>
+      <span class="nl">mongo_uri:</span> <span class="s">&quot;mongodb://#{mongodb[:host]}:#{mongodb[:port]}/#{mongodb[:database]}&quot;</span><span class="p">,</span>
+    <span class="p">})</span>
+    <span class="n">user</span> <span class="err">&#39;</span><span class="n">errbit</span><span class="err">&#39;</span>
+    <span class="n">group</span> <span class="err">&#39;</span><span class="n">errbit</span><span class="err">&#39;</span>
+    <span class="n">mode</span> <span class="err">&#39;</span><span class="mo">0644</span><span class="err">&#39;</span>
+    <span class="n">source</span> <span class="s">&quot;mongoid.yml.erb&quot;</span>
+    <span class="n">cookbook</span> <span class="s">&quot;errbit&quot;</span>
+    <span class="n">action</span> <span class="o">:</span><span class="n">create</span>
+  <span class="n">end</span>
+
+  <span class="err">#</span><span class="n">deploy</span> <span class="n">the</span> <span class="n">backup</span> <span class="n">data</span>
+  <span class="n">execute</span> <span class="s">&quot;mongorestore&quot;</span> <span class="k">do</span>
+    <span class="n">command</span> <span class="s">&quot;mongorestore -h #{relation_get[&#39;hostname&#39;]} -d errbit /mnt/mongo-data/errbit/&quot;</span>
+  <span class="n">end</span>
+
+  <span class="n">service</span> <span class="err">&#39;</span><span class="n">errbit</span><span class="err">&#39;</span> <span class="k">do</span>
+    <span class="n">ignore_failure</span> <span class="nb">true</span>
+    <span class="n">provider</span> <span class="n">Chef</span><span class="o">::</span><span class="n">Provider</span><span class="o">::</span><span class="n">Service</span><span class="o">::</span><span class="n">Upstart</span>
+    <span class="n">action</span> <span class="o">:</span><span class="n">restart</span>
+  <span class="n">end</span>
+
+  <span class="n">package</span> <span class="s">&quot;mongodb-10gen&quot;</span> <span class="k">do</span>
+    <span class="n">action</span> <span class="o">:</span><span class="n">purge</span>
+  <span class="n">end</span>
+
+  <span class="n">execute</span> <span class="s">&quot;touch $CHARM_DIR/.mongodb&quot;</span> <span class="k">do</span>
+    <span class="n">action</span> <span class="o">:</span><span class="n">nothing</span>
+  <span class="n">end</span>
+
+<span class="n">end</span>
+</pre></div>
+
+
+<p>Great, with this portion completed, we now have our charm deploying the application, and migrating data from the local database if any was accrued, and pushed that to the remote MongoDB provider. </p>
+<!--
+
+#### Links about Backup/Restore on MongoDB
+
+- [Slide Share from 10gen](http://www.slideshare.net/mongodb/mongo-boston2012backuprestore) 
+
+-->
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Sat 14 December 2013</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/juju.html">juju</a>,      <a href="http://blog.dasroot.net/tag/errbit.html">errbit</a>,      <a href="http://blog.dasroot.net/tag/rails.html">rails</a>,      <a href="http://blog.dasroot.net/tag/app-deployment.html">app-deployment</a>,      <a href="http://blog.dasroot.net/tag/juju-strano.html">juju-strano</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

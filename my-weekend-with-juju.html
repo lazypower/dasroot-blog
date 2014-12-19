@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="juju, weekend-hacks">
+
+  <title>
+    Chuck@Home
+&ndash; My Weekend with JuJu  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/my-weekend-with-juju.html">My Weekend with JuJu</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p><center><img alt="Ubuntu Juju" src="http://design.canonical.com/wp-content/uploads/2011/10/juju-464x252.png" /></center></p>
+<p>This Thanksgiving weekend I'm experimenting with Juju. I fell in love with the web based configurator with all its relation dragging goodness. Its awesome to know that the recipe's building the services underneath have been audited by a very dedicated community to ensuring I'm running worry free with the most up-to-date standards in installing this particular application stack.</p>
+<p>For those of you that dont know Juju is Canonical's cloud orchestration framework. It sits a layer above any particular provisioner (meaning you can consume chef-solo, puppet, bash scripts, docker, or salt to name a few) to build scalable application stacks.</p>
+<p>The side of Juju that really 'clicks' with me is the flexibility to use whatever language you're most comfortable with. If you've got a ton of experience in spinning up your application servers with Bash, you can keep doing what you're doing. Re-tool the script to run within Juju's hook system and you're ready to start hacking around.</p>
+<p>Before this turns into an elevator pitch, I'm going to assume you're interested and want to get started. Head on over to the <a href="https://juju.ubuntu.com/docs/getting-started.html">Official Juju Installation Instructions</a> and spin up your local development environment powered by LXC containers (use the local provider).  </p>
+<h4>TLDR; Install Ubuntu 13.10</h4>
+<h2>Step 1</h2>
+<h3>Install juju, and setup for Local Deployment</h3>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">juju</span><span class="o">/</span><span class="n">stable</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span> <span class="o">&amp;&amp;</span> <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">juju</span><span class="o">-</span><span class="n">core</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">juju</span><span class="o">-</span><span class="n">local</span>
+
+
+<span class="n">juju</span> <span class="n">generate</span><span class="o">-</span><span class="n">config</span>
+<span class="n">juju</span> <span class="k">switch</span> <span class="n">local</span>
+<span class="n">sudo</span> <span class="n">juju</span> <span class="n">bootstrap</span>
+</pre></div>
+
+
+<p>To understand what just happened - see <a href="https://juju.ubuntu.com/docs/config-local.html">LXC provider Juju documentation</a></p>
+<h2>Step 2</h2>
+<h3>The spiffy Gui</h3>
+<div class="highlight"><pre><span class="n">juju</span> <span class="n">deploy</span> <span class="n">juju</span><span class="o">-</span><span class="n">gui</span>
+</pre></div>
+
+
+<p>This will deploy the Graphical configuration tool for Juju, allowing you to "shop" for applications within the Charm Store. You can deploy any of the offerings to the Local Provider from this Gui with Drag and Drop simplicity. </p>
+<p><img alt="" src="/content/images/2013/Nov/Screenshot_2013_11_30_13_20_44.png" /></p>
+<p>While the GUI is not a requirement for using Juju, I like the visibility it provides into the stack's I'm creating. I've come to lean on using the GUI and the watch command with juju status.</p>
+<h2>Step 3</h2>
+<h3>Don't forget the tools!</h3>
+<p>You'll also want to grab a copy of the latest charm tools for assiting in charm authoring. </p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">charm</span><span class="o">-</span><span class="n">tools</span>
+</pre></div>
+
+
+<h3>Information Radiator</h3>
+<p>Pairing the watch command with juju status will continually monitor the information that juju status spits back to STDOUT - this effectively turns your console into an information radiator of whats going on within your Juju environment. </p>
+<div class="highlight"><pre><span class="n">watch</span> <span class="n">juju</span> <span class="n">status</span>
+</pre></div>
+
+
+<p><img alt="" src="/content/images/2013/Nov/Screenshot_2013_11_30_17_46_58.png" /></p>
+<h4>*observation</h4>
+<p>So far I see a 100% improvement in documentation coming from my experience with Juju in 2011. The documentation has covered everything we needed to get started: </p>
+<ul>
+<li>Adding the Juju PPA</li>
+<li>Installation of charm-tools from the official repository</li>
+<li>Deploying the GUI.</li>
+</ul>
+<h3>Picking a Charm</h3>
+<p>Juju has a ton of requests for charms already. This is a great place for new charmers to get started in their quest to join the Juju ecosystem. </p>
+<h4><a href="https://bugs.launchpad.net/charms/+bugs?field.searchtext=&amp;orderby=-importance&amp;field.status%3Alist=NEW&amp;field.status%3Alist=CONFIRMED&amp;field.status%3Alist=TRIAGED&amp;field.status%3Alist=INCOMPLETE_WITH_RESPONSE&amp;field.status%3Alist=INCOMPLETE_WITHOUT_RESPONSE&amp;assignee_option=any&amp;field.assignee=&amp;field.bug_reporter=&amp;field.bug_commenter=&amp;field.subscriber=&amp;field.structural_subscriber=&amp;field.component-empty-marker=1&amp;field.tag=&amp;field.tags_combinator=ANY&amp;field.status_upstream-empty-marker=1&amp;field.has_cve.used=&amp;field.omit_dupes.used=&amp;field.omit_dupes=on&amp;field.affects_me.used=&amp;field.has_no_package.used=&amp;field.has_patch.used=&amp;field.has_branches.used=&amp;field.has_branches=on&amp;field.has_no_branches.used=&amp;field.has_no_branches=on&amp;field.has_blueprints.used=&amp;field.has_blueprints=on&amp;field.has_no_blueprints.used=&amp;field.has_no_blueprints=on&amp;search=Search">Open Charm Queue</a></h4>
+<p>If you notice an open request for a charm, assign it to yourself and prepare to get your hands dirty. For the purpose of this tutorial I chose the charm <a href="https://bugs.launchpad.net/charms/+bug/1023665">Papertrail</a></p>
+<p>Looking over the charm, it makes perfect sense to integrate this as a Subordinate Charm. As a little background, papertrailapp is a hosted log management service. They utilize rsyslog style log routing, and aggregate logs for major players like GitHub, AirBrake, and more. Its easy to setup, provides awesome retention and a powerful searchable dashboard across all of your tracked logs. </p>
+<h4>An aside on subordinates</h4>
+<p>The following excerpt from the <a href="https://juju.ubuntu.com/docs/authors-subordinate-services.html">Juju documentation</a> explains this nicely:</p>
+<blockquote>
+<p>Services are composed of one or more service units. A service unit runs the service's software and is the smallest entity managed by juju. Service units are typically run in an isolated container on a machine with no knowledge or access to other services deployed onto the same machine. Subordinate services allows for units of different services to be deployed into the same container and to have knowledge of each other.</p>
+</blockquote>
+<p>What this means to you: You don't have to provision another server to run this charm. It "bolts" on to an existing container, providing the functionality of the charm within that running container.</p>
+<p><a href="/writing-the-papertrail-charm/">Read part 2 &gt;&gt; </a></p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Sat 30 November 2013</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/juju.html">juju</a>,      <a href="http://blog.dasroot.net/tag/weekend-hacks.html">weekend-hacks</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

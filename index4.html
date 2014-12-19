@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+
+  <title>
+    Chuck@Home
+  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/fail2ban-blacklisting.html">Fail2Ban Blacklisting</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>Fail2Ban is a great daemon that monitors log files and bans offending IP when under a brute force attack.</p>
+<blockquote>
+<p>This information is woefully out of date. You should probably be referencing a better tutorial such as the tutorial provided by <a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-fail2ban-on-ubuntu-14-04">Digital Ocean</a></p>
+</blockquote>
+<p>Let’s say that you don’t want ...</p>
+  </div>
+</article>
+<hr />
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/writing-the-papertrail-charm.html">Writing the papertrail charm</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>This is a continuation of <a href="/my-weekend-with-juju">My Weekend with Juju</a>.</p>
+<p>To get started, we need to invoke a helper provided by <em>charm-tools</em> to build our charm skeleton.</p>
+<div class="highlight"><pre><span class="n">juju</span> <span class="n">charm</span> <span class="n">create</span> <span class="n">papertrail</span>
+</pre></div>
+
+
+<p>This will create the following directory structure:</p>
+<ul>
+<li>charms</li>
+<li>precise<ul>
+<li>papertrail</li>
+<li>config.yaml</li>
+<li>metadata.yaml</li>
+<li>README.ex</li>
+<li>hooks<ul>
+<li>config-changed</li>
+<li>install</li>
+<li>relation-name-relation-broken ...</li></ul></li></ul></li></ul>
+  </div>
+</article>
+<hr />
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/my-weekend-with-juju.html">My Weekend with JuJu</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p><center><img alt="Ubuntu Juju" src="http://design.canonical.com/wp-content/uploads/2011/10/juju-464x252.png" /></center></p>
+<p>This Thanksgiving weekend I'm experimenting with Juju. I fell in love with the web based configurator with all its relation dragging goodness. Its awesome to know that the recipe's building the services underneath have been audited by a very dedicated community to ensuring I'm running worry free ...</p>
+  </div>
+</article>
+<hr />
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/missing-stuff.html">Missing Stuff!</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>I recently ported my octopress blog to Ghost. Please pardon the dust while I track down the assets - I haven't run this blog in quite a while. Its about time I kicked the tires and shook out the cobwebs.</p>
+  </div>
+</article>
+<hr />
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/developer-tips-from-grandmas-boy.html">Developer tips from Grandmas Boy</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>I'm going to make the assumption you've seen Grandmas Boy. If you haven't, here's the trailer.</p>
+<iframe width="560" height="315" src="http://www.youtube.com/embed/rQ9y4ro4Aw4" frameborder="0" allowfullscreen></iframe>
+
+<p>This movie is surprisingly packed with subtext about development, at least in my code centric mind. Without further adeu, I present to you - the things I learned about Software Development ...</p>
+  </div>
+</article>
+<hr />
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/flirting-with-disaster.html">Flirting with disaster</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>It's no secret that I'm having an affiar on .Net -- The problem is, I think I've fallen in love with Ruby. To the point that I want to abscond with ruby and never look back at all the tools I've used over the last 10 years ...</p>
+  </div>
+</article>
+<hr />
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/reflection.html">An overdue reflection</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>This year has been absolutely crazy. Never in my wildest dreams did I think I would come as far as I have. </p>
+<p>I've always been a hobbyist engineer in the sense that I love hacking on unix systems, and tinkering with application code here and there for random web ...</p>
+  </div>
+</article>
+<hr />
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/steel-city-ruby-conference.html">Steel City Ruby Conference</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p><a href="http://www.steelcityrubyconference.org"><img alt="Steel City Ruby Conference" src="/images/scrc-logo.png" /></a></p>
+<p>I had the pleasure of attending the first ever Steel City Ruby Conference. The focus and underlying theme was "Perfect for your first conference" -- and they did not fail to deliver. The talks were given in 45 minute blocks with 20 minute breaks. All the first time attendees were challenged ...</p>
+  </div>
+</article>
+
+<footer>
+<div id="paginator">
+<a href="http://blog.dasroot.net/index5.html" class="button_accent">&larr; Older Posts</a>
+
+<a href="http://blog.dasroot.net/index3.html" class="button_accent">Newer Posts &rarr;</a>
+</div>
+</footer>
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

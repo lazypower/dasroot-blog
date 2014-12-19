@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="juju, charming, python, ubuntu">
+
+  <title>
+    Chuck@Home
+&ndash; 5 Tips for 'Pure Python' Juju Charms  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/charming-tips-for-pure-python.html">5 Tips for 'Pure Python' Juju Charms</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p><img alt="" src="/content/images/2014/May/charming_in_pure_python.png" /></p>
+<p><em>Special thanks to Tim for use of his comic above</em></p>
+<p>When I'm prototyping charms, I tend to reach for the quickest tool to accomplish the task. Which is Bash. Unfortunately - Bash charms get unwiedly quick and are typically full of hacks to complete a given task where a touring complete programming language would lend itself really well. 'Why not use Chef, or Ansible, or one of the other framework's you've already blogged about?" you say. Simple, because <strong>Juju gives you options</strong>. And I'd like to present most of those to anyone looking to get started. </p>
+<blockquote>
+<p>Again, sorry about the theme bug. If you don't see the Gists below, just refresh and they will show up.</p>
+</blockquote>
+<h3>Tip 1: Use Charm Helpers</h3>
+<p>Charm Helpers is a community contributed and maintained library to assist in writing charms rapidly. All community contributions are gated through Code Review and show up in the Juju Review Queue like any other charm merge proposal.</p>
+<p><img alt="" src="/content/images/2014/May/charm_helpers_mp.png" /></p>
+<blockquote>
+<p>To get started quickly using Charm Helpers, skip to Tip 3 and use make sync-charmhelpers in tandem with a charm-helpers.yaml</p>
+</blockquote>
+<div class="highlight"><pre><span class="n">branch</span><span class="o">:</span> <span class="n">lp</span><span class="o">:</span><span class="n">charm</span><span class="o">-</span><span class="n">helpers</span>
+<span class="n">destination</span><span class="o">:</span> <span class="n">lib</span><span class="o">/</span><span class="n">charmhelpers</span>
+<span class="k">include</span><span class="o">:</span>
+    <span class="o">-</span> <span class="n">core</span>
+    <span class="o">-</span> <span class="n">fetch</span>
+    <span class="o">-</span> <span class="n">contrib</span><span class="o">/</span><span class="n">network</span>
+</pre></div>
+
+
+<h4>Charm Helpers exposes common tasks such as:</h4>
+<ul>
+<li>Installing apt packages</li>
+<li>Determining the networking devices on the machine</li>
+<li>Using hook context within your python code</li>
+<li>Fetching configuration variables from the juju environment</li>
+</ul>
+<h4>Example Snippet of a Charm Helpers enabled source file</h4>
+<script src="https://gist.github.com/chuckbutler/9ad5d92250f05481e008.js"></script>
+
+<h3>Tip 2: Unit Test Your Hook Code</h3>
+<p>Unit testing is a fundamental dicipline to ensure your code is doing what you expect it to do. There's a huge movement within the charming community to start testing charms, and lowering charm ratings for those contributions without tests. Simply stated, if we can verify your charm behaves in CI, you get bonus points for the effort and ease of management for the charmers.</p>
+<p>You can accomplish this with typical python-unittest and python-mock libraries.</p>
+<blockquote>
+<p>If you're new to testing, I would start with the <a href="https://docs.python.org/2/library/unittest.html">unittest docs</a></p>
+</blockquote>
+<h4>An example test of the common code above:</h4>
+<script src="https://gist.github.com/chuckbutler/40bd33844f9a614b2d05.js"></script>
+
+<h3>Tip 3: Use A Makefile</h3>
+<p>Makefiles are excellent for 'gluing together' a project's components and creating 'build recipes' for different tasks. I've compiled a few Makefile lines that I find myself reusing over and over.</p>
+<script src="https://gist.github.com/chuckbutler/04daa904e603215ff9e9.js"></script>
+
+<h3>Tip 4: Write Amulet Tests</h3>
+<p><strong><a href="http://github.com/marcoceppi/amulet">github.com/marcoceppi/amulet</a></strong></p>
+<p>Chances are your service isn't stand-alone and integrates with other services. Such as Wordpress has a dependency on MySQL. Amulet gives charm authors a way to test their deployment topology by validating data sent over the wire, and probing deployed systems. The Amulet README does a better job of explaining it, so I'll kindly point you in that direction.</p>
+<h3>Tip 5: Resist All Temptation To Symlink Every Hook Against A Single .py File</h3>
+<p>Windows support is coming. If you want to avoid the headache (and by proxy save us headaches) during this porting effort as it emerges, <strong>do not symlink every hook against a single .py file</strong>. Windows does not support symlinks. This is not portable.</p>
+<p>And as a minor point to the above, it's good practice to write OS independent code. (for example, when defining paths, use os.path.join() instead of hard-coding '/var/log/example.log') This will go miles in saved headache when tracking down issues during the porting process.</p>
+<h4>With these five ninja tips in mind you'll be hacking up a storm on your shiney new Python based Juju Charm in no time!</h4>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Fri 23 May 2014</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/juju.html">juju</a>,      <a href="http://blog.dasroot.net/tag/charming.html">charming</a>,      <a href="http://blog.dasroot.net/tag/python.html">python</a>,      <a href="http://blog.dasroot.net/tag/ubuntu.html">ubuntu</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="juju, planet, radio, music, automation, experiment">
+
+  <title>
+    Chuck@Home
+&ndash; Juju Powered Radio! A protoduction experiment.  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/juju-powered-radio.html">Juju Powered Radio! A protoduction experiment.</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>September 26'th I undertook a rather daunting task of trialing something I strongly believe in that really took me out of my comfort zone and put me front and center of an audience's attention, for not only my talents, but also the technical implementation of their experience.</p>
+<h3>The back story</h3>
+<p>I've been amateur <a href="http://mixcloud.com/rahlgenesis/">DJ</a>'ing on Secondlife for about the last 7 months, and recently left the metaverse to pursue a podcast format of my show(s).  What I found was I really missed the live interaction with people during the recording of the set. It was great to get feedback, audience participation, and I could really gauge the flow of energy that I'm broadcasting. To some this may sound strange, but when your primary interaction is over text, and you see a feed erupt with actions as you put on more high energy music, it just 'clicks' and makes sense. </p>
+<p><img alt="" src="/content/images/2014/Sep/secondlife_dj.png" /></p>
+<p>The second aspect to this was I wanted to showcase how you can get moving with <strong>Juju in less than a week</strong> to bring a <strong>production ready</strong> app online and <strong>ready for scale</strong> (depending on the complexity of the app of course). It's been a short while since I've pushed a charm from scratch into the charm store - and this will definately get me re-acquiainted with the process our new users go through on their Juju journey.</p>
+<p>So, I've got a habit of mixing my passions in life. If you know me very well you know that I am deeply passionate about what I'm working on, my hobbies, and the people that I surround myself with that i consider my support network. How can I leverage this to showcase and run a 'Juju lab' study?</p>
+<h3>The Shoutcast charm is born</h3>
+<p>I spent a sleepless night hacking away at a <a href="https://code.launchpad.net/~lazypower/charms/trusty/shoutcast/trunk">charm</a> for a <a href="http://www.shoutcast.com/BroadcastNow">SHOUTCast DNAS server</a>. They offer several PAAS, scaling solutions that might work for people that are making money off of their hobby - but I myself prefer to remain an enthusiast and not turn a profit from my hobby. <a href="http://juju.ubuntu.com">Juju</a> is a perfect fit for deploying pretty much anything, and making sure that all the components work together in a distributed service environment. It's getting better every day - proof of this is the <a href="http://jujucharms.com">Juju GUI</a> just announced <a href="https://insights.ubuntu.com/2014/09/26/juju-machine-view-more-control-at-your-fingertips/">machine view</a> - where you can easily do co-location of services on the same server, and get a deep dive look at how your deployment is comprised of machines vs services.</p>
+<h3>Observations &amp; Lessons</h3>
+<h4>Testing what you expect, never yields the unexpected</h4>
+<p>Some definate changes to just the <code>shoutcast charm</code> itself are in order. </p>
+<ul>
+<li>Change the default stream MIME from AAC to MP3 so its cross compat on <em>every</em> os without installing quicktime.</li>
+<li>Test EVERY os before you jam out to production - which may seem like a rookie mistake. I tested on Mac OSX and Ubuntu Linux (default configuration for 14.04) and everything was in order. Windows users however, that are not savvy with tech that stems from back in the 90's were left out in the cold and prompted to install Quicktime when they connected.  This is <em>not</em> ideal. </li>
+<li>the 'automatic' failover that I touted in the readme is dependent on the client consuming the playlist. If the client doesn't support multiple streams in the playlist, its not really automatic forwarding load balancing, but polling failure cases with resources.</li>
+</ul>
+<h4>Machine Metrics tell most of the story</h4>
+<p>I deployed this setup on Digital Ocean to run my 'lab test' - as the machines are cheap, performant, and you get 1TB of transfer unmetered before you have to jump up a pricing teir. This is a great mixture for testing the setup. But how well did the VPS perform?</p>
+<p>I consumed 2 of the 'tiny' VPS servers for this. And the metrics of the transcoders were light enough that it barely touched the CPU. As a matter of fact I saw more activity out of supporting infra services such as LogStash, than I did out of the SHOUTCast charm. Excellent work on the implementation Shoutcast devs. This was a pleasant surprise!</p>
+<p><img alt="" src="/content/images/2014/Sep/ubuntu-do-prod-41c692c182e243318ebec209c576aff7---_116.png" />
+<img alt="" src="/content/images/2014/Sep/ubuntu-do-prod-22998e4b90d24ca682ce3892368139b1---_117.png" /></p>
+<h4>Pre-scaling was the winner</h4>
+<p>Having a relay setup out of the gate really helped to mitigate issues as I saw people get temporary hiccups in their network. I saw several go from the primary stream to the relay and finish out the duration of the broadcast connected there.</p>
+<p>The fact that the clients supported this, tells me that any time I do this live, I need to have at bare minimum 2 hosts online transmitting the broadcast.</p>
+<p>Had this been a single host - every blip in the network would yield dead airspace before they realized something had gone wrong.</p>
+<p><img alt="Juju Scaled Shoutcast Service" src="/content/images/2014/Sep/Juju-Admin---Google-Chrome_127.png" /></p>
+<h4>Supportive people are amazing, and make what you do, worthwhile</h4>
+<p><a href="https://plus.google.com/events/c00j89u3ipec61gmrlq11916fg8">Those that tuned in</a> genuinely enjoyed that I had the foresight to pre-record segments of the show to interact with them. This was more so I could investigate the server(s), watch htop metrics, refresh shoutcast, etc. However the fan interaction was genuinely empowering. I found myself wanting to turn around and see what was said next during the live-mixing segments.</p>
+<h3>The Future for Radio Bundle Development</h3>
+<h4>Putting the auto in automation</h4>
+<p>I've found a GREAT service that I want to consume and deploy to handle the station automation side of this deployment. <a href="http://sourcefabric.org">SourceFabric</a> produces <a href="http://sourcefabric.org/airtime">Airtime</a> which makes setting up Radio Automation very simple, and supports such advanced configurations as mixing in Live DJ's into your lineup on a schedule. How awesome is this? It's open-source to boot!</p>
+<p>I'm also well on my way to having revision 1 of this bundle completed, since I started the blog post on Friday. Hacked on the bundle through the weekend, and landed here on Monday.</p>
+<p><img alt="" src="/content/images/2014/Sep/Workspace-1_126.png" /></p>
+<p>I'll be talking more about this after it's officially unveiled in Brussels. </p>
+<h2>Where to find the 'goods'</h2>
+<p>The Shoutcast Juju Charm can be found on Launchpad: <a href="https://code.launchpad.net/~lazypower/charms/trusty/shoutcast/trunk">lp:~lazypower/charms/trusty/shoutcast/trunk</a> or <a href="https://github.com/chuckbutler/shoutcast-charm"> github</a></p>
+<p>The up-coming Airtime Radio Automation Charm can be found <a href="https://github.com/chuckbutler/airtime-charm">on github</a></p>
+<blockquote>
+<p>Actual metrics and charts to be uploaded at a later date, once I've sussed out how I want to parse these and present them. </p>
+</blockquote>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Fri 26 September 2014</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/juju.html">juju</a>,      <a href="http://blog.dasroot.net/tag/planet.html">planet</a>,      <a href="http://blog.dasroot.net/tag/radio.html">radio</a>,      <a href="http://blog.dasroot.net/tag/music.html">music</a>,      <a href="http://blog.dasroot.net/tag/automation.html">automation</a>,      <a href="http://blog.dasroot.net/tag/experiment.html">experiment</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="untagged">
+
+  <title>
+    Chuck@Home
+&ndash; Juju DNS As A Service  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/dns-as-a-service-lessons-learned.html">Juju DNS As A Service</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>I had the opportunity to plan and hack on a charm over the last few weeks that provided DNS as a service to supporting charms. (which subsequently has come between myself and the revamping of the <a href="/adopt-a-charm/">RAILS charm</a>) This was a great opportunity to flex and test some of the boundaries within the Juju ecosystem to provide a solution out of the box.</p>
+<h4>Planning</h4>
+<p>This is the first charm I've followed a traditional planning phase of aggregating requirements and putting together a spec document. Which I found extremely helpful when it came time to implement the functionality of the charm. Normally I would spin up a fresh charm template, enter debug-hooks and just hack away at getting some MVP together to express what I feel it should provide. What I've found by doing a planning session first is I'm not a domain expert of any sense when it comes to DNS. I have a very vanilla experience with them by using the most common DNS entries: <strong>A, CNAME, TXT</strong>. </p>
+<h5>Gathering Reviewers (stakeholders)</h5>
+<p>I started by defining Stakeholders of the application suite. Meaning: Who's going to be using this, and why do they want to use it?</p>
+<p>While my use case is very vanilla, not everybody will have this clear cut definition of how to use DNS. I encountered a great resource along my journey of planning - Matt Williams from Metaswitch. They use DNS to accomplish building a fault tolerant load balancer by stressing the limitations of a DNS Configuration using <strong>SRV</strong> and <strong>NAPTR</strong> records. Which is a great use case I had not even considered!</p>
+<p>Among the engineers, I was also tasked with providing a solution that would appeal to CTO's - who may or may not be engineering experts, but understand the overarching goals of a network topology. This yields a certain 'ease of use' aspect - that it must be flexible in design to apply to an engineer, yet be simple enough for a business user to consume.</p>
+<h5>What should it do?</h5>
+<p>When defining what the charm itself should do, I found it useful to write user stories to define this kind of behavior. This not in turn gives me a definitive goal, but also helps shape any kind of planning when looking at the engineering aspect of the charm.</p>
+<p>Below is a snippet of the user stories compiled that can be found in <a href="https://github.com/chuckbutler/DNS-Charm/blob/master/docs/spec-document.pdf">doc/spec-document.pdf</a></p>
+<div class="highlight"><pre><span class="n">As</span> <span class="n">CTO</span> <span class="p">(</span><span class="n">theoretical</span><span class="p">),</span> <span class="n">I</span> <span class="n">want</span> <span class="n">to</span> <span class="n">have</span> <span class="n">the</span> <span class="n">capability</span> <span class="n">to</span> <span class="n">have</span> <span class="n">DNS</span> <span class="n">management</span> <span class="n">of</span> <span class="n">my</span> <span class="n">solutions</span> <span class="n">done</span> <span class="n">in</span> <span class="n">minutes</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">weeks</span> <span class="n">by</span> <span class="n">creating</span> <span class="n">simple</span> <span class="n">Juju</span> <span class="n">relations</span> <span class="n">so</span> <span class="n">that</span> <span class="n">different</span> <span class="n">charms</span> <span class="n">get</span> <span class="n">domains</span> <span class="n">assigned</span> <span class="n">and</span> <span class="n">complex</span> <span class="n">charms</span> <span class="n">domain</span> <span class="n">rules</span> <span class="n">can</span> <span class="n">be</span> <span class="n">automated</span> <span class="n">in</span> <span class="n">a</span> <span class="n">similar</span> <span class="n">fashion</span> <span class="n">to</span> <span class="n">Route53</span> <span class="n">but</span> <span class="n">work</span> <span class="n">on</span> <span class="n">any</span> <span class="n">cloud</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">only</span> <span class="n">AWS</span><span class="p">.</span>
+
+<span class="n">As</span> <span class="n">a</span> <span class="n">Deployment</span> <span class="n">Engineer</span> <span class="p">(</span><span class="n">Matt</span> <span class="n">Williams</span><span class="p">,</span> <span class="n">Sean</span> <span class="n">Feole</span><span class="p">),</span> <span class="n">I</span> <span class="n">want</span> <span class="n">to</span> <span class="n">MANAGE</span> <span class="n">A</span> <span class="n">RECORDS</span> <span class="n">AND</span> <span class="n">CNAMES</span> <span class="n">WITH</span> <span class="n">A</span> <span class="n">CHARM</span> <span class="n">so</span> <span class="n">that</span> <span class="n">MY</span> <span class="n">POINTS</span> <span class="n">OF</span> <span class="n">ENTRY</span> <span class="n">HAVE</span> <span class="n">DOMAIN</span> <span class="n">NAMES</span> <span class="n">AND</span> <span class="n">EACH</span> <span class="n">UNIT</span> <span class="n">OF</span> <span class="n">A</span> <span class="n">SCALED</span> <span class="n">CLUSTER</span> <span class="n">HAS</span> <span class="n">A</span> <span class="n">NODE</span> <span class="n">DNS</span> <span class="n">ENTRY</span><span class="p">.</span>
+
+<span class="n">As</span> <span class="n">a</span> <span class="n">CHARM</span> <span class="n">AUTHOR</span> <span class="p">(</span><span class="n">Marco</span><span class="o">/</span><span class="n">Chuck</span><span class="o">/</span><span class="n">Maarten</span><span class="p">),</span> <span class="n">I</span> <span class="n">want</span> <span class="n">a</span> <span class="n">PROGRAMMABLE</span> <span class="n">DNS</span> <span class="n">WRAPPER</span> <span class="n">WITH</span> <span class="n">A</span> <span class="n">CONSISTENT</span> <span class="n">INTERFACE</span> <span class="n">so</span> <span class="n">that</span> <span class="n">I</span> <span class="n">CAN</span> <span class="n">USE</span> <span class="n">ANY</span> <span class="n">SERVICE</span> <span class="n">I</span> <span class="n">HAVE</span> <span class="n">PURCHASED</span> <span class="n">DOMAIN</span> <span class="n">NAMES</span> <span class="n">FROM</span><span class="p">.</span>
+
+<span class="n">As</span> <span class="n">a</span> <span class="n">Deployment</span> <span class="n">Engineer</span> <span class="p">(</span><span class="n">Matt</span> <span class="n">Wiliams</span><span class="p">,</span> <span class="n">Sean</span> <span class="n">Feole</span><span class="p">)</span> <span class="n">I</span> <span class="n">want</span> <span class="n">to</span> <span class="n">have</span> <span class="n">the</span> <span class="n">ability</span> <span class="n">to</span> <span class="n">manage</span> <span class="n">DNS</span> <span class="n">in</span> <span class="n">an</span> <span class="n">Offline</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">so</span> <span class="n">that</span> <span class="n">I</span><span class="err">’</span><span class="n">m</span> <span class="n">not</span> <span class="n">forced</span> <span class="n">to</span> <span class="n">remember</span><span class="o">/</span><span class="n">use</span> <span class="n">ip</span> <span class="n">addresses</span> <span class="n">of</span> <span class="n">my</span> <span class="n">units</span><span class="p">.</span>
+</pre></div>
+
+
+<p>This simple suite of user stories is very telling in the following regards:</p>
+<h5>Established Goals</h5>
+<ul>
+<li>Simplicity is key. Distill away common blockers such as API Keys, API Routines, and manual intervention</li>
+<li>Make it extensible so it works on N providers, not just 1 or 2. </li>
+<li>Make contributing additional providers simple through documentation, and a clearly defined method to achieving the goal - relation based DNS</li>
+<li>Have the services define their DNS, and the provider be the gateway. I don't know how end users will be consuming the service, so give them the ability to define this subset of records.</li>
+<li>Make it programmatic, or automatic depending on the relationship.</li>
+<li>Have it work in isolated labs by providing the full suite service, and not dependent on a third party</li>
+</ul>
+<p>With these goals in mind, we are ready to move into implementation specifics.</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Sat 07 June 2014</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/untagged.html">untagged</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="saving-cheddar, gaming, mono, open-source, post">
+
+  <title>
+    Chuck@Home
+&ndash; Wasting time to relax  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/wasting-time-to-relax.html">Wasting time to relax</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>This weekend I tasked myself with "not working so hard". After having spent so much time at the grind I was ready for something fresh. The excitement of developing for fun has worn thin. I wasn't about to reach for the familiar MMO's. Those are literally a timesink I have to battle myself away from every time I get started. Starcraft has gone to the hardcore players, and Diablo3 isn't here yet. What do I do?</p>
+<p>I hit my usual sources in Google Reader for gaming news, and ran across a gem. <a href="http://www.terraria.org">Terraria</a> is an indie game published on steam for $10 USD. Its recipe is simple. Dig up materials, craft awesomeness, unlock NPC's, fight bad guys. You can play it at your own pace - it has some solid Multiplayer support (I'm running my own dedicated server at this point I'm so addicted already). Did I mention its addictive?</p>
+<p>You don't have to take my word for it. Check out the official gameplay trailer.</p>
+<p><iframe width="420" height="315" src="http://www.youtube.com/embed/w7uOhFTrrq0" frameborder="0" allowfullscreen></iframe></p>
+<p>If you want to setup your own linux dedicated server, read on!
+  <!-- more --></p>
+<p>First and foremost, let me warn you. Mono is a hog - if you think you'll get away with running this on a bare-bones server, you might as well play on a public Terraria server or host it off your gaming rig. ~~Dedicated servers are goign to require at BARE MINIMUM 1 gig of ram to run well. Mono will crash out with any less than this.~~ <em>note</em> I've since discovered that when you use the TShock packaged bin without all of the debug hooks, you <em>can</em> run a dedicated server on an AWS micro instance - ~ 625 megs of ram. I have a server cap of 8 players and only use a medium sized world. World generation will take circa 10 minutes with this configuration - YMMV.</p>
+<p>Assuming you're using Ubuntu 11.10 - just run the following commands: (if you're running a 10.04 or prior you will need to compile mono from source)</p>
+<p><code>sudo apt-get install mono-complete</code></p>
+<p>this takes about 5 minutes to fetch and install an on AWS Small instance</p>
+<p>Once you have completed this step - grab the TShock server binaries. TShock is a repack of the official Terraria server that comes with administration modifications, and thuse ease the setup process.</p>
+<p><a href="https://github.com/TShock/TShock/downloads">TShock Github Project Page</a></p>
+<p><code>wget https://github.com/TShock/TShock/tarball/master
+   tar xvfz master
+   cd TShock-TShock-ed6b95c &amp;&amp; screen mono TerrariaServerBinaries\TerrariaServer.exe</code></p>
+<p 2332154="2332154" _="%" gist="gist"><em>NEW!</em> OR use this handy dandy script</p>
+<p>at this point you will need to create and name your new world, assign it a port, and setup is complete!</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Tue 26 November 2013</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/saving-cheddar.html">saving-cheddar</a>,      <a href="http://blog.dasroot.net/tag/gaming.html">gaming</a>,      <a href="http://blog.dasroot.net/tag/mono.html">mono</a>,      <a href="http://blog.dasroot.net/tag/open-source.html">open-source</a>,      <a href="http://blog.dasroot.net/tag/post.html">post</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

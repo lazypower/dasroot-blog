@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="fabric, python, deploy, qemu, steam">
+
+  <title>
+    Chuck@Home
+&ndash; Starbound with Fabric, Qemu, and SteamCMD  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/fabric-qemu-and-steamcmd.html">Starbound with Fabric, Qemu, and SteamCMD</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>Today has been quite a productive day for exploration of new tech. <strong>Warning :</strong> this post is going to be all over the place - and scoped to using fabric to bootstrap a host environment, install qemu, and setup a Game Server using SteamCMD.</p>
+<h2>Fabric</h2>
+<p>Most of the juju tools are written in either python or go. This has lead me down the path of researching Python gearing up for my new position at Canonical on the Juju team. During that research I came across Fabric. A tool thats is by no means new to the sysadmin side of linux, but new to me. </p>
+<h4>What is fabric?</h4>
+<p>From the Fabric documentation:</p>
+<blockquote>
+<p>Fabric is a Python (2.5 or higher) library and command-line tool for streamlining the use of SSH for application deployment or systems administration tasks.</p>
+<p>It provides a basic suite of operations for executing local or remote shell commands (normally or via sudo) and uploading/downloading files, as well as auxiliary functionality such as prompting the running user for input, or aborting execution.</p>
+</blockquote>
+<p>Fabric is essentially a system automation framework built in Python. As I'm starting to wrap my brain around Python, I realize that the tools provided are intended to be as light weight as possible. This really resonates with me, as I felt like Ruby + Gems were a really bloated way to gain functionality at the price of bringing the kitchen sink with you. </p>
+<h2>Stitching server setup with Fabric</h2>
+<p>One thing I've found really annoying since I've landed back in Ubuntu land from a year long hiatus in Mac land is my serious lack of proficiency with shell scripting. I've attempted to write my own setup scripts for automating my <a href="https://github.com/chuckbutler/dotfiles/blob/master/scripts/bootstrap.sh">environment</a> <a href="https://github.com/chuckbutler/dotfiles/blob/master/scripts/bootstrap.rb">setup</a> a <a href="https://github.com/chuckbutler/dotfilesv2/blob/master/setup_symlinks.sh">few</a> times. Each time I've tried to leverage something new I've learned like git submodules...</p>
+<p><img alt="What a disaster" src="http://i.imgflip.com/5mey3.jpg" /></p>
+<p>I really needed a one stop shop for bootstrapping both workstations and servers without going through the hassle of setting up complex chef-solo cookbooks and ensuring I had all those packed up into a git repository. Most of the time I just need pure ubuntu packages, some dotfiles and a handfull of applications I leverage to effectively maintain my servers.</p>
+<p>Fabric lends itself really well to this. Lets write some bootstrap code for my newly installed Ubuntu Server </p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+
+<span class="kn">from</span> <span class="nn">fabric.api</span> <span class="kn">import</span> <span class="n">env</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">sudo</span><span class="p">,</span> <span class="n">local</span>
+
+<span class="n">env</span><span class="o">.</span><span class="n">hosts</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&#39;10.0.2.158&#39;</span> <span class="p">]</span>
+</pre></div>
+</td></tr></table>
+
+<p>We have the python shebang, importing modules from the fabric api, and setting our network hosts to execute commands on. </p>
+<p>Now let's add tasks for upgrading the server remotely, and bootstrap our user on the remote machine. </p>
+<div class="highlight"><pre><span class="n">def</span> <span class="n">bootstrap_server</span><span class="p">()</span><span class="o">:</span>
+    <span class="n">sudo</span><span class="p">(</span><span class="err">&#39;</span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">vim</span> <span class="n">git</span><span class="o">-</span><span class="n">core</span> <span class="n">htop</span> <span class="n">python</span><span class="o">-</span><span class="n">software</span><span class="o">-</span><span class="n">properties</span> <span class="o">-</span><span class="n">y</span><span class="err">&#39;</span><span class="p">)</span>
+    <span class="n">run</span><span class="p">(</span><span class="err">&#39;</span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/chuckbutler/dotfilesv2.git .dotfiles&#39;)</span>
+    <span class="n">run</span><span class="p">(</span><span class="err">&#39;</span><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="p">.</span><span class="n">dotfiles</span><span class="o">/</span><span class="n">dotvim</span> <span class="p">.</span><span class="n">vim</span><span class="err">&#39;</span><span class="p">)</span>
+    <span class="n">run</span><span class="p">(</span><span class="err">&#39;</span><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="p">.</span><span class="n">dotfiles</span><span class="o">/</span><span class="n">dotvimrc</span> <span class="p">.</span><span class="n">vimrc</span><span class="err">&#39;</span><span class="p">)</span>
+    <span class="n">run</span><span class="p">(</span><span class="err">&#39;</span><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="p">.</span><span class="n">dotfiles</span><span class="o">/</span><span class="n">gitconfig</span> <span class="p">.</span><span class="n">gitconfig</span><span class="err">&#39;</span><span class="p">)</span>
+    <span class="n">run</span><span class="p">(</span><span class="err">&#39;</span><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="p">.</span><span class="n">dotfiles</span><span class="o">/</span><span class="n">githelpers</span> <span class="p">.</span><span class="n">githelpers</span><span class="err">&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>This function fetches a handfull of utilities I require on most of my systems, and clones my dotfiles repository on the machine, sets up the symlinks to get everything working.</p>
+<h6>What you should see:</h6>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">fab</span> <span class="n">bootstrap_server</span>
+<span class="p">[</span><span class="mf">10.0.2.158</span><span class="p">]</span> <span class="n">Executing</span> <span class="n">task</span> <span class="err">&#39;</span><span class="n">bootstrap_server</span><span class="err">&#39;</span>
+<span class="p">[</span><span class="mf">10.0.2.158</span><span class="p">]</span> <span class="n">sudo</span><span class="o">:</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">vim</span> <span class="n">git</span><span class="o">-</span><span class="n">core</span> <span class="n">htop</span> <span class="n">python</span><span class="o">-</span><span class="n">software</span><span class="o">-</span><span class="n">properties</span> <span class="o">-</span><span class="n">y</span>
+<span class="p">[</span><span class="mf">10.0.2.158</span><span class="p">]</span> <span class="n">out</span><span class="o">:</span> <span class="n">sudo</span> <span class="n">password</span><span class="o">:</span> 
+</pre></div>
+
+
+<p>Paydirt! Its executing and has halted on the remote system in interactive mode, prompting me to enter the sudo password before it installs the packages. I like where this is going.</p>
+<p><img alt="Devops Borat says Great Success!" src="/content/images/2013/Dec/devops_borat_tells_it_like_it_is.png" /></p>
+<p>Skipping ahead through some dev cycle debugging, we know our next step is to get QEmu installed and running.</p>
+<h4>Criteria</h4>
+<ul>
+<li>Install the QEmu packages</li>
+<li>Add user to libvirt security group so we can manage QEmu VM's remotely</li>
+</ul>
+<div class="highlight"><pre><span class="nt">def</span> <span class="nt">setup_qemu</span><span class="o">(</span><span class="nt">user</span><span class="o">=</span><span class="s2">&quot;charles&quot;</span><span class="o">):</span>
+    <span class="nt">sudo</span><span class="o">(</span><span class="s1">&#39;apt-get install qemu-kvm libvirt-bin bridge-utils -y&#39;</span><span class="o">)</span>
+    <span class="nt">sudo</span><span class="o">(</span><span class="s1">&#39;adduser&#39;</span> <span class="o">+</span> <span class="nt">user</span> <span class="o">+</span> <span class="s1">&#39;libvirtd&#39;</span><span class="o">)</span>
+    <span class="nt">local</span><span class="o">(</span><span class="s1">&#39;sudo apt-get install virt-manager&#39;</span><span class="o">)</span>
+</pre></div>
+
+
+<p><strong>Note :</strong> You don't need to have the <code>local('sudo apt-get install virt-manager')</code> line to install QEmu on your server. I added this as it stands to reason if I'm running this against a server its on a workstation and will only be run once. May as well grab 2 tasks with a single function.</p>
+<h2>QEmu - Virtualization</h2>
+<h4>Setup ISO Repository</h4>
+<p>We will need to import ISO images for QEmu to install virtual machine images from. I don't like to script this portion of setup as the images will invariably change, and I don't really need to keep a mass repsoitory on every QEmu machine. Your needs may vary, and fabric makes this dead simple. </p>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">ssh</span> <span class="n">nexus</span> <span class="n">mkdir</span> <span class="n">iso</span> 
+<span class="err">$</span> <span class="n">ssh</span> <span class="n">nexus</span> <span class="n">wget</span> <span class="n">http</span><span class="o">:</span><span class="c1">//releases.ubuntu.com/precise/ubuntu-12.04.3-server-amd64.iso`</span>
+</pre></div>
+
+
+<h4>Setup Bridged Networking</h4>
+<h6>The following instructions are to be treated as a generic overview of how I enabled bridged networking and is in no way comprehensive or complete. You could break your networking if this is done improperly. You have been warned.</h6>
+<p>Following the Ubuntu Community documentation <a href="https://help.ubuntu.com/community/KVM/Networking">here</a> You will need to make some minor system edits:</p>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libcap2</span>
+<span class="err">$</span> <span class="n">sudo</span> <span class="n">setcap</span> <span class="n">cap_net_admin</span><span class="o">=</span><span class="n">ei</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">qemu</span><span class="o">-</span><span class="n">system</span><span class="o">-</span><span class="n">x86_64</span>
+</pre></div>
+
+
+<p><em>note</em> I'm not positive this is required according to <a href="http://askubuntu.com/questions/179508/kvm-bridged-network-not-working">this</a> AU post.</p>
+<p>You will need to create the Bridged device for QEmu to route requests through. This is achieved with the <code>bridge-utils</code> package and adding the following to <code>/etc/networking/interfaces</code></p>
+<div class="highlight"><pre><span class="k">auto</span> <span class="n">br0</span>
+<span class="n">iface</span> <span class="n">br0</span> <span class="n">inet</span> <span class="n">dhcp</span>
+    <span class="n">bridge_ports</span> <span class="n">eth0</span>
+    <span class="n">bridge_stp</span> <span class="n">off</span>
+    <span class="n">bridge_fd</span> <span class="mi">0</span>
+    <span class="n">bridge_maxwait</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>Reboot and your newly made QEmu images will be able to be independent units on the network. </p>
+<p>Lets bootstrap a new machine for the Starbound Server. Fire up virt-manager </p>
+<p><img alt="" src="/content/images/2013/Dec/virt_manager.jpg" /></p>
+<p>Connect to your QEmu server 
+<img alt="" src="/content/images/2013/Dec/Selection_002.png" /></p>
+<p><strong>Note:</strong> You may need to enter the IP Address of your remote server in the Hostname field unless you have mapped them via DNS, /etc/hosts or through other means of DNS Resolution.</p>
+<p>Create a new machine
+<img alt="" src="/content/images/2013/Dec/Selection_003.png" /></p>
+<p>Set the Installation Media
+<img alt="" src="/content/images/2013/Dec/Selection_004.png" /></p>
+<p>Set your hardware constraints
+<img alt="" src="/content/images/2013/Dec/Selection_005.png" /></p>
+<p>Allocate Space for the root disk
+<img alt="" src="/content/images/2013/Dec/Selection_006.png" /></p>
+<p>Finalize Settings including our Bridged networking device
+<img alt="" src="/content/images/2013/Dec/Selection_007.png" /></p>
+<p>Click Finish and install Ubuntu Server as normal</p>
+<h3>Starbound Dedicated Server via SteamCMD</h3>
+<p>Now onward with the real reason we started this adventure. To setup a dedicated Starbound Server. </p>
+<p>Steam is my preferred method of fetching updates for Starbound since it uses the SteamPipe CDN its quick and painless. SteamCMD makes setting up dedicated servers a snap for updates. </p>
+<p>If you are unfamilar with SteamCMD, go read <a href="https://developer.valvesoftware.com/wiki/SteamCMD">this</a> first.</p>
+<h4>Installing SteamCMD with Fabric</h4>
+<div class="highlight"><pre><span class="n">def</span> <span class="n">bootstrap_starbound</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="n">password</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">:</span>
+    <span class="n">sudo</span><span class="p">(</span><span class="err">&#39;</span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">lib32gcc1</span><span class="err">&#39;</span><span class="p">)</span>
+    <span class="n">run</span><span class="p">(</span><span class="err">&#39;</span><span class="n">wget</span> <span class="n">http</span><span class="o">:</span><span class="c1">//media.steampowered.com/installer/steamcmd_linux.tar.gz&#39;)</span>
+    <span class="n">run</span><span class="p">(</span><span class="err">&#39;</span><span class="n">tar</span> <span class="n">xvfz</span> <span class="n">steamcmd_linux</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span><span class="err">&#39;</span><span class="p">)</span>
+    <span class="n">run</span><span class="p">(</span><span class="err">&#39;$</span><span class="n">HOME</span><span class="o">/</span><span class="n">steamcmd</span><span class="p">.</span><span class="n">sh</span> <span class="o">+</span><span class="n">login</span> <span class="err">&#39;</span> <span class="o">+</span> <span class="n">username</span> <span class="o">+</span> <span class="sc">&#39; &#39;</span> <span class="o">+</span> <span class="n">password</span> <span class="o">+</span> <span class="err">&#39;</span> <span class="o">+</span><span class="n">force_install_dir</span> <span class="p">.</span><span class="o">/</span><span class="n">starbound</span><span class="o">/</span> <span class="o">+</span><span class="n">app_update</span> <span class="mi">211820</span> <span class="n">validate</span> <span class="o">+</span><span class="n">quit</span><span class="err">&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>To do this proper you will need to set your env.hostnames like we did above to include the IP of our newly provisioned starbound virtual machine.</p>
+<p>With all this completed. you now have your own dedicated Starbound server provisioned by steam. </p>
+<p><strong>-- Will update later with fabric config to start/stop the starbound server --</strong></p>
+<p>Until then, Go Forth and Conquer traveller.
+<img alt="" src="http://cloud-2.steampowered.com/ugc/486685587177079925/0C48E99D41E5E9E07972169D5DEFD3D306C47CB0/" /></p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Sun 22 December 2013</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/fabric.html">fabric</a>,      <a href="http://blog.dasroot.net/tag/python.html">python</a>,      <a href="http://blog.dasroot.net/tag/deploy.html">deploy</a>,      <a href="http://blog.dasroot.net/tag/qemu.html">qemu</a>,      <a href="http://blog.dasroot.net/tag/steam.html">steam</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

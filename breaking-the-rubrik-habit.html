@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="untagged">
+
+  <title>
+    Chuck@Home
+&ndash; Breaking the Rubrik habit  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/breaking-the-rubrik-habit.html">Breaking the Rubrik habit</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>After setting up octopress it was brought to my attention that every geek from Singapore to LA has an octopress blog that sports the default theme. There was an excellent article that I seem to have misplaced. However the overall premise: "While your blog should focus on quality content, you have to have a desireable stage to present your information. " So I started looking into rapid frameworks for front end design.</p>
+<!-- more -->
+
+<p>The twitter bootstrap framework came to mind. I've wanted to try it for its clean looks vs using the 930 grid layout. It sports custom form elements, ready to rock javascript elements, and an extremely nice collection of style elements out of the box. Its officially one of the most impressive front end RAD frameworks I've used to date. The class tags are very clear cut and easy to work with. </p>
+<p>It took about 30 minutes to gimp out the header image, and build out the template by hand. Bootstrap makes the markup so much cleaner than I'm used to. Looking at the semantic markup below - (or via view-source) You define your elements with a span# and you have sized grid-ready boxes. The kit comes with several modifier classes as well such as pull-right floats your content to the right of its parent container.  </p>
+<p>The following was the machup I produced in about 30 minutes.</p>
+<p>{% gist 1807500  %}</p>
+<p>To impelement this as your blog theme - you edit the _includes directory templates. Its all logically broken down into a parent calling object (next list): </p>
+<ul>
+<li>_includes/head.html</li>
+<li>_includes/header.html </li>
+<li>_includes/navigation.html</li>
+<li>_includes/footer.html</li>
+</ul>
+<p>Octopress has a few parent display controllers listed in _layouts</p>
+<ul>
+<li>category_index.html</li>
+<li>default.html</li>
+<li>page.html</li>
+<li>post.html</li>
+</ul>
+<p>Edit your templates and make sure the proper includes are being called in those layout controllers and you should be up and running in no time! What made this so easy is having built the machup first and then including the files in _include/header.html - snipping bits of style into the _include's as well. All in all - I'm very excited to be hacking away on this project.</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Tue 26 November 2013</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/untagged.html">untagged</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="juju, owncloud, digitalocean, ubuntu, planet">
+
+  <title>
+    Chuck@Home
+&ndash; Replacing U1 with OwnCloud on Digital Ocean  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/replacing-u1-with-owncloud-on-digital-ocean.html">Replacing U1 with OwnCloud on Digital Ocean</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>Juju is an enterprise grade system orchestration tool. But, that doesn't mean its only place is in some big fortune 500 company. Juju helps me in my day to day orchestration of the webapps that power my home, and pet projects. I've come to rely on using Juju to orchestrate all of my deployments whether personal or commercial.</p>
+<p>So, with that being said - when Canonical announced they would be closing down the Ubuntu 1 file store, I started looking for a replacement. This was a perfect opportunity for OwnCloud to step in and take up some of that slack. Their official announcement was right on the heels of the closing post of U1, and this was enough to grab my attention.</p>
+<p>Several late nights were put into helping <a href="http://joseeantonior.wordpress.com/2014/04/11/owncloud-charm-updated/">Jose</a> develop the new revisions to the <a href="https://jujucharms.com/sidebar/search/precise/owncloud-13/?text=owncloud">OwnCloud Charm</a>, and I piloted it every step of the way. We're rounding the 98% completion mark - only pending SSL integration into the charm so its secure by default.</p>
+<p>Without further adeu, Lets deploy Owncloud on Digital Ocean for 30 gigs of cloud storage for $10 USD a month, orchestrated, and updated by Juju.</p>
+<h2>Configuring Juju to talk to Digital Ocean</h2>
+<p>To get started, we'll need to gather some of the requirements.</p>
+<p>Ensure you've got the latest juju stable release. At the time of this writing, its 1.18.1</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">juju</span><span class="o">/</span><span class="n">stable</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">juju</span>
+<span class="n">juju</span> <span class="n">generate</span><span class="o">-</span><span class="n">config</span>
+</pre></div>
+
+
+<p>Next you'll need to fetch a plugin.</p>
+<p><a href="https://github.com/kapilt/juju-digitalocean">Hazmat's Digital Ocean provider plugin</a>  from PyPi :</p>
+<div class="highlight"><pre><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">juju</span><span class="o">-</span><span class="n">docean</span>
+</pre></div>
+
+
+<p>With the Digital Ocean plugin installed, we'll need to add DO to our environments.yaml</p>
+<div class="highlight"><pre><span class="n">digitalocean</span><span class="o">:</span>
+    <span class="n">type</span><span class="o">:</span> <span class="n">manual</span>
+    <span class="n">bootstrap</span><span class="o">-</span><span class="n">host</span><span class="o">:</span>  <span class="kc">null</span>
+    <span class="n">bootstrap</span><span class="o">-</span><span class="n">user</span><span class="o">:</span> <span class="n">root</span>
+</pre></div>
+
+
+<p>We'll also need to add our API credentials as an environment variable. According to the installation readme, a good place to put this would be in ~/.bashrc</p>
+<div class="highlight"><pre><span class="n">export</span> <span class="n">DO_API_KEY</span><span class="o">=</span><span class="n">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
+<span class="n">export</span> <span class="n">DO_CLIENT_ID</span><span class="o">=</span><span class="n">xxxxxxxxxxxxxxxxxxxxx</span>
+</pre></div>
+
+
+<p>You can find these on your Digital Ocean Account page:</p>
+<p><img alt="" src="/content/images/2014/Apr/DO_API.png" /></p>
+<h3>Bootstrapping our DO Service</h3>
+<div class="highlight"><pre><span class="n">juju</span> <span class="k">switch</span> <span class="n">digitalocean</span>
+<span class="n">juju</span> <span class="n">docean</span> <span class="n">bootstrap</span> <span class="o">--</span><span class="n">constraints</span><span class="o">=</span><span class="s">&quot;mem=1G region=nyc2&quot;</span>
+</pre></div>
+
+
+<p>This will communicate with the DO API and provision a droplet for you with 1G of memory. The bare minimum to warehouse both the bootstrap node, AND our fileserver. </p>
+<h2>Deploying OwnCloud</h2>
+<p>Now that we've gotten all the hard stuff out of the way. We're ready to deploy and configure OwnCloud. </p>
+<div class="highlight"><pre><span class="n">juju</span> <span class="n">deploy</span> <span class="n">owncloud</span> <span class="o">--</span><span class="n">to</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>This deploys owncloud to our bootstrap node. This is not the <em>ideal</em> solution, but I wanted to consume 1 node, and didn't really care about scale-out for OwnCloud. My particular setup will be one user, many devices. And 30GB of storage is plenty to replace my free 5GB provided by U1.</p>
+<h4>Caveats to deploying on your bootstrap node</h4>
+<p>This will limit your ability to scale, and you'll lose some disk space to the juju components and logs. You've been warned that while this works, its not a recommended practice for any other Juju Deployments.</p>
+<h4>Notes on configuration</h4>
+<p>Owncloud supports 2 backends. It deploys as a standalone service with SQLite DB support, and supports MySQL as the backend for scale out usage. Since I'm a single user, and I'm not planning on scaling out, we're done configuring owncloud from Juju - as everything is setup on first login when its deployed as a stand alone service.</p>
+<h3>Setup Owncloud</h3>
+<p>Connect to the deployed owncloud server by opening a browser and connecting to the public IP of your owncloud instance. You can discern the public IP of your OwnCloud by running <code>juju status</code></p>
+<div class="highlight"><pre>  <span class="n">owncloud</span><span class="o">/</span><span class="mi">0</span><span class="o">:</span>
+    <span class="n">agent</span><span class="o">-</span><span class="n">state</span><span class="o">:</span> <span class="n">started</span>
+    <span class="n">agent</span><span class="o">-</span><span class="n">version</span><span class="o">:</span> <span class="mf">1.19.0</span>
+    <span class="nl">machine:</span> <span class="s">&quot;0&quot;</span>
+    <span class="n">open</span><span class="o">-</span><span class="n">ports</span><span class="o">:</span>
+    <span class="o">-</span> <span class="mi">80</span><span class="o">/</span><span class="n">tcp</span>
+    <span class="n">public</span><span class="o">-</span><span class="n">address</span><span class="o">:</span> <span class="mf">172.22.13.173</span>
+</pre></div>
+
+
+<p>On first run, you will be prompted to define your administrative user. The remainder of the settings while tempting to tweak - should be left as their defaults.</p>
+<p><img alt="" src="/content/images/2014/Apr/do_first_run.png" /></p>
+<p>With the server component completed. Lets take a look at getting the rest of the ecosystem setup, starting with the PC.</p>
+<h2>Connecting OwnCloud to your PCs</h2>
+<p>OwnCloud provides a client app available from the Ubuntu Software Center</p>
+<p><img alt="" src="/content/images/2014/Apr/owncloud_client_software_center.png" /></p>
+<p>Easily installed via apt</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">owncloud</span><span class="o">-</span><span class="n">client</span>
+</pre></div>
+
+
+<p><img alt="" src="/content/images/2014/Apr/do_client_screen-1.png" /></p>
+<p>The configuration here is very straight forward, and can mimic the U1 behavior if you opt out of picking a "parent" sync directory to sync all your files. You'll need to start with that configuration, but remove it and pick individual directories to sync, with a corresponding directory on the owncloud server. See the example above.</p>
+<h2>Replacing the Mobile Component</h2>
+<p>Owncloud sync doesn't have to just stop at your desktop. I explored some of the offerings in the Google Play store to build the story for replacing U1 on the phone with OwnCloud.</p>
+<h4>Files</h4>
+<p>The primary task of ownCloud is, of course, file storage and sharing. ownCloud implements WebDAV interface to serve files. This means that you can use any of WebDAV applications available in Google Play which are plenty. There is an official application which costs $1 and doesn't do a lot, but is nice to have anyway. It allows you to view your cloud directories and download individual files for offline usage (similar to Dropbox and Google Drive clients). As a pleasant bonus, it provides Instant Upload feature for your photos, so if you tick the respective checkbox your pics will be automatically uploaded to your cloud (instead of Google+).</p>
+<p>Because I required something more automatic, I installed FolderSync Lite to synchronize cloud folders with those on the device. It operates the same as desktop ownCloud client - you specify folders you want to synchronize and respective local directories, sync interval, overwrite policies etc etc; and it will download/upload files in these folders according to the rules. There is also a paid version of the app, but I don't really notice the limitations of the free one.</p>
+<h4>Calendar</h4>
+<p>Calendar functionality in ownCloud is done using… wait for it… CalDAV. As always, we head to the Play Market and shell out another three bucks for <a href="https://play.google.com/store/apps/details?id=org.dmfs.caldav.lib">CalDAV-Sync</a>.This one does what it is supposed to do, with no real complaints. The Android stock Calendar suffices completely.</p>
+<p>A small hack I had to employ on the server side because ownCloud does not support iCal subscriptions. The solution is vividly described <a href="http://forum.owncloud.org/viewtopic.php?f=8&amp;t=11576">here</a>. Basically you have to set up a cron job that fetches calendar entries from the link and pushes them to ownCloud via CLI WebDAV client cadaver.</p>
+<h4>Music</h4>
+<p>OwnCloud can store your music and play it in the browser. But what's more cool is that it can stream music via Ampache, and then you can listen to this stream using any Ampache-included music player. I haven't got to using this feature just yet, as I don't want to fill all my DO-provided storage with music (and it will take a while too). But having a personal Spotify sounds like a fun idea to me.</p>
+<h2>Final Thoughts</h2>
+<p>Managing and book-keeping all your data yourself is partly a vanity endeavor. You spend a good chunk of time on stuff you otherwise wouldn't do. But in the end of the day the warm fuzzy feeling of having everything under your control makes it worth the struggle. This, and the ability to backup all your data in a single shell command. So be safe, be aware.</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Tue 22 April 2014</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/juju.html">juju</a>,      <a href="http://blog.dasroot.net/tag/owncloud.html">owncloud</a>,      <a href="http://blog.dasroot.net/tag/digitalocean.html">digitalocean</a>,      <a href="http://blog.dasroot.net/tag/ubuntu.html">ubuntu</a>,      <a href="http://blog.dasroot.net/tag/planet.html">planet</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

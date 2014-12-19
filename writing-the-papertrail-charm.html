@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="juju, charming">
+
+  <title>
+    Chuck@Home
+&ndash; Writing the papertrail charm  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/writing-the-papertrail-charm.html">Writing the papertrail charm</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>This is a continuation of <a href="/my-weekend-with-juju">My Weekend with Juju</a>.</p>
+<p>To get started, we need to invoke a helper provided by <em>charm-tools</em> to build our charm skeleton.</p>
+<div class="highlight"><pre><span class="n">juju</span> <span class="n">charm</span> <span class="n">create</span> <span class="n">papertrail</span>
+</pre></div>
+
+
+<p>This will create the following directory structure:</p>
+<ul>
+<li>charms</li>
+<li>precise<ul>
+<li>papertrail</li>
+<li>config.yaml</li>
+<li>metadata.yaml</li>
+<li>README.ex</li>
+<li>hooks<ul>
+<li>config-changed</li>
+<li>install</li>
+<li>relation-name-relation-broken</li>
+<li>relation-name-relation-changed</li>
+<li>relation-name-relation-departed</li>
+<li>relation-name-relation-joined</li>
+<li>start</li>
+<li>stop</li>
+<li>upgrade-charm</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>I find the most useful practice is to dive right into the README and place some sane defaults for charm creation. It provides a focus during development, this style is called "<a href="http://tom.preston-werner.com/2010/08/23/readme-driven-development.html">Readme Driven Development</a>" </p>
+<p>Rename README.ex to something a little more fitting of our writing style:</p>
+<div class="highlight"><pre><span class="n">mv</span> <span class="n">README</span><span class="p">.</span><span class="n">ex</span> <span class="n">README</span><span class="p">.</span><span class="n">markdown</span>
+</pre></div>
+
+
+<p>Open it up in your favorite editor and lets set the context for our charm:</p>
+<div class="highlight"><pre><span class="cp">#Papertrail Charm</span>
+
+
+
+<span class="n">Overview</span>
+<span class="o">--------</span>
+
+<span class="n">This</span> <span class="n">charm</span> <span class="n">provides</span> <span class="n">Papertrailapp</span> <span class="n">logging</span> <span class="n">from</span> <span class="p">[</span><span class="n">Papertrail</span><span class="p">](</span><span class="n">http</span><span class="o">:</span><span class="c1">//www.papertrailapp.com). Papertrail provides instant log visibility. Use Papertrail&#39;s time-saving log tools, flexible system groups, team-wide access, long-term archives, charts and analytics exports, monitoring webhooks, and 45-second setup to ship your rsyslog logs, application output, and much more to Papertrail&#39;s logging service.</span>
+</pre></div>
+
+
+<p>Excellent, the overview is the first thing presented to a potential user in the store. We've covered the base of explaning what papertrail is, and where I can view more information about the service. </p>
+<p>Think about the principals of juju and identify your configuration properties. </p>
+<div class="highlight"><pre><span class="n">Configuration</span>
+<span class="o">---------------------</span>
+<span class="nl">options:</span>
+<span class="nl">port:</span>
+  <span class="nl">type:</span> <span class="kt">int</span>
+  <span class="nl">default:</span> <span class="mi">0</span>
+  <span class="nl">description:</span> <span class="n">Papertrail</span> <span class="n">syslog</span> <span class="n">port</span>
+<span class="nl">monitorall:</span>
+  <span class="nl">type:</span> <span class="n">boolean</span>
+  <span class="nl">default:</span> <span class="nb">false</span>
+  <span class="nl">description:</span> <span class="n">Tail</span> <span class="n">and</span> <span class="n">ship</span> <span class="n">all</span> <span class="n">files</span> <span class="n">in</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span>
+<span class="nl">applicationlogs:</span>
+  <span class="nl">type:</span> <span class="n">string</span>
+  <span class="nl">default:</span> <span class="s">&quot;&quot;</span>
+  <span class="nl">description:</span> <span class="n">Space</span> <span class="n">separated</span> <span class="n">list</span> <span class="n">of</span> <span class="n">paths</span> <span class="n">to</span> <span class="n">application</span> <span class="n">logs</span> <span class="p">(</span><span class="n">eg</span><span class="o">:</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">app</span><span class="p">.</span><span class="n">log</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">mylog</span><span class="p">.</span><span class="n">log</span>  <span class="p">)</span>
+</pre></div>
+
+
+<p>Great, we have our first 2 feature sets, and a configuration constraint. </p>
+<ul>
+<li>Constraint <ul>
+<li>Papertrail's port is unique to each account, sometimes each application in the instance of hosted applications like Heroku. Therefore we cannot operate reliably directly after running <br> <code>$ juju depoy papertrail</code> </li>
+</ul>
+</li>
+<li>Feature <ul>
+<li>if we want 100% coverage on all logs in /var/log there is a predicate feature to enable tailing everything in /var/log</li>
+</ul>
+</li>
+<li>Feature</li>
+<li>for those apps that dont output logs to /var/log, provide the user a means to ship those logs as well.</li>
+</ul>
+<p>Looking at how juju implements these relationships, lets get started on writing our first hook. The <code>install</code> hook.</p>
+<h3>Install Hook</h3>
+<p>The installation hook takes care of the pre qualifications for running the charm.</p>
+<p>*Commentary left inline as comments</p>
+<script src="https://gist.github.com/chuckbutler/7745943.js"></script>
+
+<h3>Start Hook</h3>
+<script src="https://gist.github.com/chuckbutler/7746141.js"></script>
+
+<h3>Stop Hook</h3>
+<script src="https://gist.github.com/chuckbutler/7746179.js"></script>
+
+<h3>Configuration Changed</h3>
+<script src="https://gist.github.com/chuckbutler/7746188.js"></script>
+
+<h4>Now, go forth and deploy!</h4>
+<p>Great, this is enough to start hacking around in the juju gui and see how this works with services deployed from Juju</p>
+<p>In your shell, go ahead and deploy the charm from the local repository</p>
+<p><code>$ juju deploy --repository=charms local:papertrail</code></p>
+<p>This will push the charm from my local charms repository to the Juju controller unit, and deploy the papertrail subordinate service to your application canvas. </p>
+<h2>Charm Configuration</h2>
+<p><img alt="" src="/content/images/2013/Dec/Screenshot_from_2013_12_02_01_49_51_5.png" /></p>
+<p>Expand the charm inspector on the Papertrail charm, and lets set up the port. </p>
+<h2>Charm Relations</h2>
+<p><img alt="" src="/content/images/2013/Dec/Screenshot_from_2013_12_02_01_45_17_3.png" /></p>
+<p>Save the configuration changes, and draw lines to each container application we want to monitor.</p>
+<p><img alt="" src="/content/images/2013/Dec/Screenshot_from_2013_12_02_01_48_54_2.png" /></p>
+<p>Inspecting the charm of minecraft reveals the juju-info link relation drawn to papertrail, and lists the dependency chain.</p>
+<h3>Validation</h3>
+<p><img alt="" src="/content/images/2013/Dec/JuJu_Systems___Papertrail.png" /></p>
+<p>Awesome. Now we are ready for submission to the charm store after we tidy up the charm a bit, and place in the license</p>
+<h2>Submission to the review queue</h2>
+<p>First and foremost, read the submission guidelines: <a href="https://juju.ubuntu.com/docs/authors-charm-store.html">Charm Store Guidelines</a></p>
+<h4>An aside on the charm submission process</h4>
+<p>Juju charms live in launchpad. For those that are unfamiliar, Launchpad is Canonical's public tool for software development projects. It provides repository support, bug tracking, and even a build system for personal package repositories.</p>
+<p>With that being said, you should be familiar with Bazaar and the launchpad navigation. </p>
+<h3>Proof the charm</h3>
+<p>The goal is to have no output from charm proof.</p>
+<div class="highlight"><pre><span class="n">bushido</span> <span class="n">precise</span><span class="o">/</span><span class="n">papertrail</span> <span class="err">‹</span><span class="n">master</span><span class="o">*</span><span class="err">›</span> <span class="err">»</span> <span class="n">charm</span> <span class="n">proof</span>
+<span class="nl">E:</span> <span class="n">Includes</span> <span class="n">template</span> <span class="n">icon</span><span class="p">.</span><span class="n">svg</span> <span class="n">file</span><span class="p">.</span> <span class="err">`</span>
+</pre></div>
+
+
+<p>Looks like we need to tidy up and remove the boilerplate icon.</p>
+<p><code>$ rm icon.svg</code></p>
+<div class="highlight"><pre><span class="n">bushido</span> <span class="n">precise</span><span class="o">/</span><span class="n">papertrail</span> <span class="err">‹</span><span class="n">master</span><span class="o">*</span><span class="err">›</span> <span class="err">»</span> <span class="n">charm</span> <span class="n">proof</span>                                                                                 
+<span class="nl">W:</span> <span class="n">No</span> <span class="n">icon</span><span class="p">.</span><span class="n">svg</span> <span class="n">file</span><span class="p">.</span>
+</pre></div>
+
+
+<p>Warnings are better than errors right? Now lets push this up to our launchpad bzr branch</p>
+<div class="highlight"><pre><span class="n">bzr</span> <span class="n">init</span>
+<span class="n">bzr</span> <span class="n">ignore</span> <span class="p">.</span><span class="n">git</span> <span class="p">.</span><span class="n">gitignore</span>
+<span class="n">bzr</span> <span class="n">add</span> <span class="p">.</span>
+<span class="n">bzr</span> <span class="n">commit</span>
+<span class="n">bzr</span> <span class="n">push</span> <span class="n">lp</span><span class="o">:~</span><span class="n">lazypower</span><span class="o">/</span><span class="n">charms</span><span class="o">/</span><span class="n">precise</span><span class="o">/</span><span class="n">papertrail</span><span class="o">/</span><span class="n">trunk</span>
+</pre></div>
+
+
+<h3>Start the review process</h3>
+<p><img alt="" src="/content/images/2013/Dec/Bug__1023665__Charm_Needed__Papertrailapp____Bugs___Juju_Charms_Collection_15.png" /></p>
+<p>And now we wait!</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Mon 02 December 2013</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/juju.html">juju</a>,      <a href="http://blog.dasroot.net/tag/charming.html">charming</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

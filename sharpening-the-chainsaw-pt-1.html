@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="git, unix, linux, environments, zsh">
+
+  <title>
+    Chuck@Home
+&ndash; Sharpening the chainsaw pt. 1  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/sharpening-the-chainsaw-pt-1.html">Sharpening the chainsaw pt. 1</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>I recently got into Ruby development with some help from <a href="http://jessedearing.com">Jesse Dearing</a> and <a href="https://plus.google.com/103797989648432285071/posts">James Gifford</a> and I found my shell environment to be quite a bit lacking. It wasn't Exactly vanilla, but It needed some help.</p>
+<p>I also learned quite a bit about some of the trending habits among Vim developers along the way. Upgrading my entire vim setup to use <a href="https://github.com/tpope/vim-pathogen">Pathogen</a> instead of the mess that was my .vim directory. Essentially, pathogen offers an easy way to add plugins to your Vim setup without all the messy manual config work.</p>
+<blockquote>
+<p>Manage your 'runtimepath' with ease. In practical terms, pathogen.vim makes it super easy to install plugins and runtime files in their own private directories.</p>
+</blockquote>
+<h3>Pimping vim with Pathogen</h3>
+<p>Lets take a look at this a bit closer...
+<!-- More --></p>
+<p>As some of you know, I use git almost religiously. And keeping my <a href="https://github.com/chuckbutler/dotfiles">dotfiles</a> in a repository has made system upgrades among other things a real breeze. But more on this later. <em>note</em> dont let the extra steps in setting up your own dotfiles repository sway you from doing so. It saves so much time in the long run - simply set it, and forget it.</p>
+<p>To get started using pathogen, you simply clone the pathogen repository into your ~/.vim and move the script into your autoload directory</p>
+<div class="highlight"><pre>    <span class="n">mv</span> <span class="n">pathogen</span><span class="p">.</span><span class="n">vim</span> <span class="o">~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">autoload</span>
+</pre></div>
+
+
+<p>Dont forget to add the Pathogen specific bits into your vimrc. (You read the (read)[https://github.com/tpope/vim-pathogen/blob/master/README.markdown]readme file right?)</p>
+<div class="highlight"><pre><span class="n">call</span> <span class="n">pathogen</span><span class="err">#</span><span class="n">infect</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Pure win, at this point. So lets grab a plugin and test drive it.</p>
+<div class="highlight"><pre><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">bundle</span>
+<span class="n">cd</span> <span class="o">~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">bundle</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/vim-scripts/The-NERD-tree.git</span>
+</pre></div>
+
+
+<p>This will swipe the latest copy of the nerdtree plugin and keep it isolated in its own directory. Fire up vim and tell it to open the drawer</p>
+<div class="highlight"><pre> <span class="o">:</span><span class="n">NERDTreeToggle</span>
+</pre></div>
+
+
+<p>You should see something similiar to the following</p>
+<p><img src="/img/posts/vim-drawer.png" alt="NERDTree" /></p>
+<p>We've now confirmed that this works.. but wait.. I keep all my dotfiles in a git repository... isn't the NERDTree plugin already IN a git repository? Why would we track files in our own repository that are already published in git? This is exactly what Git Submodules were intended for. So lets start off by cleaning up what we just did, and then re-applying it as a submodule. <em>*sidenote - if you're not currently keeping your vim configuration/plugins version controlled, you can disregard this step</em>.</p>
+<div class="highlight"><pre><span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="o">~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">bundle</span><span class="o">/</span><span class="n">The</span><span class="o">-</span><span class="n">Nerd</span><span class="o">-</span><span class="n">Tree</span>
+<span class="n">cd</span> <span class="o">&lt;</span><span class="n">The</span> <span class="n">Root</span> <span class="n">of</span> <span class="n">your</span> <span class="n">dotfiles</span> <span class="n">Repo</span><span class="o">&gt;</span>
+<span class="n">git</span> <span class="n">submodule</span> <span class="n">add</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/vim-scripts/The-NERD-tree.git &lt;path/to/your/dot-vim/bundle/NERDTree&gt;</span>
+</pre></div>
+
+
+<p>You will notice that this adds a new file to your repository. <em>.gitmodules</em> This stores all the information for your submodules - and is important if you ever decide to clone your repository on another machine. More on this a bit later as well.. lets verify that NERDTree cloned itself properly. Fire up vim, and toggle NERDTree again.</p>
+<div class="highlight"><pre><span class="o">:</span><span class="n">NERDTreeToggle</span>
+</pre></div>
+
+
+<p>If you saw the drawer pop out, everything is working as expected. You can now clone any vim plugin into your bundle directory and without any fuss add / remove them at whill thanks to the awesomeness that is Pathogen + gitsubmodules. So, Lets just say I have two machines, my Desktop and a Laptop. I'd like to keep a consistent environment between the two, and I have all of this setup, lets just pull the updates from our dotfiles repository and verify. Go ahead and issue a git pull on the repository after you've pushed your updates. </p>
+<h3>Wat?</h3>
+<p>You see the directories, but theres <strong>NOTHING IN THEM!</strong></p>
+<p>Don't panic, we have to tell git that we have submodules in this repository, and to initialize them</p>
+<div class="highlight"><pre><span class="n">git</span> <span class="n">submodule</span> <span class="n">init</span>
+<span class="n">git</span> <span class="n">submodule</span> <span class="n">update</span>
+</pre></div>
+
+
+<p>After running these two commands you should see git pull the repositories we've added and if you cd into them, all the files will be present and accounted for. Pure win. Lets move on</p>
+<h2>Why I switched to ZSH</h2>
+<p>The short answer: its all <a href="http://jessedearing.com">Jesse's</a> fault. We had a pair programming session over TMUX and i fell in love with the bell's and whistles in his ZSH setup.</p>
+<p><img src="/img/posts/zsh-shell-diagram.png" alt="ZSH Prompt Diagram" /></p>
+<p>So enough of that. How can I make the switch to ZSH?</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">zsh</span>
+</pre></div>
+
+
+<h4>If you're using a dotfiles Repository -- Follow this</h4>
+<div class="highlight"><pre><span class="n">cd</span> <span class="o">&lt;</span><span class="n">dotfiles</span> <span class="n">repository</span><span class="o">&gt;</span>
+<span class="n">git</span> <span class="n">submodule</span> <span class="n">add</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/robbyrussell/oh-my-zsh.git &lt;path to shell files&gt;</span>
+<span class="n">cp</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">cloned</span><span class="o">/</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="o">&gt;/</span><span class="n">templates</span><span class="o">/</span><span class="n">zshrc</span><span class="p">.</span><span class="n">zsh</span><span class="o">-</span><span class="n">template</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">shell</span> <span class="n">files</span><span class="o">&gt;/</span><span class="n">dotzshrc</span>
+<span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="p">.</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">cloned</span> <span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="o">-</span><span class="n">subdirectory</span><span class="o">&gt;</span>
+<span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="p">.</span><span class="n">zshrc</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dotzshrc</span><span class="o">&gt;</span>
+<span class="n">chsh</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">zsh</span>
+</pre></div>
+
+
+<h4>If you're not using a dotfiles Repository</h4>
+<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="n">L</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh</span>
+</pre></div>
+
+
+<blockquote>
+<p>You might need to modify your PATH in ~/.zshrc if you’re not able to find some commands after switching to Oh My Zsh.</p>
+</blockquote>
+<p><strong><em>Note</em> I had to change my exec params in Gnome-Terminal to launch /usr/bin/zsh instead of the system shell. I missed something somewhere, but a set once and forget it.</strong></p>
+<p>Since  <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a> has some extremely good documentation - I'll point you <a href="https://github.com/robbyrussell/oh-my-zsh/blob/master/README.textile">there</a> for further customization of your new shell.</p>
+<p>So in the last 20 minutes or so, we've managed to clean up Vim plugin management, and make it a breeze to port, and swapped over to a shell with some nice bells and whistles. I'll follow up with more on maintaining your dotfiles repository in part 2, and where to go from there.</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Tue 26 November 2013</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/git.html">git</a>,      <a href="http://blog.dasroot.net/tag/unix.html">unix</a>,      <a href="http://blog.dasroot.net/tag/linux.html">linux</a>,      <a href="http://blog.dasroot.net/tag/environments.html">environments</a>,      <a href="http://blog.dasroot.net/tag/zsh.html">zsh</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

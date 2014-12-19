@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="gaming, steam">
+
+  <title>
+    Chuck@Home
+&ndash; SteamCMD and SteamGuard  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/steamcmd-and-steamguard.html">SteamCMD and SteamGuard</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<p>SteamGuard is a multifactor authentication mechanism for Steam. If Steam does not have a record of the pc you are attempting to sign in with, it will halt the request and leave it in a "pending" state requiring you to enter a passcode they email to you.</p>
+<p>This is awesome!</p>
+<p>Now, enter SteamCMD who's sole purpose in life is to handle the "steam side" of server configuration. This is really a cool concept. </p>
+<p>Let's take a look at using SteamCMD to provision the StarBound server</p>
+<blockquote>
+<p><strong>Editorial Note</strong>: In leu of pasting tons of code into Ghost, I'll just point you at the github repository if you want code examples. <a href="https://github.com/chuckbutler/starbound-charm">https://github.com/chuckbutler/starbound-charm</a></p>
+</blockquote>
+<p>SteamCMD offers a nice scriptable way to provision services through runscripts. Looking over the documentation at the Steam Dev Center, it looks extremely straight forward</p>
+<h3>update_starbound.txt runscript</h3>
+<div class="highlight"><pre><span class="c1">// update_starbound.txt</span>
+<span class="c1">//</span>
+<span class="p">@</span><span class="n">ShutdownOnFailedCommand</span> <span class="mh">1</span> <span class="c1">//set to 0 if updating multiple servers at once</span>
+<span class="p">@</span><span class="n">NoPromptForPassword</span> <span class="mh">1</span>
+<span class="n">login</span> <span class="err">$</span><span class="no">STEAMNAME</span> <span class="err">$</span><span class="no">STEAMPASS</span>
+<span class="n">force_install_dir</span> <span class="p">..</span><span class="o">/</span><span class="n">starbound</span>
+<span class="n">app_update</span> <span class="mh">211820</span> <span class="n">validate</span>
+<span class="n">quit</span>
+</pre></div>
+
+
+<p>Everything is fairly straight forward, the only thing to note is you will have to know the Steam AppID, and can be found at the tail of the community page url.</p>
+<p><img alt="" src="/content/images/2013/Dec/Selection_011.png" /></p>
+<h2>NOTE</h2>
+<p><strong>If your account has SteamGuard enabled, it will halt your installation asking for the passcode. When attempting to script the value sent to me from SteamGuard, it drops into the Steam CLI and halts the script</strong></p>
+<p>Well, that was crappy. Is it acceptable to ask my users to disable SteamGuard for their game server?</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Tue 24 December 2013</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/gaming.html">gaming</a>,      <a href="http://blog.dasroot.net/tag/steam.html">steam</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

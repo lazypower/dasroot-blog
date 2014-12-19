@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="untagged">
+
+  <title>
+    Chuck@Home
+&ndash; CRM's and why they suck  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/crms-and-why-they-suck.html">CRM's and why they suck</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<h2>CRM's - Who needs them anyway?</h2>
+<p>I was recently tasked with setting up a CRM solution for my job. I for one, want to point out that every last single CRM system I've demo'd has suffered from negligence in implementation, and it just plain sucks when you're trying to white-label a CRM.  No one single CRM will scratch every itch you require as a business entity. You have to modify your workflow across the board to make it worth while.</p>
+<p>Now don't get me wrong. CRM's serve a purpose, and it's a lofty goal that they are attempting to achieve. For most companies you need some system in place to keep track of contacts and what the status is with the last contact. 100+ contacts a day can get EXTREMELY confusing for any one single department to keep track of. For the new readers that don't know; I work for an online marketing agency. We come in contact with circa 300 potential leads a day. Not to mention our 40+ clients, hundreds of affiliates, and other channels. </p>
+<p>So, if every CRM sucks... What do you do? You write your own. How many of us honestly need Email list management as our CRM? My company doesnt. Does yours? How many of us need to manually enter every contacts details? I dont, should <em>YOU?</em> I want to give back to this space, and offer a cruft-less version of Customer Management. Leads to affiliates to accounts - lets push back in a space that has otherwise been dominated by stale projects demanding too much money for what they offer. </p>
+<p>Who's with me?</p>
+<!-- more -->
+
+<p>The following is an example flowchart of how I perceive this to work - using Web to Lead as an example.</p>
+<script src="http://www.gliffy.com/diagramEmbed.js" type="text/javascript"> </script>
+
+<script type="text/javascript"> gliffy_did = "3311664"; embedGliffy(); </script>
+
+<p>The beauty in this system is simplicity by design. Currently our reporting system is clunky. We dont have any way to track "first page submits" other than Google Analytics and in page event tracking.. We track page clicks, conversions, and exit traffic. This leaves gigantic gaps in our intelligence reporting. This is where CRM would come into play - we assign leads in the CRM and track its conversion process through the system. Since most of the "white label" CRM solutions are geared towards E-Mail and phone campaigns - this leaves us with an interesting conundrum being nearly web-to-lead exclusive. How do we accomplish this in a SANE method that is flexible enough to support web to lead while not bloating it into a juggernaut that really accomplishes goals we didn't set out to complete? By cutting out the cruft and hoops you would have to jump through - we can establish this as a plugin for our existing systems in a post-receive-hook style HTTP Post - and keep tabs on the data.</p>
+<p>Since we have a Call Center backend to consider as well - specifically Five9 solutions Hosted callcenter softare - through connectors we can achieve the same level of data redundancy. I'll be moving forward with this soon - and posting my findings.</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Tue 26 November 2013</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/untagged.html">untagged</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>

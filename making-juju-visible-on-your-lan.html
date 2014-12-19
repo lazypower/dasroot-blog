@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.dasroot.net/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Charles Butler">
+  <meta name="description" content="Posts and writings by Charles Butler">
+
+  <link href="http://blog.dasroot.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chuck@Home Atom" />
+<meta name="keywords" content="juju, networking">
+
+  <title>
+    Chuck@Home
+&ndash; Making Juju visible on your LAN  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29116636-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://blog.dasroot.net">
+        <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=200" alt="Chuck@home" class="ui medium circular image">
+      </a>
+      <h2><a href="http://blog.dasroot.net">Chuck@Home</a></h2>
+      <p>juju deploy happiness</p>
+      <ul>
+        <li><a href="http://charlesbutler.me/" target="_blank">About Chuck</a></li>
+        <li><a href="http://blog.juju.solutions/" target="_blank">My GPG Key</a></li>
+        <li><a href="http://blog.dasroot.net/archives" target="_blank">Archives</a></li>
+        <li><a href="http://github.com/chuckbutler" target="_blank">Github</a></li>
+        <li><a href="http://twitter.com/lazypower" target="_blank">Twitter</a></li>
+        <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://blog.dasroot.net">Index</a> &brvbar; <a href="http://blog.dasroot.net/archives.html">Archives</a>
+      &brvbar; <a href="http://blog.dasroot.net/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="http://blog.dasroot.net/making-juju-visible-on-your-lan.html">Making Juju visible on your LAN</a></h3>
+  </div>
+  <div class="article_text">
+    <hr />
+<blockquote>
+<h2>Note: This article has been updated and verified to work on 14.04 on 11/02/2014</h2>
+</blockquote>
+<p>As I continue exploring the depths of Juju and what it offers I've outgrown using lynx to test my setups. Now that I'm running a Juju lab locally I figured its time to break the chains of the sandbox and make the services I'm deploying on my network visible to the machines on my LAN.</p>
+<h3>Setting up the Bridge Adapter</h3>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">bridge</span><span class="o">-</span><span class="n">utils</span>
+</pre></div>
+
+
+<p>Edit your /etc/network/interfaces to make the bridge adapter load from your network DHCP server</p>
+<div class="highlight"><pre><span class="k">auto</span> <span class="n">br0</span>
+<span class="n">iface</span> <span class="n">br0</span> <span class="n">inet</span> <span class="n">dhcp</span>
+    <span class="n">bridge_ports</span> <span class="n">eth0</span>
+    <span class="n">bridge_stp</span> <span class="n">off</span>
+    <span class="n">bridge_fd</span> <span class="mi">0</span>
+    <span class="n">bridge_maxwait</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p><strong>Note :</strong> You may need to change eth0 to your primary network adapter. </p>
+<p>After making the edit you will need to restart the networking services</p>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">sudo</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">init</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">networking</span> <span class="n">restart</span>
+</pre></div>
+
+
+<p>Edit /etc/lxc/lxc.conf and set lxc.network.link=br0 </p>
+<div class="highlight"><pre><span class="n">lxc</span><span class="p">.</span><span class="n">network</span><span class="p">.</span><span class="n">type</span><span class="o">=</span><span class="n">veth</span>
+<span class="n">lxc</span><span class="p">.</span><span class="n">network</span><span class="p">.</span><span class="n">link</span><span class="o">=</span><span class="n">br0</span>
+<span class="n">lxc</span><span class="p">.</span><span class="n">network</span><span class="p">.</span><span class="n">flags</span><span class="o">=</span><span class="n">up</span>
+</pre></div>
+
+
+<p>Edit /etc/default/lxc-net and set:</p>
+<ul>
+<li>LXC_BRIDGE, </li>
+<li>LXC_ADDR, </li>
+<li>LXC_NETMASK, </li>
+<li>LXC_NETWORK, </li>
+<li>LXC_DHCP_RANGE &amp; </li>
+<li>LXC_DHCP_MAX appropriately </li>
+</ul>
+<p>for my LAN (10.0.2.0/24 type settings) now juju status shows 10.0.2.0/24 addresses for my units and I can access them over the LAN from another machine</p>
+<div class="highlight"><pre><span class="n">USE_LXC_BRIDGE</span><span class="o">=</span><span class="s">&quot;false&quot;</span>
+<span class="n">LXC_BRIDGE</span><span class="o">=</span><span class="s">&quot;br0&quot;</span>
+<span class="n">LXC_ADDR</span><span class="o">=</span><span class="s">&quot;10.0.2.20&quot;</span>
+<span class="n">LXC_NETMASK</span><span class="o">=</span><span class="s">&quot;255.255.255.0&quot;</span>
+<span class="n">LXC_NETWORK</span><span class="o">=</span><span class="s">&quot;10.0.2.0/24&quot;</span>
+<span class="n">LXC_DHCP_RANGE</span><span class="o">=</span><span class="s">&quot;10.0.2.50,10.0.2.99&quot;</span>
+<span class="n">LXC_DHCP_MAX</span><span class="o">=</span><span class="s">&quot;49&quot;</span>
+</pre></div>
+
+
+<blockquote>
+<p>Its very important to set <code>USE_LXC_BRIDGE</code> to false, commenting it out wont have the effect of setting it to "false" implicitly.</p>
+</blockquote>
+<p>You will also need to specify the network bridge in your <code>$HOME/.juju/environments.yaml</code> file</p>
+<div class="highlight"><pre>  <span class="nl">local:</span>
+    <span class="nl">type:</span> <span class="n">local</span>
+    <span class="err">#</span> <span class="p">...</span> <span class="n">snipped</span> <span class="k">for</span> <span class="n">space</span>
+    <span class="err">#</span> <span class="n">Override</span> <span class="n">the</span> <span class="n">network</span> <span class="n">bridge</span> <span class="k">if</span> <span class="n">you</span> <span class="n">have</span> <span class="n">changed</span> <span class="n">the</span> <span class="k">default</span> <span class="n">lxc</span> <span class="n">bridge</span>
+    <span class="n">network</span><span class="o">-</span><span class="n">bridge</span><span class="o">:</span> <span class="n">br0</span>
+</pre></div>
+
+
+<p>Special thanks go to <a href="http://askubuntu.com/users/612/popey">Popey</a> for this excellent AskUbuntu <a href="http://askubuntu.com/questions/281530/how-do-i-run-juju-on-a-local-server?rq=1">question</a> and <a href="http://askubuntu.com/a/282415/6807">answer</a> on how to do this with a Precise host.</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Sun 22 December 2013</p>
+    <p>Category: <a href="http://blog.dasroot.net/category/misc.html">misc</a>
+ &ndash; Tags:
+      <a href="http://blog.dasroot.net/tag/juju.html">juju</a>,      <a href="http://blog.dasroot.net/tag/networking.html">networking</a>    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+        $(document).ready(function () {
+            gapi.comments.render('comments', {
+                href: window.location,
+                width: '600',
+                first_party_property: 'BLOGGER',
+                view_type: 'FILTERED_POSTMOD'
+            });
+    });
+    </script>
+
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Charles Butler. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Charles Butler on <a href="https://github.com/chuckbutler/pelican-svbremix" target="_blank">github</a>. Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.</p>
+    </div>
+  </main>
+<script type="text/javascript">
+  window._idl = {};
+  _idl.variant = "banner";
+  (function() {
+    var idl = document.createElement('script');
+    idl.type = 'text/javascript';
+    idl.async = true;
+    idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+    document.getElementsByTagName('body')[0].appendChild(idl);
+  })();
+</script>
+</body>
+</html>
