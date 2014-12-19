@@ -1,0 +1,27 @@
+<div class="aside">
+   <img src="http://www.gravatar.com/avatar/78270a8df5051560ab56ad16bc4724a3.png?s=150" alt="Chuck@home" class="ui small circular image">
+
+  <h2><a href="{{ SITEURL }}">{{ SITENAME }}</a></h2>
+  <p class="tagline">{{ TAGLINE }}</p>
+  <ul>
+    {% for title, link in MENUITEMS %}
+    <li><a href="{{ link }}">{{ title }}</a></li>
+    {% endfor %}
+    {% if DISPLAY_PAGES_ON_MENU %}{% for p in pages %}
+    <li><a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
+    {% endfor %}{% endif %}
+    {% for name, link in LINKS %}
+    <li><a href="{{ link }}" target="_blank">{{ name }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <div class="social-buttons">
+    <ul>
+      <li><a href="http://github.com/chuckbutler" target="_blank"><img src="{{ SITE_URL}}/theme/img/github.png"></a></li>
+      <li><a href="http://twitter.com/lazypower" target="_blank"><img src="{{ SITE_URL}}/theme/img/twitter.png"></a></li>
+      <li><a href="https://plus.google.com/+CharlesButlertheNinja" target="_blank"><img src="{{ SITE_URL}}/theme/img/googleplus.png"></a></li>
+      <li><a href="http://askubuntu.com/users/6807/lazypower" target="_blank"><img src="{{ SITE_URL}}/theme/img/stackoverflow.png"></a></li>
+      <li><a href="https://www.youtube.com/playlist?list=PLwgoaze7NCxp1S8cjCn7Loz1-2YSW51W1" target="_blank"><img src="{{ SITE_URL}}/theme/img/youtube.png"></a></li>
+    </ul>
+  </div>
+</div>
