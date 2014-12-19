@@ -7,13 +7,17 @@ SITENAME = u'Chuck@Home'
 SITEURL = 'http://blog.dasroot.net'
 
 PATH = 'content'
-
+PLUGIN_PATH = 'pelican-plugins'
+PLUGINS = ['googleplus_comments']
+STATIC_PATHS = ['images']
 TIMEZONE = 'America/New_York'
 
 DEFAULT_LANG = u'en'
 
-GOOGLE_ANALYTICS = 'UA-29116636-1'
-
+THEME = u'svbremix'
+GOOGLE_ANALYTICS = u'UA-29116636-1'
+TAGLINE = 'juju deploy happiness'
+INTERNET_DEFENSE_LEAGUE = True
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
@@ -22,16 +26,14 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('jujucharms', 'http://jujucharms.com/'),
-         ('Juju Solutions Blog', 'http://blog.juju.solutions/'),
-         ('Jorge Castro', 'http://jorgecastro.org/'),
-         ('Marco Ceppi', 'http://marcoceppi.com'),
-         ('Matt Bruzek', 'http://bruzer.net'),
-        )
+LINKS = (('About Chuck', 'http://charlesbutler.me/'),
+         ('My GPG Key', 'http://blog.juju.solutions/'),
+         ('Archives', 'http://blog.dasroot.net/archives'))
 
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
+SOCIAL = (('Github', 'http://github.com/chuckbutler'),
+         ('Twitter', 'http://twitter.com/lazypower'),
+         ('Google+', 'https://plus.google.com/+CharlesButlertheNinja'))
 
 DEFAULT_PAGINATION = 8
 
