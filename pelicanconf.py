@@ -16,7 +16,7 @@ TIMEZONE = 'America/New_York'
 
 DEFAULT_LANG = 'en'
 
-THEME = 'semantic-coder'
+THEME = 'masonary-redux'
 GOOGLE_ANALYTICS = 'UA-29116636-1'
 INTERNET_DEFENSE_LEAGUE = True
 
@@ -33,7 +33,7 @@ LINKS = (('About Chuck', 'http://charlesbutler.me/'),
          ('My GPG Key', 'http://blog.juju.solutions/'),
          ('Archives', 'http://blog.dasroot.net/archives'))
 
-DEFAULT_PAGINATION = 10
+DEFAULT_PAGINATION = 9
 
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
