@@ -31,7 +31,7 @@ quit
 
 Everything is fairly straight forward, the only thing to note is you will have to know the Steam AppID, and can be found at the tail of the community page url.
 
-![](/content/images/2013/Dec/Selection_011.png)
+![](/images/2013/Dec/Selection_011.png)
 
 ## NOTE
 

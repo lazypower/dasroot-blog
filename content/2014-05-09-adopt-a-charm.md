@@ -23,7 +23,7 @@ Well, I've encountered something similar. a community template had a typo in the
 
 The first step is to e-mail the [juju list](https://lists.ubuntu.com/mailman/listinfo/juju), to ensure someone else hasn't stepped into the position without announcement, or give the maintainer a chance to toss their hat back into the ring. That and it's just good manners.
 
-![](/content/images/2014/May/email_the_juju_list.png)
+![](/images/2014/May/email_the_juju_list.png)
 
 ##### Success, it's my time to shine
 
@@ -31,9 +31,9 @@ The first step is to e-mail the [juju list](https://lists.ubuntu.com/mailman/lis
 My first task is to poke around in the [rails-charm bug tracker](https://bugs.launchpad.net/charms/+source/rails) where I discovered there were several action items left that had not been resolved.
 
 ### Before
-![](/content/images/2014/May/rails_issues_before-1.png)
+![](/images/2014/May/rails_issues_before-1.png)
 ### After
-![](/content/images/2014/May/rails_issues_after.png)
+![](/images/2014/May/rails_issues_after.png)
 
 As you can see, the simple presence of [bug maintenance](https://wiki.ubuntu.com/Bugs/Bug%20triage) will go a long way towards helping a projects apperance. But this is only a cosmetic fix a this point.
 

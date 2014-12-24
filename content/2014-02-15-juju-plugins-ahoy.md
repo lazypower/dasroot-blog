@@ -27,7 +27,7 @@ git push
 
 Then simply open a Pull Request and someone from the juju plugins team will review your work.
 
-![](/content/images/2014/Feb/Selection_017.png)
+![](/images/2014/Feb/Selection_017.png)
 
 
 I look forward to seeing the new plugins roll in to make everyone's juju experience that much more awesome!

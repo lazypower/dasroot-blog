@@ -1,6 +1,6 @@
 Title: IPDB - the repl you didn't know about
 Date: 2014-03-17 19:03
-Tags: juju, python, debugging, amulet
+Tags: juju, python, debugging, amulet, video
 Slug: ipdb-the-repl-you-didnt-know-about
 Category: Programming
 

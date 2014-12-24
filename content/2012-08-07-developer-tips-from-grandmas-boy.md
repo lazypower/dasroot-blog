@@ -53,7 +53,7 @@ Be prepared for someone to do your idea bigger and better
 
 As already mentioned, JP was a rockstar game developer. Programming video games since he was 13 he surely thought he had a corner on everything that was awesome... Until he shows up at Alex's house and discovers he had been working on Demonic. Showcasing futuristic mip mapping and better gameplay than what his games offered. While this can be a blow to the ego: reinvention has been the mother of creation for many years. If you build a search engine, someone will build it better. If you aggregate data from a single service, other services will aggregate from *ALL* services. It's a fact of life.
 
-Don't have a robot vagina
+Don't have a robot $#%#@
 --------------------------
 
-While it's a repeat statement: its probably the most important takeaway of all. Do not seperate yourself from the group; especially if ti means that you do not attend out of work activities. The bonding and fun are important to everyone around you. It helps the entire team to unwind and share their experiences in a non threatening environment. Besides, you never know when you'll have fun by accident.
+While it's a repeat statement: its probably the most important takeaway of all. Do not separate yourself from the group; especially if ti means that you do not attend out of work activities. The bonding and fun are important to everyone around you. It helps the entire team to unwind and share their experiences in a non threatening environment. Besides, you never know when you'll have fun by accident.

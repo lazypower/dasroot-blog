@@ -119,23 +119,23 @@ This will push the charm from my local charms repository to the Juju controller 
 
 ## Charm Configuration
 
-![](/content/images/2013/Dec/Screenshot_from_2013_12_02_01_49_51_5.png)
+![](/images/2013/Dec/Screenshot_from_2013_12_02_01_49_51_5.png)
 
 Expand the charm inspector on the Papertrail charm, and lets set up the port.
 
 
 ## Charm Relations
-![](/content/images/2013/Dec/Screenshot_from_2013_12_02_01_45_17_3.png)
+![](/images/2013/Dec/Screenshot_from_2013_12_02_01_45_17_3.png)
 
 Save the configuration changes, and draw lines to each container application we want to monitor.
 
-![](/content/images/2013/Dec/Screenshot_from_2013_12_02_01_48_54_2.png)
+![](/images/2013/Dec/Screenshot_from_2013_12_02_01_48_54_2.png)
 
 Inspecting the charm of minecraft reveals the juju-info link relation drawn to papertrail, and lists the dependency chain.
 
 ### Validation
 
-![](/content/images/2013/Dec/JuJu_Systems___Papertrail.png)
+![](/images/2013/Dec/JuJu_Systems___Papertrail.png)
 
 
 
@@ -178,6 +178,6 @@ Warnings are better than errors right? Now lets push this up to our launchpad bz
 
 ### Start the review process
 
-![](/content/images/2013/Dec/Bug__1023665__Charm_Needed__Papertrailapp____Bugs___Juju_Charms_Collection_15.png)
+![](/images/2013/Dec/Bug__1023665__Charm_Needed__Papertrailapp____Bugs___Juju_Charms_Collection_15.png)
 
 And now we wait!

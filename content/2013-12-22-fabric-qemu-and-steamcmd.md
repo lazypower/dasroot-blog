@@ -67,7 +67,7 @@ $ fab bootstrap_server
 
 Paydirt! Its executing and has halted on the remote system in interactive mode, prompting me to enter the sudo password before it installs the packages. I like where this is going.
 
-![Devops Borat says Great Success!](/content/images/2013/Dec/devops_borat_tells_it_like_it_is.png)
+![Devops Borat says Great Success!](/images/2013/Dec/devops_borat_tells_it_like_it_is.png)
 
 Skipping ahead through some dev cycle debugging, we know our next step is to get QEmu installed and running.
 
@@ -126,28 +126,28 @@ Reboot and your newly made QEmu images will be able to be independent units on t
 
 Lets bootstrap a new machine for the Starbound Server. Fire up virt-manager
 
-![](/content/images/2013/Dec/virt_manager.jpg)
+![](/images/2013/Dec/virt_manager.jpg)
 
 
 Connect to your QEmu server
-![](/content/images/2013/Dec/Selection_002.png)
+![](/images/2013/Dec/Selection_002.png)
 
 **Note:** You may need to enter the IP Address of your remote server in the Hostname field unless you have mapped them via DNS, /etc/hosts or through other means of DNS Resolution.
 
 Create a new machine
-![](/content/images/2013/Dec/Selection_003.png)
+![](/images/2013/Dec/Selection_003.png)
 
 Set the Installation Media
-![](/content/images/2013/Dec/Selection_004.png)
+![](/images/2013/Dec/Selection_004.png)
 
 Set your hardware constraints
-![](/content/images/2013/Dec/Selection_005.png)
+![](/images/2013/Dec/Selection_005.png)
 
 Allocate Space for the root disk
-![](/content/images/2013/Dec/Selection_006.png)
+![](/images/2013/Dec/Selection_006.png)
 
 Finalize Settings including our Bridged networking device
-![](/content/images/2013/Dec/Selection_007.png)
+![](/images/2013/Dec/Selection_007.png)
 
 Click Finish and install Ubuntu Server as normal
 

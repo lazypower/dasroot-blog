@@ -1,8 +1,9 @@
 Title: Juju Powered Radio! A protoduction experiment.
 Date: 2014-09-26 19:09
-Tags: juju, planet, radio, music, automation, experiment
+Tags: juju, planet, radio, music, automation, experiment, video
 Slug: juju-powered-radio
 Category: Devops
+image: /images/2014/Nov/juju_radio.png
 
 September 26'th I undertook a rather daunting task of trialing something I strongly believe in that really took me out of my comfort zone and put me front and center of an audience's attention, for not only my talents, but also the technical implementation of their experience.
 
@@ -11,7 +12,7 @@ September 26'th I undertook a rather daunting task of trialing something I stron
 
 I've been amateur [DJ](http://mixcloud.com/rahlgenesis/)'ing on Secondlife for about the last 7 months, and recently left the metaverse to pursue a podcast format of my show(s).  What I found was I really missed the live interaction with people during the recording of the set. It was great to get feedback, audience participation, and I could really gauge the flow of energy that I'm broadcasting. To some this may sound strange, but when your primary interaction is over text, and you see a feed erupt with actions as you put on more high energy music, it just 'clicks' and makes sense.
 
-![](/content/images/2014/Sep/secondlife_dj.png)
+![](/images/2014/Sep/secondlife_dj.png)
 
 The second aspect to this was I wanted to showcase how you can get moving with **Juju in less than a week** to bring a **production ready** app online and **ready for scale** (depending on the complexity of the app of course). It's been a short while since I've pushed a charm from scratch into the charm store - and this will definately get me re-acquiainted with the process our new users go through on their Juju journey.
 
@@ -39,8 +40,8 @@ I deployed this setup on Digital Ocean to run my 'lab test' - as the machines ar
 
 I consumed 2 of the 'tiny' VPS servers for this. And the metrics of the transcoders were light enough that it barely touched the CPU. As a matter of fact I saw more activity out of supporting infra services such as LogStash, than I did out of the SHOUTCast charm. Excellent work on the implementation Shoutcast devs. This was a pleasant surprise!
 
-![](/content/images/2014/Sep/ubuntu-do-prod-41c692c182e243318ebec209c576aff7---_116.png)
-![](/content/images/2014/Sep/ubuntu-do-prod-22998e4b90d24ca682ce3892368139b1---_117.png)
+![](/images/2014/Sep/ubuntu-do-prod-41c692c182e243318ebec209c576aff7---_116.png)
+![](/images/2014/Sep/ubuntu-do-prod-22998e4b90d24ca682ce3892368139b1---_117.png)
 
 
 #### Pre-scaling was the winner
@@ -51,7 +52,7 @@ The fact that the clients supported this, tells me that any time I do this live,
 
 Had this been a single host - every blip in the network would yield dead airspace before they realized something had gone wrong.
 
-![Juju Scaled Shoutcast Service](/content/images/2014/Sep/Juju-Admin---Google-Chrome_127.png)
+![Juju Scaled Shoutcast Service](/images/2014/Sep/Juju-Admin---Google-Chrome_127.png)
 
 #### Supportive people are amazing, and make what you do, worthwhile
 
@@ -67,7 +68,7 @@ I've found a GREAT service that I want to consume and deploy to handle the stati
 
 I'm also well on my way to having revision 1 of this bundle completed, since I started the blog post on Friday. Hacked on the bundle through the weekend, and landed here on Monday.
 
-![](/content/images/2014/Sep/Workspace-1_126.png)
+![](/images/2014/Sep/Workspace-1_126.png)
 
 I'll be talking more about this after it's officially unveiled in Brussels.
 

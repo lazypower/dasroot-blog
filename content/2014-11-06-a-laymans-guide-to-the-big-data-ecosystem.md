@@ -3,6 +3,7 @@ Date: 2014-11-06 12:11
 Tags: juju, planet, hadoop, big-data-2
 Slug: a-laymans-guide-to-the-big-data-ecosystem
 Category: BigData
+image: /images/2014/Nov/BigData_2267x1146_white.png
 
 ![Big Data Wordcloud](images/2014/Nov/BigData_2267x1146_white.png)
 
@@ -34,7 +35,7 @@ How do you know which one to pick? "Which one makes **my** job easier?" you migh
 ### Hadoop
 #### The core component(s)
 
-![Dancing hadoop elephants](/content/images/2014/Nov/Hadoop_elephants.jpg)
+![Dancing hadoop elephants](/images/2014/Nov/Hadoop_elephants.jpg)
 
 The base Apache Hadoop framework (as of v2) is composed of the following modules:
 
@@ -51,12 +52,12 @@ The base Apache Hadoop framework (as of v2) is composed of the following modules
     juju quickstart bundle:hdp-core-batch-processing
 
 
-![Hadoop Core Bundle Depiction from Juju](/content/images/2014/Nov/Selection_171-1.png)
+![Hadoop Core Bundle Depiction from Juju](/images/2014/Nov/Selection_171-1.png)
 
 ### Tez
 #### High Preformance Bach Processing Engine
 
-![](/content/images/2014/Nov/ApacheTezLogo_lowres.png)
+![](/images/2014/Nov/ApacheTezLogo_lowres.png)
 
 `Tez` generalizes the MapReduce paradigm to a more powerful framework based on expressing computations as a dataflow graph. Tez is not meant directly for end-users – in fact it enables developers to build end-user applications with much better performance and flexibility. Hadoop has traditionally been a batch-processing platform for large amounts of data. However, there are a lot of use cases for near-real-time performance of query processing. There are also several workloads, such as Machine Learning, which do not fit will into the MapReduce paradigm. Tez helps Hadoop address these use cases.
 
@@ -64,14 +65,14 @@ The base Apache Hadoop framework (as of v2) is composed of the following modules
 
     juju quickstart bundle:high-performance-batch-processing
 
-![Tez Bundle Depiction from Juju](/content/images/2014/Nov/Selection_172.png)
+![Tez Bundle Depiction from Juju](/images/2014/Nov/Selection_172.png)
 
 ## Distributed Stream Processing
 
 ### Storm
 #### Real Time Processing of Data Streams
 
-![](/content/images/2014/Nov/storm_logo1.png)
+![](/images/2014/Nov/storm_logo1.png)
 
 Storm is a distributed computation framework written predominantly in the Clojure programming language. It uses custom created "spouts" and "bolts" to define information sources and manipulations to allow batch, distributed processing of streaming data.
 
@@ -83,14 +84,14 @@ A Storm application is designed as a topology in the shape of a [directed acycli
     juju quickstart bundle:realtime-analytics-with-storm
 
 
-![Storm Bundle Depiction from Juju](/content/images/2014/Nov/Selection_170-1.png)
+![Storm Bundle Depiction from Juju](/images/2014/Nov/Selection_170-1.png)
 
 ## Client Libraries and Supporting Applications for writing Map/Reduce
 
 ### Hive
 #### Write Map/Reduce applications with a variant of SQL
 
-![Hadoop Hive Logo](/content/images/2014/Nov/hive_logo.png)
+![Hadoop Hive Logo](/images/2014/Nov/hive_logo.png)
 
 Apache Hive is a data warehouse infrastructure built on top of Hadoop for providing data summarization, query, and analysis. Hive supports analysis of large datasets stored in Hadoop's HDFS and compatible file systems such as Amazon S3 filesystem. It provides an SQL-like language called HiveQL with schema on read and transparently converts queries to map/reduce, Apache Tez and in the future Spark jobs. All three execution engines can run in Hadoop YARN. To accelerate queries, it provides indexes, including bitmap indexes.
 
@@ -100,12 +101,12 @@ Apache Hive is a data warehouse infrastructure built on top of Hadoop for provid
     juju quickstart bundle:data-analytics-with-sql-like
 
 
-![Hive Bundle Depiction from Juju](/content/images/2014/Nov/Selection_169-1.png)
+![Hive Bundle Depiction from Juju](/images/2014/Nov/Selection_169-1.png)
 
 ### Pig
 #### The Rapid Latin Language of Big Data
 
-![Pig the rapid map reduce writer](/content/images/2014/Nov/pig-on-elephant.png)
+![Pig the rapid map reduce writer](/images/2014/Nov/pig-on-elephant.png)
 
 Pig is a high-level platform for creating MapReduce programs used with Hadoop. The language for this platform is called Pig Latin.Pig Latin abstracts the programming from the Java MapReduce idiom into a notation which makes MapReduce programming high level, similar to that of SQL for RDBMS systems. Pig Latin can be extended using User Defined Functions which the user can write in Java, Python, JavaScript, Ruby or Groovy and then call directly from the language.
 
@@ -114,11 +115,11 @@ Pig is a high-level platform for creating MapReduce programs used with Hadoop. T
     juju quickstart bundle:data-analytics-with-pig-latin
 
 
-![Pig Bundle Depiction from Juju](/content/images/2014/Nov/Selection_168-2.png)
+![Pig Bundle Depiction from Juju](/images/2014/Nov/Selection_168-2.png)
 
 ### Breaking down comprehension on Pig and Hive - and how they work in the ecosystem
 
-![Diagram of Pig vs Hive - credit: http://www.bigdatatrendz.com/2013/10/introduction-to-apache-hive-and-pig.html](/content/images/2014/Nov/PigVsHive.png)
+![Diagram of Pig vs Hive - credit: http://www.bigdatatrendz.com/2013/10/introduction-to-apache-hive-and-pig.html](/images/2014/Nov/PigVsHive.png)
 
 
 `Pig` and `Hive` both bundle client side application libraries, and deployed daemon components that bolt on additional functionality for the data scientist working with the data in HDFS or SQL tables. This allows a powerful combination for end-users to write map/reduce applications rapidly.

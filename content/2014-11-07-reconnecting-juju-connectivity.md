@@ -3,6 +3,7 @@ Date: 2014-11-07 11:11
 Tags: juju, planet
 Slug: reconnecting-juju-connectivity
 Category: Devops
+image: /images/2014/Nov/disconnected.jpg
 
 When disaster strikes, the first instinct is to panic right? You don't need to panic just yet when your IT staff has come to you, the devopsy admin sent from the future with cool tools, and tells you that there is a new networking policy change. And every one of your units are going to under go an IP Refresh, and domain change.
 

@@ -42,7 +42,7 @@ To understand what just happened - see [LXC provider Juju documentation](https:/
 
 This will deploy the Graphical configuration tool for Juju, allowing you to "shop" for applications within the Charm Store. You can deploy any of the offerings to the Local Provider from this Gui with Drag and Drop simplicity.
 
-![](/content/images/2013/Nov/Screenshot_2013_11_30_13_20_44.png)
+![](/images/2013/Nov/Screenshot_2013_11_30_13_20_44.png)
 
 
 While the GUI is not a requirement for using Juju, I like the visibility it provides into the stack's I'm creating. I've come to lean on using the GUI and the watch command with juju status.
@@ -63,7 +63,7 @@ Pairing the watch command with juju status will continually monitor the informat
 
 	watch juju status
 
-![](/content/images/2013/Nov/Screenshot_2013_11_30_17_46_58.png)
+![](/images/2013/Nov/Screenshot_2013_11_30_17_46_58.png)
 
 
 

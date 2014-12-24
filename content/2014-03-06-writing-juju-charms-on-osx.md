@@ -118,7 +118,7 @@ vagrant init JujuBox
 vagrant up
 ```
 
-![Vagrant Bootstrap](/content/images/2014/Mar/charles_Bushido__10_0_5_136____byobu_028.png)
+![Vagrant Bootstrap](/images/2014/Mar/charles_Bushido__10_0_5_136____byobu_028.png)
 
 You now have a Juju installation ready to be used for testing your charm on OSX, and a slick Juju-Gui to interface with your services. Validate that the GUI is accessible from http://localhost:6080
 
@@ -141,7 +141,7 @@ juju deploy --repository=/vagrant local:genghis
 
 We are now free to watch progress through the GUI
 
-![juju-gui](/content/images/2014/Mar/Juju_Admin___Google_Chrome_029.png)
+![juju-gui](/images/2014/Mar/Juju_Admin___Google_Chrome_029.png)
 
 When the Genghis badge turns green, we are ready to vpn our traffic through the vagrant image and interface with the Genghis server
 
@@ -156,14 +156,14 @@ sshuttle -r vagrant@localhost:2222 10.0.3.0/24
 
 When prompted for the password enter `vagrant` and you should see output similar to the following:
 
-![](/content/images/2014/Mar/charles_Bushido__10_0_5_136____byobu_030.png)
+![](/images/2014/Mar/charles_Bushido__10_0_5_136____byobu_030.png)
 
 Now we are free to connect to genghis. Open up the Genghis running unit list and click on the Genghis host, then click on the port 80 link in the service detail.
 
-![](/content/images/2014/Mar/Juju_Admin___Google_Chrome_031.png)
+![](/images/2014/Mar/Juju_Admin___Google_Chrome_031.png)
 
 
-![](/content/images/2014/Mar/Genghis___Google_Chrome_032.png)
+![](/images/2014/Mar/Genghis___Google_Chrome_032.png)
 #### Celebrate!
 
 You've officially become a juju jedi padewon working with vagrant on OSX. Feel free to modify your charm code, and update. No more SCP'ing files to your linux server, or paying expensive cloud bills for development. With the live directory mapping provided by this vagrant setup, any edits you make to your files on the HOST operating system, are reflected in the guest.

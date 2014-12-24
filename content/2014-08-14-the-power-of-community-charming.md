@@ -60,15 +60,15 @@ Thats all that's required for you to publish a charm under your namespace for th
 
 In the Juju Charm Store as it exists today, there is a dividing bar below the recommended charms for 'other' - and this warehouses bundles, personal charms, and is a place holder for future data types as they emerge.
 
-![](/content/images/2014/Aug/Selection_069.png)
+![](/images/2014/Aug/Selection_069.png)
 
 As you can see by the image above, there is quite a bit of information packed into the accordion. Let's take a look at the bundle description first:
 
-![](/content/images/2014/Aug/bundle-diagram.png)
+![](/images/2014/Aug/bundle-diagram.png)
 
 As illustrated, no review process was done to submit this bundle, it has 0 deployments in the wild of 5 services/units.
 
-![](/content/images/2014/Aug/namespace_charm.png)
+![](/images/2014/Aug/namespace_charm.png)
 
 Looking at a charm, we have the same basic level of information, and we see that the  charm itself is in my personal namespace.  trusty|lazypower - designates the series/namespace of the charm listing.
 
@@ -79,7 +79,7 @@ Recommended charms have undergone a rigerous testing phase by the Juju Charmer t
 
 They have full service descriptor icons provided by the charm itself, and are deployable via juju deploy cs:series/service
 
-![](/content/images/2014/Aug/Selection_070.png)
+![](/images/2014/Aug/Selection_070.png)
 
 Notice the orange earmark in the upper right corner. This denotes the charm is a ~charmer recommended service, as it has undergone the review process and accepted into the charmer's namespace of the Juju Charm Store.
 

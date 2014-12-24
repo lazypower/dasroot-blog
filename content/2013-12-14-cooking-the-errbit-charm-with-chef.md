@@ -9,7 +9,7 @@ My good friend [Marco Ceppi](http://marcoceppi.com) sent me a link to a github r
 I have to admit, I'm really happy this was here. I was brain bending around how I was going to try to integrate chef as my provisioner of choice. At first glance its a pure abstraction of the chef provisioner in charm hook format. Each aspect of the charm correlates to a chef cookbook and associated recipes.
 
 
-![](/content/images/2013/Dec/interesting_call_tracking.jpeg)
+![](/images/2013/Dec/interesting_call_tracking.jpeg)
 
 
 ## Translating the hooks

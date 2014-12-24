@@ -1,6 +1,6 @@
 Title: GIT talk with Scott Chacon of GitHub
 Date: 2012-03-11 20:11
-Tags: git, screencast
+Tags: git, screencast, video
 Slug: git-talk-with-scott-chacon-of-github
 Category: Programming
 

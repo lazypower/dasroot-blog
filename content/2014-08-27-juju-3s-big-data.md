@@ -1,8 +1,10 @@
 Title: Juju <3's Big Data
 Date: 2014-08-27 17:08
-Tags: juju, planet, big-data, hadoop, hortonworks
+Tags: juju, planet, big-data, hadoop, hortonworks, video
 Slug: juju-3s-big-data
 Category: Devops
+summary: Over the past 4 months [Amir Sanjar](http://bigdatachat.net) and I have been working dilligently on Juju's Big Data story. Working with software vendors to charm up big name products like the Demo'd Hortonworks Hadoop distribution.
+video: f9yTWK7Z9Wg
 
 <iframe width="640" height="360" src="//www.youtube.com/embed/f9yTWK7Z9Wg" frameborder="0" allowfullscreen></iframe>
 

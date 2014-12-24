@@ -42,7 +42,7 @@ We'll also need to add our API credentials as an environment variable. According
 
 You can find these on your Digital Ocean Account page:
 
-![](/content/images/2014/Apr/DO_API.png)
+![](/images/2014/Apr/DO_API.png)
 
 
 ### Bootstrapping our DO Service
@@ -83,7 +83,7 @@ Connect to the deployed owncloud server by opening a browser and connecting to t
 
 On first run, you will be prompted to define your administrative user. The remainder of the settings while tempting to tweak - should be left as their defaults.
 
-![](/content/images/2014/Apr/do_first_run.png)
+![](/images/2014/Apr/do_first_run.png)
 
 With the server component completed. Lets take a look at getting the rest of the ecosystem setup, starting with the PC.
 
@@ -92,13 +92,13 @@ With the server component completed. Lets take a look at getting the rest of the
 
 OwnCloud provides a client app available from the Ubuntu Software Center
 
-![](/content/images/2014/Apr/owncloud_client_software_center.png)
+![](/images/2014/Apr/owncloud_client_software_center.png)
 
 Easily installed via apt
 
 	sudo apt-get install owncloud-client
 
-![](/content/images/2014/Apr/do_client_screen-1.png)
+![](/images/2014/Apr/do_client_screen-1.png)
 
 The configuration here is very straight forward, and can mimic the U1 behavior if you opt out of picking a "parent" sync directory to sync all your files. You'll need to start with that configuration, but remove it and pick individual directories to sync, with a corresponding directory on the owncloud server. See the example above.
 

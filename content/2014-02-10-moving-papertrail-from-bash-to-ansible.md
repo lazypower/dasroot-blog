@@ -16,4 +16,4 @@ If you would like to follow along at home, and see how many lines of code went i
 [Rewrite Pull Request](https://github.com/chuckbutler/papertrail-charm/pull/4/files)
 
 
-![](/content/images/2014/Feb/Workspace_1_003.png)
+![](/images/2014/Feb/Workspace_1_003.png)

@@ -9,7 +9,7 @@ This year has been absolutely crazy. Never in my wildest dreams did I think I wo
 I've always been a hobbyist engineer in the sense that I love hacking on unix systems, and tinkering with application code here and there for random web apps or scratch-your-own-itch applications. However this year was different: not only would I be toiling away building some great client sites; But I also attended 2 conferences, spoke at a school to a cache of eager engineers who wanted to know more about the technical landscape in Pittsburgh, helped found a MongoDB User Group with some co-workers and 10gen, Founded my own company, and stepped down from being middle management back into the engineering role I know and love.
 
 
-![](/content/images/2013/Nov/IMG_0001.jpg)
+![](/images/2013/Nov/IMG_0001.jpg)
 
 In a single paragraph I just summed up the highlights of 2013.  Thats a great feeling, to know I've been so focused and articulate in my dicipline.
 
@@ -57,9 +57,9 @@ Noteable new additions: Vagrant, LocomotiveWagon, and BZR. As you see I've been 
 
 ## Recent Random Awesomeness
 
-![](/content/images/2013/Nov/IMG_0624_PNG.png)
-![](/content/images/2013/Nov/IMG_0622_PNG.png)
-![](/content/images/2013/Nov/IMG_0590_JPG.jpg)
-![](/content/images/2013/Nov/IMG_0615.jpg)
+![](/images/2013/Nov/IMG_0624_PNG.png)
+![](/images/2013/Nov/IMG_0622_PNG.png)
+![](/images/2013/Nov/IMG_0590_JPG.jpg)
+![](/images/2013/Nov/IMG_0615.jpg)
 Whats this? Abandoned Cigarettes? Yep - I made the switch to vapor. It's 2013 after all.
-![](/content/images/2013/Nov/IMG_0672_JPG.jpg)
+![](/images/2013/Nov/IMG_0672_JPG.jpg)
