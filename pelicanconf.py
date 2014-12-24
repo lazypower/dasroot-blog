@@ -11,7 +11,7 @@ SITEURL = 'http://blog.dasroot.net'
 PATH = 'content'
 PLUGIN_PATHS = ['pelican-plugins']
 PLUGINS = ['googleplus_comments', 'sitemap', 'pelican_gist']
-STATIC_PATHS = ['images']
+STATIC_PATHS = ['images', 'pages']
 TIMEZONE = 'America/New_York'
 
 DEFAULT_LANG = 'en'
