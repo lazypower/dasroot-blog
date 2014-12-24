@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block head %}
+<meta name="keywords" content="{{ article.tags|join(', ')  }}">
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5493f74408f65a56"></script>
+{% endblock %}
+
+{% block title %}&ndash; {{ article.title }}{% endblock %}
+
+{% block content %}
+<div class="ui grid centered">
+    <div class="eight wide column">
+<article>
+  <div class="article_title">
+    <h1><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h1>
+    <p><small>Posted on: {{ article.locale_date }}</small></p>
+  </div>
+  <div class="article_text">
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <div class="addthis_sharing_toolbox"></div>
+    {{ article.content }}
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
+      {% if article.tags %} &ndash; Tags:
+      {% for tag in article.tags %}
+      <a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>{% if not loop.last %},{% endif %}
+      {% endfor %}
+      {% endif %}
+    </p>
+  </div>
+
+  <div id="commentswrap">
+      <div id="comments"></div>
+  </div>
+  {{ article.metadata.googleplus_comments }}
+
+
+</article>
+</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5493f74408f65a56" async="async"></script>
+
+ <script type="text/javascript">
+    $('.ui.sticky')
+      .sticky({
+        context: '.content'
+      });
+</script>
+
+
+{% endblock %}

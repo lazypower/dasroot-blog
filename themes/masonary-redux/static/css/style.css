@@ -1,0 +1,171 @@
+
+body {
+    font-family: 'Ubuntu', sans-serif;
+    color: #333333;
+    font-size: 12pt;
+}
+
+a {
+    color: #dd4814;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+a:hover {
+    color: #dd4814;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+a:visited {
+    color: #dd4814;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+
+blockquote {
+  border-left: 5px solid #dd4814;
+  background: #FCFCFC;
+  padding: 15px 20px;
+  margin-top: 10px;
+}
+
+/* codeblocks */
+
+pre {
+  margin: 10px 0px 10px 10px;
+  background: #EEEDEB;
+  padding: 10px 0px 10px 10px;
+}
+
+/* Layout */
+
+/* override the menu margin */
+.ui.menu { 
+    margin-top: 0px;
+    z-index: 999;
+}
+.content {
+  margin-left: 50px;
+  margin-right: 50px;
+  z-index: 10;
+  margin-top: 50px;
+  padding-top: 0px;
+}
+
+footer {
+    background-color: #eee;
+    position: absolute;
+    margin-bottom: 0px;
+    width: 100%;
+    padding: 0px 50px 0px 50px;
+}
+
+/* Index Article Feed Listing */
+.meta {
+  position: relative;
+  float: right;
+  top: 0px;
+  color: #555;
+  text-align: right;
+  width: auto;
+}
+
+article {
+  border-bottom: 1px solid #eee;
+  margin-bottom 50px;
+  padding-bottom: 10px;
+  border-bottom: solid 2px #eee;
+}
+
+article h1.title {
+  font-weight: 300;
+  line-height: 35px;
+  margin-bottom: 20px;
+}
+
+article a {
+  color: #dd4814;
+}
+
+article p {
+    font-family: "Ubuntu', sans-serif;
+}
+
+.image img {
+  width: 500px;
+  height: auto;
+}
+
+#paginator {
+  margin-top: 15px;
+}
+#paginator .nextpost {
+  float: right;
+}
+
+.ui.orange.ribbon.label{
+  background-color: #dd4814!important;
+} 
+
+@media only screen and (min-width: 767px) {
+ #header {
+   background-image:url(../img/background.png);
+   top: 0;
+   z-index: 1;
+   height: 600px;
+   width: 100%;
+   background-position: 50% 50%;
+   background-size: cover;
+   font-size: 2.5em;
+ }
+
+ #header .vertical {
+  width: 100%;
+  height: 600px;
+  background: url(../img/cover-pattern.png) 0 0 repeat;
+  padding-top: 150px;
+
+}
+
+ #header h1 {
+   font-size: 3.25em;
+ }
+
+ #header .circle {
+   -webkit-transition: all .5s ease-out;
+    transition: all .5s ease-out;
+    background: -webkit-linear-gradient(top,rgba(221,72,20,.9) 0,rgba(221,72,20,.9) 100%);
+    background: linear-gradient(to bottom,rgba(221,72,20,.9) 0,rgba(221,72,20,.9) 100%);
+    border-radius: 10em;
+    margin: 0 auto;
+    width: 10em;
+    height: 10em;
+    padding-top: 2.5em;
+ }
+
+  #header .circle h1 {
+    line-height: 1;
+    margin: .05em auto;
+    padding: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 40pt;
+    padding-bottom: .1em;
+    padding-top: .65em;
+    font-family: 'Ubuntu', sans-serif;
+    text-shadow: 3px 3px 3px #333;
+  }
+
+
+  #header .circle h4 {
+    line-height: 1;
+    margin: .05em auto;
+    padding: 0;
+    text-align: center;
+    color: #fff;
+    font-size: .5em;
+    padding-bottom: .1em;
+    padding-top: .65em;
+    font-family: 'Share Tech Mono', ;
+  }
+
+}
