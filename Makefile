@@ -61,7 +61,7 @@ clean:
 	[ ! -d $(OUTPUTDIR) ] || rm -rf $(OUTPUTDIR)
 
 theme:
-	pelican-themes -U themes/semantic-coder
+	pelican-themes -U themes/masonary-redux
 
 regenerate:
 	$(PELICAN) -r $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
