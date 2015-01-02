@@ -1,3 +1,6 @@
 [submodule "pelican-plugins"]
 	path = pelican-plugins
 	url = https://github.com/getpelican/pelican-plugins.git
+[submodule "themes/masonary-redux"]
+	path = themes/masonary-redux
+	url = git@github.com:chuckbutler/pelican-masonary-redux.git
