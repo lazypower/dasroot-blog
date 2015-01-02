@@ -7,12 +7,16 @@ AUTHORBIO = 'Works for canonical as a Juju charmer'
 SITENAME = 'Chuck@Home'
 TAGLINE = 'juju deploy happiness'
 SITEURL = 'http://blog.dasroot.net'
+TIMEZONE = 'America/New_York'
 
 PATH = 'content'
 PLUGIN_PATHS = ['pelican-plugins']
 PLUGINS = ['googleplus_comments', 'sitemap', 'pelican_gist']
-STATIC_PATHS = ['images', 'pages']
-TIMEZONE = 'America/New_York'
+STATIC_PATHS = ['images', 'pages', 'extra/robots.txt', 'extra/favicon.ico']
+EXTRA_PATH_METADATA = {
+    'extra/robots.txt': {'path': 'robots.txt'},
+    'extra/favicon.ico': {'path': 'favicon.ico'}
+}
 
 DEFAULT_LANG = 'en'
 
@@ -46,7 +50,7 @@ SITEMAP = {
         'pages': 0.5
     },
     'changefreqs': {
-        'articles': 'monthly',
+        'articles': 'weekly',
         'indexes': 'daily',
         'pages': 'monthly'
     }
