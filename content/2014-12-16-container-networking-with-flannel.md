@@ -3,11 +3,11 @@ Date: 2014-12-16 19:12
 Tags: juju, networking, planet, flannel, lxc, video
 Slug: container-networking-with-flannel
 Category: Devops
-summary: When leveraging juju with LXC in cloud environments - networking has been a constant thorn in my side as I attempt to scale out farms of services in their full container glory. Thanks to the work by [Hazmat](http://blog.kapilt.com/) (who brought us the Digital Ocean Provider) - there is a new development in this sphere ready for testing over this holiday season.
+summary: When leveraging juju with LXC in cloud environments - networking has been a constant thorn in my side as I attempt to scale out farms of services in their full container glory. Thanks to the work by [Hazmat](http://blog.kapilt.com/) (who brought us the [Digital Ocean Provider](/juju-digital-ocean-awesome)) - there is a new development in this sphere ready for testing over this holiday season.
 video: bCvl-TsxVXA
 
 
-When leveraging juju with LXC in cloud environments - networking has been a constant thorn in my side as I attempt to scale out farms of services in their full container glory. Thanks to the work by [Hazmat](http://blog.kapilt.com/) (who brought us the Digital Ocean Provider) - there is a new development in this sphere ready for testing over this holiday season.
+When leveraging juju with LXC in cloud environments - networking has been a constant thorn in my side as I attempt to scale out farms of services in their full container glory. Thanks to the work by [Hazmat](http://blog.kapilt.com/) (who brought us the [Digital Ocean Provider](/juju-digital-ocean-awesome)) - there is a new development in this sphere ready for testing over this holiday season.
 
 ### Container Networking with Juju in the cloud
 

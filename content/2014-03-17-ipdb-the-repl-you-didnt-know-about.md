@@ -3,6 +3,7 @@ Date: 2014-03-17 19:03
 Tags: juju, python, debugging, amulet, video
 Slug: ipdb-the-repl-you-didnt-know-about
 Category: Programming
+Video: cxKRCCaBnMY
 
 Often times when debugging in python as a newbie you'll take the javascript approach of putting print statements all over your code. When it comes time to release the modifications and push upstream, its not uncommon to have a stray print statement left in there.
 

@@ -1,6 +1,6 @@
 Title: Juju Powered Radio! A protoduction experiment.
 Date: 2014-09-26 19:09
-Tags: juju, planet, radio, music, automation, experiment, video
+Tags: juju, planet, radio, music, automation, experiment
 Slug: juju-powered-radio
 Category: Devops
 summary: September 26'th I undertook a rather daunting task of trialing something I strongly believe in that really took me out of my comfort zone and put me front and center of an audience's attention, for not only my talents, but also the technical implementation of their experience.

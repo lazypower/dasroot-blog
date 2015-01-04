@@ -7,9 +7,7 @@ summary: Juju on Digital Ocean, WOW! That's all I have to say. Digital Ocean is 
 video: 1igZWnCi8Ac
 
 
-<iframe width="640" height="360" src="//www.youtube.com/embed/1igZWnCi8Ac" frameborder="0" allowfullscreen></iframe>
-
-> Syndicators, there is a video above that may not have made it into syndication. Visit the source link to view the video.
+> Syndicators, there is a video above that wont make it into syndication. Visit the source link to view the video.
 
 > Additional note - this is now part of the [official juju documentation](https://juju.ubuntu.com/docs/config-digitalocean.html)
 
@@ -27,11 +25,11 @@ In about 11 minutes, we will go from zero to deployed infrastructure for a scale
 
 #### Links in Video:
 
-Juju Docean Github - http://github.com/kapilt/juju-digital...
-Juju Documentation -http://juju.ubuntu.com/docs
-Juju CharmStore - http://jujucharms.com
-Kapil Thangavelu - http://blog.kapilt.com/
-The Juju Community Members on DO - http://goo.gl/m6u781
+- Juju Docean Github - [https://github.com/kapilt/juju-digitalocean](https://github.com/kapilt/juju-digitalocean)
+- Juju Documentation - [http://juju.ubuntu.com/docs](http://juju.ubuntu.com/docs)
+- Juju CharmStore - [http://jujucharms.com](http://jujucharms.com)
+- Kapil Thangavelu - [http://blog.kapilt.com/](http://blog.kapilt.com/)
+- The Juju Community Members on DO - [http://goo.gl/m6u781](http://goo.gl/m6u781)
 
 ### Text Instructions Below:
 
