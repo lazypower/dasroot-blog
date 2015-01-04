@@ -3,15 +3,15 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Charles Butler'
-AUTHORBIO = 'Works for canonical as a Juju charmer'
+AUTHORBIO = 'Is a seasoned devops veteran. Currently employed by Canonical. Charles works on the Juju data center orchestration platform as a charmer. His prior work includes building the #4 Pittsburgh PA Digital Marketing Agency: Level Interactive, and performing community Q/A with many Open Source projects.'
 SITENAME = 'Chuck@Home'
-TAGLINE = 'juju deploy happiness'
+TAGLINE = 'Juju deploy happiness'
 SITEURL = 'http://blog.dasroot.net'
 TIMEZONE = 'America/New_York'
 
 PATH = 'content'
 PLUGIN_PATHS = ['pelican-plugins']
-PLUGINS = ['googleplus_comments', 'sitemap', 'pelican_gist']
+PLUGINS = ['googleplus_comments', 'sitemap', 'pelican_gist', 'better_figures_and_images']
 STATIC_PATHS = ['images', 'pages', 'extra/robots.txt', 'extra/favicon.ico']
 EXTRA_PATH_METADATA = {
     'extra/robots.txt': {'path': 'robots.txt'},
@@ -19,10 +19,7 @@ EXTRA_PATH_METADATA = {
 }
 
 DEFAULT_LANG = 'en'
-
-THEME = 'masonary-redux'
-GOOGLE_ANALYTICS = 'UA-29116636-1'
-INTERNET_DEFENSE_LEAGUE = True
+DEFAULT_PAGINATION = 8
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -32,16 +29,24 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 MD_EXTENSIONS = ['extra']
 
-# Blogroll
-LINKS = (('About Chuck', 'http://charlesbutler.me/'),
-         ('My GPG Key', 'http://blog.juju.solutions/'),
-         ('Archives', 'http://blog.dasroot.net/archives'))
+# Theme Options / Settings
+THEME = 'porto'
+GOOGLE_ANALYTICS = 'UA-29116636-1'
+SOCIAL = (('googleplus', 'https://plus.google.com/+CharlesButlertheNinja/'),
+          ('twitter', 'https://twitter.com/lazypower'),
+          ('linkedin', 'www.linkedin.com/pub/charles-butler/28/748/74/'),
+          ('reddit', 'http://www.reddit.com/user/lazypower/'),
+          ('github', 'http://www.github.com/chuckbutler'))
+CALLOUT_NAV = (('In Depth with Chuck', 'http://charlesbutler.me'),
+               ('My GPG Key', 'https://keybase.io/lazypower'))
+NAV = (('Home', '/'), )
 
-DEFAULT_PAGINATION = 9
-
+TWITTER_WIDGET_ID = 551646827624554496
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
 
+
+# Plugin Options
 SITEMAP = {
     'format': 'xml',
     'priorities': {
@@ -55,3 +60,6 @@ SITEMAP = {
         'pages': 'monthly'
     }
 }
+
+# Setting for the better_figures_and_images plugin
+RESPONSIVE_IMAGES = True
