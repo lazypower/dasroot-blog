@@ -5,8 +5,6 @@ Slug: a-laymans-guide-to-the-big-data-ecosystem
 Category: BigData
 image: /images/2014/Nov/BigData_2267x1146_white.png
 
-![Big Data Wordcloud](images/2014/Nov/BigData_2267x1146_white.png)
-
 "Big Data" is now synonymous with marketing, and buzzword bingo. As a layman getting started in the ecosystem I found it truly difficult to really grasp what it was, and where I should be looking to get started. This will be the first post in a multi-post series breaking down the big-data stack, leveraging examples with Juju.
 
 ## Disambiguation of the term 'Hadoop'

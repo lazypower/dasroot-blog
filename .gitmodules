@@ -4,3 +4,6 @@
 [submodule "themes/masonary-redux"]
 	path = themes/masonary-redux
 	url = git@github.com:chuckbutler/pelican-masonary-redux.git
+[submodule "themes/porto"]
+	path = themes/porto
+	url = git@github.com:chuckbutler/pelican-porto.git

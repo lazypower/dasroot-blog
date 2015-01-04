@@ -7,8 +7,6 @@ summary: When leveraging juju with LXC in cloud environments - networking has be
 video: bCvl-TsxVXA
 
 
-<iframe width="560" height="315" src="//www.youtube.com/embed/bCvl-TsxVXA" frameborder="0" allowfullscreen></iframe>
-
 When leveraging juju with LXC in cloud environments - networking has been a constant thorn in my side as I attempt to scale out farms of services in their full container glory. Thanks to the work by [Hazmat](http://blog.kapilt.com/) (who brought us the Digital Ocean Provider) - there is a new development in this sphere ready for testing over this holiday season.
 
 ### Container Networking with Juju in the cloud

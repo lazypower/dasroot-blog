@@ -3,7 +3,9 @@ Date: 2014-09-26 19:09
 Tags: juju, planet, radio, music, automation, experiment, video
 Slug: juju-powered-radio
 Category: Devops
-image: /images/2014/Nov/juju_radio.png
+summary: September 26'th I undertook a rather daunting task of trialing something I strongly believe in that really took me out of my comfort zone and put me front and center of an audience's attention, for not only my talents, but also the technical implementation of their experience.
+
+
 
 September 26'th I undertook a rather daunting task of trialing something I strongly believe in that really took me out of my comfort zone and put me front and center of an audience's attention, for not only my talents, but also the technical implementation of their experience.
 
