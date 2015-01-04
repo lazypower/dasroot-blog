@@ -43,7 +43,7 @@ SOCIAL = (('googleplus', 'https://plus.google.com/+CharlesButlertheNinja/'),
           ('github', 'http://www.github.com/chuckbutler'))
 CALLOUT_NAV = (('In Depth with Chuck', 'http://charlesbutler.me'),
                ('My GPG Key', 'https://keybase.io/lazypower'))
-NAV = (('Home', '/'), ('Videos', '/tag/video'))
+NAV = (('Home', '/'), ('Videos', '/tag/video.html'))
 
 TWITTER_WIDGET_ID = 551646827624554496
 
