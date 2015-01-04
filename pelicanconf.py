@@ -11,7 +11,7 @@ TIMEZONE = 'America/New_York'
 
 PATH = 'content'
 PLUGIN_PATHS = ['pelican-plugins']
-PLUGINS = ['googleplus_comments', 'sitemap', 'pelican_gist', 'better_figures_and_images']
+PLUGINS = ['googleplus_comments', 'sitemap', 'pelican_gist', 'better_figures_and_images', 'related_posts']
 STATIC_PATHS = ['images', 'pages', 'extra/robots.txt', 'extra/favicon.ico']
 EXTRA_PATH_METADATA = {
     'extra/robots.txt': {'path': 'robots.txt'},
@@ -20,6 +20,10 @@ EXTRA_PATH_METADATA = {
 
 DEFAULT_LANG = 'en'
 DEFAULT_PAGINATION = 8
+
+# Uncomment following line if you want document-relative URLs when developing
+RELATIVE_URLS = True
+
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -39,11 +43,9 @@ SOCIAL = (('googleplus', 'https://plus.google.com/+CharlesButlertheNinja/'),
           ('github', 'http://www.github.com/chuckbutler'))
 CALLOUT_NAV = (('In Depth with Chuck', 'http://charlesbutler.me'),
                ('My GPG Key', 'https://keybase.io/lazypower'))
-NAV = (('Home', '/'), )
+NAV = (('Home', '/'), ('Videos', '/tag/video'))
 
 TWITTER_WIDGET_ID = 551646827624554496
-# Uncomment following line if you want document-relative URLs when developing
-RELATIVE_URLS = True
 
 
 # Plugin Options
@@ -63,3 +65,5 @@ SITEMAP = {
 
 # Setting for the better_figures_and_images plugin
 RESPONSIVE_IMAGES = True
+
+RELATED_POSTS_MAX = 3
