@@ -6,11 +6,8 @@ Category: Devops
 summary: Over the past 4 months [Amir Sanjar](http://bigdatachat.net) and I have been working dilligently on Juju's Big Data story. Working with software vendors to charm up big name products like the Demo'd Hortonworks Hadoop distribution.
 video: f9yTWK7Z9Wg
 
-<iframe width="640" height="360" src="//www.youtube.com/embed/f9yTWK7Z9Wg" frameborder="0" allowfullscreen></iframe>
-
 > Syndicators, there is a video link above that may not make syndication. Click the source link to view the 10 minute demo video.
 
-Over the past 4 months [Amir Sanjar](http://bigdatachat.net) and I have been working dilligently on Juju's Big Data story. Working with software vendors to charm up big name products like the Demo'd Hortonworks Hadoop distribution.
 
 To those of you that know nothing about Hadoop - Hadoop is a large scale big data framework / suite of applications. It provides facilities to build an entire ecosystem to crunch numbers from seemingly unrelated data sources, and compute through petabytes of data via Map/Reduce applications.
 

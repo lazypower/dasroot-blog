@@ -6,8 +6,6 @@ Category: Misc
 Image: /images/2015/january/retrospective.jpg
 Summary: 2014 held a lot of interesting things for me, both personally and professionally. I had a long and serious internal monologue with myself deciding if I really wanted to write this post. I think that overall it's important to recap what you've experienced over the past year so you have a clear cut vision of where you've come from; and thus - where you might be going.
 
-2014 held a lot of interesting things for me, both personally and professionally. I had a long and serious internal monologue with myself deciding if I *really* wanted to write this post. I think that overall it's important to recap what you've experienced over the past year so you have a clear cut vision of where you've come from; and thus - where you might be going.
-
 ## The Retrospective
 
 ### Almost a year at Canonical

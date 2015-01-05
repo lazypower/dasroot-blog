@@ -7,9 +7,6 @@ summary: September 26'th I undertook a rather daunting task of trialing somethin
 
 
 
-September 26'th I undertook a rather daunting task of trialing something I strongly believe in that really took me out of my comfort zone and put me front and center of an audience's attention, for not only my talents, but also the technical implementation of their experience.
-
-
 ### The back story
 
 I've been amateur [DJ](http://mixcloud.com/rahlgenesis/)'ing on Secondlife for about the last 7 months, and recently left the metaverse to pursue a podcast format of my show(s).  What I found was I really missed the live interaction with people during the recording of the set. It was great to get feedback, audience participation, and I could really gauge the flow of energy that I'm broadcasting. To some this may sound strange, but when your primary interaction is over text, and you see a feed erupt with actions as you put on more high energy music, it just 'clicks' and makes sense.

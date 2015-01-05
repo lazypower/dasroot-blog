@@ -11,8 +11,6 @@ video: 1igZWnCi8Ac
 
 > Additional note - this is now part of the [official juju documentation](https://juju.ubuntu.com/docs/config-digitalocean.html)
 
-Juju on Digital Ocean, WOW! That's all I have to say. Digital Ocean is one of the fastest cloud hosts around with their SSD backed virtual machines. To top it off their billing is a no-nonsense straight forward model. $5/mo for their lowest end server, with 1TB of included traffic. That's enough to scratch just about any itch you might have with the cloud.
-
 Speaking of scratching itches, if you haven't checked out Juju yet, now you have a **prime, low cost cloud provider** to toe the waters. Spinning up droplets with Juju is very straight forward, and offers you a hands on approach to service orchestration thats affordable enough for a weekend hacker to whet their appetite. Not to mention, Juju is currently the #1 project on their API Integration listing!
 
 ![Juju #1 in API Integration for Digital Ocean!](/images/2014/Sep/Selection_103.png)

@@ -3,10 +3,8 @@ Date: 2014-05-23 02:05
 Tags: juju, charming, python, ubuntu
 Slug: charming-tips-for-pure-python
 Category: Devops
-
-![](images/2014/May/charming_in_pure_python.png)
-
-*Special thanks to Tim for use of his comic above*
+Image: /images/2014/May/charming_in_pure_python.png
+ImageCredit: Special thanks to Tim for use of his comic above
 
 When I'm prototyping charms, I tend to reach for the quickest tool to accomplish the task. Which is Bash. Unfortunately - Bash charms get unwiedly quick and are typically full of hacks to complete a given task where a touring complete programming language would lend itself really well. 'Why not use Chef, or Ansible, or one of the other framework's you've already blogged about?" you say. Simple, because **Juju gives you options**. And I'd like to present most of those to anyone looking to get started.
 
