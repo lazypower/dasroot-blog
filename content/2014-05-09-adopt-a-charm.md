@@ -13,7 +13,7 @@ You've been poking around in the juju ecosystem for a while. You've found your p
 
 This is _literally_ nothing new. The juju ecosystem was built around this concept, which is very prevalent in other Open Source Software projects. We have a **mandatory open source licensing model** on the charm code itself to be accepted into the Juju charm store specifically for this reason. Imagine if your charm code was proprietary, and licensed with some angry "do not modify" license, and it broke on you a year after deployment because the maintainer won the lottery and moved to an island.
 
-![Devops Borat on the beach](http://static.guim.co.uk/sys-images/Film/Pix/pictures/2008/07/02/borat460.jpg)
+![Devops Borat on the beach](/images/2014/May/borat460.jpg)
 
 > Devops Borat has won the lottery, very nice!
 

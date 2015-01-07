@@ -4,7 +4,7 @@ Tags: juju, weekend-hacks
 Slug: my-weekend-with-juju
 Category: Devops
 
-<center>![Ubuntu Juju](http://design.canonical.com/wp-content/uploads/2011/10/juju-464x252.png)</center>
+<center>![Ubuntu Juju](/images/2013/Nov/juju-464x252.png)</center>
 
 This Thanksgiving weekend I'm experimenting with Juju. I fell in love with the web based configurator with all its relation dragging goodness. Its awesome to know that the recipe's building the services underneath have been audited by a very dedicated community to ensuring I'm running worry free with the most up-to-date standards in installing this particular application stack.
 
@@ -94,4 +94,4 @@ The following excerpt from the [Juju documentation](https://juju.ubuntu.com/docs
 
 What this means to you: You don't have to provision another server to run this charm. It "bolts" on to an existing container, providing the functionality of the charm within that running container.
 
-[Read part 2 >> ](/writing-the-papertrail-charm/)
+[Read part 2 >> ](/writing-the-papertrail-charm.html)

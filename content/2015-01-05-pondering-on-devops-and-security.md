@@ -6,7 +6,8 @@ Category: devops
 Image: /images/2015/january/infosec.jpg
 ImageCredit: Special thanks to Dan Tentler for his CreativeCommons shot from Defcon19 https://www.flickr.com/photos/vissago/6033405562/
 Status: published
-Summary: Security research has an interesting culture, and its not entirely unlike devops. They are typically kept as a separate entity of the organization and left to do their work supporting the other areas of business. Pen testing reports are published and work items are assigned - but what if we could take that a step further and make infosec a real part of the process?
+
+Security research has an interesting culture, and its not entirely unlike devops. They are typically kept as a separate entity of the organization and left to do their work supporting the other areas of business. Pen testing reports are published and work items are assigned - but what if we could take that a step further and make infosec a real part of the process?
 
 I've been thinking about this subject quite a bit recently, and it has evolved from the original concept of leveraging devops toolchains in infosec research. Pen Testers typically have a set routine of vulnerabilities to check, and this tedious process has been automated by a few toolkits like [Metasploit](http://www.metasploit.com/). The original idea was to take toolkits like metasploit, and develop a suite of routines using the Juju Relationship system to test common vulnerabilities, such as:
 
@@ -17,7 +18,7 @@ I've been thinking about this subject quite a bit recently, and it has evolved f
 
 to name a few examples.
 
-This has great implications on time reduction, reusablility of existing code/practices, and become part of the deployment pipeline for testing for known security vulnerabilities. Free'ing up pen testers to resume research on new and interesting ways to default security practices.
+This has great implications on time reduction, reusablility of existing code/practices, and become part of the deployment pipeline for testing for known security vulnerabilities. Freeing up pen testers to resume research on new and interesting ways to default security practices.
 
 With technologies like Docker reducing the overall surface attack area and the rise of containerized computing - this leads me to the next step in evolution of this thought process.
 

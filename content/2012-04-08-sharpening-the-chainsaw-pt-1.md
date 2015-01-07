@@ -1,8 +1,8 @@
 Title: Sharpening the chainsaw pt. 1
 Date: 2012-04-08 23:15
+Category: shell
 Tags: git, unix, linux, environments, zsh
 Slug: sharpening-the-chainsaw-pt-1
-Category: Linux
 
 I recently got into Ruby development with some help from [Jesse Dearing](http://jessedearing.com) and [James Gifford](https://plus.google.com/103797989648432285071/posts) and I found my shell environment to be quite a bit lacking. It wasn't Exactly vanilla, but It needed some help.
 
@@ -13,7 +13,6 @@ I also learned quite a bit about some of the trending habits among Vim developer
 ### Pimping vim with Pathogen
 
 Lets take a look at this a bit closer...
-<!-- More -->
 
 As some of you know, I use git almost religiously. And keeping my [dotfiles](https://github.com/chuckbutler/dotfiles) in a repository has made system upgrades among other things a real breeze. But more on this later. _note_ dont let the extra steps in setting up your own dotfiles repository sway you from doing so. It saves so much time in the long run - simply set it, and forget it.
 
@@ -45,7 +44,7 @@ This will swipe the latest copy of the nerdtree plugin and keep it isolated in i
 
 You should see something similiar to the following
 
-<img src="/img/posts/vim-drawer.png" alt="NERDTree" />
+![NerdTREE](/images/2012/Apr/vim_drawer.png)
 
 We've now confirmed that this works.. but wait.. I keep all my dotfiles in a git repository... isn't the NERDTree plugin already IN a git repository? Why would we track files in our own repository that are already published in git? This is exactly what Git Submodules were intended for. So lets start off by cleaning up what we just did, and then re-applying it as a submodule. _*sidenote - if you're not currently keeping your vim configuration/plugins version controlled, you can disregard this step_.
 
@@ -80,7 +79,7 @@ After running these two commands you should see git pull the repositories we've 
 
 The short answer: its all [Jesse's](http://jessedearing.com) fault. We had a pair programming session over TMUX and i fell in love with the bell's and whistles in his ZSH setup.
 
-<img src="/img/posts/zsh-shell-diagram.png" alt="ZSH Prompt Diagram" />
+![ZSH Shell Breakdown](/images/2012/Apr/zsh-shell-diagram.jpg)
 
 So enough of that. How can I make the switch to ZSH?
 

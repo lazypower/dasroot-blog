@@ -3,16 +3,11 @@ Date: 2014-03-06 11:03
 Tags: juju, osx, vagrant, ubuntu
 Slug: writing-juju-charms-on-osx
 Category: Devops
+Video: TSLJ22ntPQA
 
 Developing charms on Ubuntu is an extremely straight forward process thanks to the addition of the local provider. LXC containers spin up quickly, integrate directly into your desktop OS, and leave you with very little configuration needed out of the box to get started.
 
 What about users on OSX? What's their developer story like? The technical limitation is that OS X does not support operating system-level virtualization, like containers in Linux. The next best thing is to use a virtualization wrapper solution like [Vagrant](http://vagrantup.com)!
-
-For those of you that dislike reading, here's a video that presents the TL;DR
-
-<iframe width="420" height="315" src="//www.youtube.com/embed/TSLJ22ntPQA" frameborder="0" allowfullscreen></iframe>
-
-
 
 ### Getting Started
 

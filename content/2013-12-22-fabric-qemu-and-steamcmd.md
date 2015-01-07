@@ -25,7 +25,7 @@ Fabric is essentially a system automation framework built in Python. As I'm star
 
 One thing I've found really annoying since I've landed back in Ubuntu land from a year long hiatus in Mac land is my serious lack of proficiency with shell scripting. I've attempted to write my own setup scripts for automating my [environment](https://github.com/chuckbutler/dotfiles/blob/master/scripts/bootstrap.sh) [setup](https://github.com/chuckbutler/dotfiles/blob/master/scripts/bootstrap.rb) a [few](https://github.com/chuckbutler/dotfilesv2/blob/master/setup_symlinks.sh) times. Each time I've tried to leverage something new I've learned like git submodules...
 
-![What a disaster](http://i.imgflip.com/5mey3.jpg)
+![What a disaster](/images/2013/Dec/disaster.jpg)
 
 I really needed a one stop shop for bootstrapping both workstations and servers without going through the hassle of setting up complex chef-solo cookbooks and ensuring I had all those packed up into a git repository. Most of the time I just need pure ubuntu packages, some dotfiles and a handfull of applications I leverage to effectively maintain my servers.
 
@@ -126,28 +126,28 @@ Reboot and your newly made QEmu images will be able to be independent units on t
 
 Lets bootstrap a new machine for the Starbound Server. Fire up virt-manager
 
-![](/images/2013/Dec/virt_manager.jpg)
+![Start up VirtManager](/images/2013/Dec/virt_manager.jpg)
 
 
 Connect to your QEmu server
-![](/images/2013/Dec/Selection_002.png)
+![Connect to QEMU](/images/2013/Dec/Selection_002.png)
 
 **Note:** You may need to enter the IP Address of your remote server in the Hostname field unless you have mapped them via DNS, /etc/hosts or through other means of DNS Resolution.
 
 Create a new machine
-![](/images/2013/Dec/Selection_003.png)
+![Create new machine](/images/2013/Dec/Selection_003.png)
 
 Set the Installation Media
-![](/images/2013/Dec/Selection_004.png)
+![Set installation media](/images/2013/Dec/Selection_004.png)
 
 Set your hardware constraints
-![](/images/2013/Dec/Selection_005.png)
+![Set Constraints](/images/2013/Dec/Selection_005.png)
 
 Allocate Space for the root disk
-![](/images/2013/Dec/Selection_006.png)
+![Root Disk space](/images/2013/Dec/Selection_006.png)
 
 Finalize Settings including our Bridged networking device
-![](/images/2013/Dec/Selection_007.png)
+![Finalize w/ bridged networking device](/images/2013/Dec/Selection_007.png)
 
 Click Finish and install Ubuntu Server as normal
 
@@ -179,4 +179,4 @@ With all this completed. you now have your own dedicated Starbound server provis
 
 
 Until then, Go Forth and Conquer traveller.
-![](http://cloud-2.steampowered.com/ugc/486685587177079925/0C48E99D41E5E9E07972169D5DEFD3D306C47CB0/)
+![Starbound](/images/2013/Dec/starbound.jpg)

@@ -14,7 +14,7 @@ When I'm prototyping charms, I tend to reach for the quickest tool to accomplish
 
 Charm Helpers is a community contributed and maintained library to assist in writing charms rapidly. All community contributions are gated through Code Review and show up in the Juju Review Queue like any other charm merge proposal.
 
-![](images/2014/May/charm_helpers_mp.png)
+![Charm Helpers MergeProposal](/images/2014/May/charm_helpers_mp.png)
 
 > To get started quickly using Charm Helpers, skip to Tip 3 and use make sync-charmhelpers in tandem with a charm-helpers.yaml
 
