@@ -1,6 +1,6 @@
 Title: Charm Encapsulation
 Date: 2015-01-09 00:04
-Tags: juju, charming, theory
+Tags: juju, charming, theory, planet
 Category: devops
 Slug: 2015-charm-encapsulation
 Status: published
