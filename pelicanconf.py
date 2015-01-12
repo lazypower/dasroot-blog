@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Charles Butler'
-AUTHORBIO = 'Is a seasoned devops veteran. Currently employed by Canonical. Charles works on the Juju data center orchestration platform as a charmer. His prior work includes building the #4 Pittsburgh PA Digital Marketing Agency: Level Interactive, and performing community Q/A with many Open Source projects.'
+AUTHORBIO = 'Is a seasoned devops veteran. Currently employed by Canonical. Charles works on the Juju data center orchestration platform as a charmer. His prior work includes building the #5 Pittsburgh PA Digital Marketing Agency: Level Interactive, and performing community Q/A with many Open Source projects.'
 SITENAME = 'Chuck@Home'
 TAGLINE = 'Juju deploy happiness'
 SITEURL = 'http://blog.dasroot.net'
