@@ -8,6 +8,8 @@ Category: Devops
 
 As I continue exploring the depths of Juju and what it offers I've outgrown using lynx to test my setups. Now that I'm running a Juju lab locally I figured its time to break the chains of the sandbox and make the services I'm deploying on my network visible to the machines on my LAN.
 
+> **WARNING:** These instructions are intended to be run *before* you bootstrap your local environment. Do not attempt this on a running local provider - as you will lose connectivity to your units, and possibly break your local provider environment.
+
 ### Setting up the Bridge Adapter
 
 ```
