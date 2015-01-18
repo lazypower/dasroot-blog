@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
+
 AUTHOR = 'Charles Butler'
 AUTHORBIO = 'Is a seasoned devops veteran. Currently employed by Canonical. Charles works on the Juju data center orchestration platform as a charmer. His prior work includes building the #5 Pittsburgh PA Digital Marketing Agency: Level Interactive, and performing community Q/A with many Open Source projects.'
 SITENAME = 'Chuck@Home'
@@ -11,8 +12,11 @@ TIMEZONE = 'America/New_York'
 
 PATH = 'content'
 PLUGIN_PATHS = ['pelican-plugins']
-PLUGINS = ['googleplus_comments', 'sitemap', 'pelican_gist', 'better_figures_and_images', 'related_posts']
+PLUGINS = ['googleplus_comments', 'sitemap', 'pelican_gist',
+           'better_figures_and_images', 'related_posts']
+
 STATIC_PATHS = ['images', 'pages', 'extra/robots.txt', 'extra/favicon.ico']
+
 EXTRA_PATH_METADATA = {
     'extra/robots.txt': {'path': 'robots.txt'},
     'extra/favicon.ico': {'path': 'favicon.ico'}
@@ -44,11 +48,11 @@ SOCIAL = (('googleplus', 'https://plus.google.com/+CharlesButlertheNinja/'),
 CALLOUT_NAV = (('In Depth with Chuck', 'http://charlesbutler.me'),
                ('My GPG Key', 'https://keybase.io/lazypower'))
 NAV = (('Home', '/'), ('Videos', '/tag/video.html'))
-
 TWITTER_WIDGET_ID = 551646827624554496
 
 
 # Plugin Options
+RELATED_POSTS_MAX = 3
 SITEMAP = {
     'format': 'xml',
     'priorities': {
@@ -65,5 +69,3 @@ SITEMAP = {
 
 # Setting for the better_figures_and_images plugin
 RESPONSIVE_IMAGES = True
-
-RELATED_POSTS_MAX = 3
