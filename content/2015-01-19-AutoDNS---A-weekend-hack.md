@@ -7,6 +7,14 @@ Status: published
 
 This weekend I put together a quick and dirty python application to give me the functionality of a DynDNS client. While several of these services exist, something feels just a bit awry from the whole 'register so we can spam you about your DNS status - and UPGRADE TODAY!'. I'm already paying for DNS service from namecheap, as well as paying a minimal fee on AWS Route53... why not consume the Route53 API to accomplish the same thing at no additional cost, no marketing emails, and zero hassle?
 
+### Skip the howto and go straight to the code? 
+
+If howto's aren't your thing and you just want to look at the code - it's over on Github.
+[github.com/chuckbutler/AutoDNS](https://github.com/chuckbutler/autodns)
+
+MIT licensed so feel free to fork and modify as required!
+
+
 # Overview
 Perhaps you want to run a personal minecraft server, and would rather have a domain like minecraft.myhomelan.com vs the IP address. Or maybe you're like me and travel often enough that trying to OpenVPN home into your network is made a lot easier by having a DNS entry like 'itsasecret.mydomain.com' makes it trivial to remember while you're afar.
 
