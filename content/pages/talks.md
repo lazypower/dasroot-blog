@@ -17,6 +17,16 @@ This will be a multi-day, multi-track session of Juju lessons covering the basic
 
 ---
 
+#### Jan 31'st 2015 - FOSDEM
+
+**Service Orchestration with Juju - How to orchestrate any machine or cloud with Juju**
+
+##### Resources:
+
+- **Link:** [Conference Schedule](https://fosdem.org/2015/schedule/track/configuration_management/)
+
+---
+
 #### Jan 30'th 2015 -  FLOSS Community Metrics
 
 **Measurements for success - Building a community around Juju**
