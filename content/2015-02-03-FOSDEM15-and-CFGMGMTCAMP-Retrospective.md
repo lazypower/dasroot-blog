@@ -4,7 +4,7 @@ Tags: conference, devops, retrospective
 Slug: fcm2-fosdem15-and-cfgmgmtcamp-retrospective
 Category: devops
 Status: draft
-
+Image: /images/2015/feb/fosdem-dash.png
 
 The first trip in 2015 was a huge conference circuit. I was given 3 weeks notice that I had to
 prepare for the largest FLOSS conference in Belgium - FOSDEM. This was my first interaction with
