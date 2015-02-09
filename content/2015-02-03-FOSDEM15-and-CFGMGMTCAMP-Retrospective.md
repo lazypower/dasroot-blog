@@ -1,10 +1,10 @@
 Title: FCM2, FOSDEM15, and CFGMGMTCAMP Retrospective
 Date: 2015-02-03 03:44
-Tags: conference, devops, retrospective
+Tags: conference, devops, retrospective, planet
 Slug: fcm2-fosdem15-and-cfgmgmtcamp-retrospective
 Category: devops
-Status: draft
-Image: /images/2015/feb/fosdem-dash.png
+Status: published
+Image: /images/2015/feb/lp-fosdem.jpeg
 
 The first trip in 2015 was a huge conference circuit. I was given 3 weeks notice that I had to
 prepare for the largest FLOSS conference in Belgium - FOSDEM. This was my first interaction with
@@ -35,6 +35,8 @@ either measuring, or intend to measure - to ensure we maintain a high level of i
 health of our growing communities.
 
 
+<script async class="speakerdeck-embed" data-id="7d35a182958e424b85e036a4f89f8fb2" data-ratio="1.33159947984395" src="//speakerdeck.com/assets/embed.js"></script>
+
 ## FOSDEM
 
 FOSDEM was a gathering of over 5,000 hackers - both project contributors and fans consuming the
@@ -61,6 +63,8 @@ still very much focused on Configuration Management, and hadn't quite reached th
 were looking for ways to solve complex application deployments through orchestration - but the fact
 that I saw lightbulbs starting the shine in the crowd, and growing intelligent questions being asked
 I feel that I left them with enough information to start their journey with some food for thought.
+
+<script async class="speakerdeck-embed" data-id="be46af6ba8e14b6984a893227340d9b9" data-ratio="1.33159947984395" src="//speakerdeck.com/assets/embed.js"></script>
 
 
 ## CFGMGMTCAMP
@@ -99,19 +103,15 @@ The workshops I ran in Ghent were well received, and I saw over 60 people betwee
 in day one, and those that came in and out during the second day where I was running scoped
 deployments.
 
+## Summation
 
+All in all the entire experience was amazing, and I feel that there is so much
+more to write about - but simply stated, it would turn this post into a wall
+of text that maybe an 1/8 of the people stopping by would read.
 
+I look forward to next year, and attending the largest conferences in Europe in the
+name of Free an Libre software.
 
-- Talks over Juju getting started, limitations discovered about our offline setup for crap wifi
-locations
-- The beer talks! Speaking with Puppet user group leader Johan about converging the efforts
-- Horscht from Deutch Telecom - showing up with an impressive VM setup leveraging MAAS and JUJU
-
-
-## Open feedback and Planning
-
-
-## Summation and Thoughts
-
+<iframe class="imgur-album" width="100%" height="550" frameborder="0" src="//imgur.com/a/euHTs/embed"></iframe>
 
 
