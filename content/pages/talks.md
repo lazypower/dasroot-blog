@@ -15,6 +15,8 @@ This will be a multi-day, multi-track session of Juju lessons covering the basic
 - **Link:** [Writing Charms](http://lanyrd.com/2015/cfgmgmtcamp/sdhgwz/)
 - **Link:** [Lets Chat and Hack](http://lanyrd.com/2015/cfgmgmtcamp/sdhgxb/)
 
+<script async class="speakerdeck-embed" data-id="a050ba0bc4f14bb783debe1091d4388e" data-ratio="1.33159947984395" src="//speakerdeck.com/assets/embed.js"></script>
+
 ---
 
 #### Jan 31'st 2015 - FOSDEM
@@ -24,6 +26,8 @@ This will be a multi-day, multi-track session of Juju lessons covering the basic
 ##### Resources:
 
 - **Link:** [Conference Schedule](https://fosdem.org/2015/schedule/track/configuration_management/)
+
+<script async class="speakerdeck-embed" data-id="be46af6ba8e14b6984a893227340d9b9" data-ratio="1.33159947984395" src="//speakerdeck.com/assets/embed.js"></script>
 
 ---
 
@@ -36,6 +40,11 @@ Building a community around juju involves traversing many firewalls, infrastruct
 ##### Resources:
 
 - **Link:** [Conference Page](http://flosscommunitymetrics.org/)
+
+
+<script async class="speakerdeck-embed" data-id="7d35a182958e424b85e036a4f89f8fb2" data-ratio="1.33159947984395" src="//speakerdeck.com/assets/embed.js"></script>
+
+
 
 ---
 
