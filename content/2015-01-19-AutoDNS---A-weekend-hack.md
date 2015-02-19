@@ -119,7 +119,7 @@ Glad you asked! This is exactly why I built AutoDNS. To get AutoDNS to run on a 
 
     crontab -e
 
-    * */1 * * * $HOME/run-dns.sh
+    5 * * * * $HOME/run-dns.sh
 
 with a shellscript that executes autodns like so:
 
@@ -128,6 +128,6 @@ with a shellscript that executes autodns like so:
     export AWS_SECRET_ACCESS_KEY=XXXXX
     autodns /path/to/config -l /path/to/logfile.log
 
-This will run AutoDNS every hour, and log the output to $HOME/autodns.log - effectively replacing any legacy DynDNS client functionality you may have had on your router. Note that this only gets run while the machine running AutoDNS is on.
+This will run AutoDNS every hour (5 minutes past the hour), and log the output to $HOME/autodns.log - effectively replacing any legacy DynDNS client functionality you may have had on your router. Note that this only gets run while the machine running AutoDNS is on.
 
 Happy hacking!
