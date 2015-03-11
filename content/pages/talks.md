@@ -25,9 +25,12 @@ This will be a multi-day, multi-track session of Juju lessons covering the basic
 
 ##### Resources:
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JOq8YrRUFFc" frameborder="0" allowfullscreen></iframe>
+
 - **Link:** [Conference Schedule](https://fosdem.org/2015/schedule/track/configuration_management/)
 
 <script async class="speakerdeck-embed" data-id="be46af6ba8e14b6984a893227340d9b9" data-ratio="1.33159947984395" src="//speakerdeck.com/assets/embed.js"></script>
+
 
 ---
 

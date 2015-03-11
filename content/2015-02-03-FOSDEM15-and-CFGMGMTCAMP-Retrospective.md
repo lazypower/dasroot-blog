@@ -1,6 +1,6 @@
 Title: FCM2, FOSDEM15, and CFGMGMTCAMP Retrospective
 Date: 2015-02-03 03:44
-Tags: conference, devops, retrospective, planet
+Tags: conference, devops, retrospective, planet, video
 Slug: fcm2-fosdem15-and-cfgmgmtcamp-retrospective
 Category: community
 Status: published
@@ -38,6 +38,8 @@ health of our growing communities.
 <script async class="speakerdeck-embed" data-id="7d35a182958e424b85e036a4f89f8fb2" data-ratio="1.33159947984395" src="//speakerdeck.com/assets/embed.js"></script>
 
 ## FOSDEM
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JOq8YrRUFFc" frameborder="0" allowfullscreen></iframe>
 
 FOSDEM was a gathering of over 5,000 hackers - both project contributors and fans consuming the
 software, at the university de libre in Brussels. With tracks covering nearly every aspect imaginable
