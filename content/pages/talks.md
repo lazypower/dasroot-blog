@@ -3,6 +3,20 @@ Date: 12-24-2014 00:00
 Status: published
 template: page
 
+#### March 14 2015 - Amateur Media Production on Linux @ WPLUG
+
+
+
+Its a common misconception that Linux is not robust enough to be a full fledged media editing machine. I've spent quite a while sifting through the tools and putting together an amateur studio. I'll be sharing my insight into the software, hardware, and services that will expedite your endeavours to be a content creator on the Linux Desktop.
+
+We will be covering audio production, distribution, and the hardware to get you started with your own in-house audio workshop. We will also briefly touch the subject of Video content production, and distribution mediums as well.
+
+
+#### Resources:
+
+<script async class="speakerdeck-embed" data-id="3e05731507fa4a8aa23f495b289fd5f5" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+
+
 #### Feb 2nd-3rd 2015 - Configuration Management Camp
 
 
