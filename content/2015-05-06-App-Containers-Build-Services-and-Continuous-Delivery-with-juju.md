@@ -3,7 +3,7 @@ Date: 2015-05-06 20:10
 Tags: devops, juju, docker, build-pipeline, formation, bundles, pure-awesome, planet
 Slug: containers-build-services-and-continuous-delivery-with-juju
 Category: devops
-Status: draft
+Status: published
 Image: /images/2015/may/docker-build-formation.png
 
 It's no secret that we on the Juju Solutions team dogfood our charms that we're
@@ -25,29 +25,31 @@ six months.
 ### How do you *really* model docker in Juju?
 
 I've had several questions over the last month or so about the actual docker
-charm itself, and just what 'value' it adds to the Juju topology when the charm
+charm itself, and just what value it adds to the Juju topology when the charm
 is deployed. Until today, I pretty much replied with "The world is your oyster".
 
 While there have been [examples](https://github.com/bcsaller/juju-docker) of
-what you can do using the Juju Modeling language to describe docker container
-services - I don't think it really sank in just how much *raw power* this exposes
-to you, the developer, building your infrasturcture as peer-orchestrated services.
+[what you can do](https://github.com/chuckbutler/docker-nginx-charm.git) using
+the Juju Modeling language to describe docker container services - I don't think
+it really sank in just how much *raw power* this exposes to you, the developer,
+building your infrastructure as peer-orchestrated services.
 
 Let's examine a scenario where I, as the developer - want to setup a staging
 environment. I may have a pre-built image on my desktop - but perhaps it would
 be more prudent to build my container in a centralized location, so I can poke
 and probe the environment that has a high-parity with my Production environment.
 
-> If this sounds familar to you - It's pretty much the basis of Modeling with
-> Juju. Gain high feature pairty as a dev, and ship infrastructure as code
-> to the Ops/QA folks. 
+> If this sounds familar to you - It's core tenant of Modeling with
+> Juju. Gain high feature parity between environments, enabling you to ship
+> infrastructure as code between your environments - staging, qa, prod
+> [reference](https://speakerdeck.com/chuckbutler/service-orchestration-with-juju?slide=13)
 
 #### I'm a developer, and I use docker. I like staging off of builds - what now?
 
 Lets start off with the Assumptions of this particular dissection of services:
 
 - You use some Git hosting provider that has webhook support
-- You build your containers with Dockerfiles, so they aren't snowflakes
+- You build your containers with Dockerfiles, so they are repeatable
 - You understand the basics of Juju, that services will be related to one another
 - You want to consume services both IN and OUT of containers
 - You want a logging nexus to capture all your logs, and run queries against them later.
@@ -56,9 +58,9 @@ Lets start off with the Assumptions of this particular dissection of services:
 Are you on board so far? Great! Lets break down the charms we have vs what we
 need.
 
-1) ELK - We have an elk stack in the charm store - nothing to do here. check.
-2) Docker exists, thats half the battle right? check.
-3) Build on git-deploy... that sounds almost like a PAAS... but I don't want to
+1. ELK - We have an elk stack in the charm store - nothing to do here. check.
+2. Docker exists, thats half the battle right? check.
+3. Build on git-deploy... that sounds almost like a PAAS... but I don't want to
 build or leverage a full-blown PAAS.
 
 ### To PAAS or not to PAAS, that is the question
@@ -90,8 +92,8 @@ a conversation better left for suds and more pedantry than I have at the moment.
 
 Ok, back to the list:
 
-4) Webhook integration - check
-5) Docker charms for my repositories...
+4. Webhook integration - check
+5. Docker charms for my repositories...
 
 ## Dynamic Docker Charms? Really?
 
@@ -101,11 +103,10 @@ no relations at all - This charm will be right up your alley:
 
 [The Dockerfile Charm](https://github.com/chuckbutler/dockerfile-charm)
 
-Weiging in at 47 lines of pure BASH - this gives us enough glue to fetch a
+Weighing in at 47 lines of pure BASH - this gives us enough glue to fetch a
 git repository to a specified location, relate to our docker-build-hook service
 and self-register the project. The rest of the magic is *in* the repository
-itself. You can either provide a build-hook, or just assume the Dockerfile is
-enough.
+itself. [View a sample build script](https://github.com/chuckbutler/docker-selfoss/blob/master/build.sh)
 
 Awesome!
 
@@ -126,7 +127,7 @@ cannot do both!
 
 > To follow along at home, I suggest you fork the repositories listed, so you
 can enable webhooks and kick the tires a bit. Also, the --to 1 assumes you've only
-deployed your bootstrap node.
+deployed your bootstrap node. This can be any `docker` host.
 
 > - [docker-selfoss](https://github.com/chuckbutler/docker-selfoss.git)
 > - [docker-mumble](https://github.com/chuckbutler/docker-mumble)
@@ -147,7 +148,7 @@ The resulting deployment should resemble the following:
 ![docker build core formation](/images/2015/may/docker-build-core.png)
 
 
-### So, what did we get from all of this?
+### What did we get from all of this?
 
 Obtain the public-ip of your docker host from `juju-status` and visit port `8080`
 
@@ -156,9 +157,9 @@ are successfully registered.
 
 <script src="https://gist.github.com/chuckbutler/0082e2055784421e6455.js"></script>
 
-If you see the JSON above, you're ready to integrate with Github.
+If you see the JSON above, you're ready to integrate with your git host.
 
-head over to your forked repository, click on settings => webhooks/services => Add a webhook
+Head over to your forked repository, click on settings => webhooks/services => Add a webhook
 
 Plug in the public IP and port 8080 of your service, as outlined below:
 
@@ -175,9 +176,33 @@ can verify this by ssh'ing into your docker unit, and running `watch docker ps`
 Note that the build is running concurrent with the container thats actively
 running below it. Pretty neat huh?
 
-It will effectively kill, and cycle with the new container image build upon
-successful completion of the docker image. Ensuring we have a minimal downtime
+It will effectively kill, and cycle with the new image upon
+successful completion of the build. Ensuring we have a minimal downtime
 deployment of sub-1-second. Thats acceptable for staging I think!
+
+
+### Concept Breakdown
+
+I took some screenshots and edited them as diagrams for really grokking whats
+going on here in terms of conceptual realization.
+
+There are 2 hosts represented in the over-all topology, 1 machine that's
+responsible for running my Docker infrastructure (this could easily be 2 -> infinity)
+
+I broke this down into separate machines, so I had confidence that my logging
+infrastructure would not be subject to ephemeral containers, and have a semblance
+of disaster introspection should something go wrong on my container provider.
+
+![docker build host breakdown](/images/2015/may/docker-build-host-breakdown.png)
+
+When we introspect the Docker provider host, I see a few different layers
+represented here.
+
+- Container Infrastructure
+- Meta layer that sits between the two to provide the 'ops glue'
+- Containers
+
+![docker build layer breakdown](/images/2015/may/docker-build-layer-breakdown.png)
 
 
 ### THIS IS GREAT!
@@ -188,14 +213,14 @@ large with several services to choose from.  But this should be enough of a prim
 to get your creative mind moving as to whats possible here.
 
 While these charms are simply Proof of Concepts - I plan on iterating over them
-in my spare time to integrate with other CI systems, and provide a great template
+in my spare time to integrate with CI systems, and provide a great template
 to get started charming up your existing docker containers. It would be awesome
 to consume something like a compose.yaml and generate charms based on that spec.
 
 Another day, another time :)
 
 
-## What about Logging?
+## What about Logging and the ELK stack?
 
 This sounds like a great topic for a part 2 - so make sure you stay hungry and
 keep an eye out for how we're goign to jack into the existing Logstash infrastructure
