@@ -154,6 +154,8 @@ Logitech KB/Mouse combo, plugged in the SD Card, and attached it to the TV over
 HDMI to ensure everything booted properly.
 
 ![Clemetine Box stage 2](/images/2015/july/clementine_box_stage_two.jpg)
+![Clemetine Box stage 2](/images/2015/july/clementine_box_stage_three.jpg)
+![Clemetine Box stage 2](/images/2015/july/clementine_box_stage_four.jpg)
 
 
 Once the entire tower was assembled, the next step was to crimp and attach the
