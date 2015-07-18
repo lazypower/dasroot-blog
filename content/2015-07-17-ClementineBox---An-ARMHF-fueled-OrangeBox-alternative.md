@@ -170,7 +170,7 @@ there's a snappy package available
     snappy install docker
 
 > As an aside, I found out later you can install packages from WebDM which is
-> the snappy store. Its enabled on port 4200 by default with these images.
+> the snappy store. Its enabled on port 4200 by default with the RPI2 images.
 
 ![Snappy Store](/images/2015/july/snappy_store.jpg)
 
