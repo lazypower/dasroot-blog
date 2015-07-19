@@ -47,13 +47,16 @@ blog](http://blog.dustinkirkland.com/2014/05/the-orange-box-cloud-for-free-man.h
 
 - 4 Raspberry Pi2 Model B's
 - Armv7 Quadcore procesors
-- Gigabit Ethernet
+- 10/100 Ethernet
 - 5 port Netgear gigabit switch
 - 4 8gb Kingston MicroSD's
 - Anker 6 port USB Charger Hub with IQ
 - ~5V power draw per unit
 
 See the [Shopping List](http://amzn.com/w/11FJ54YX5HBHX) for full product details.
+
+> Note - Updated to reflect the 10/100 networkign stack. Thanks for pointing this
+> out Chip!
 
 #### Clementine Box Software Stack
 
